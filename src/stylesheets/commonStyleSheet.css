@@ -6,7 +6,8 @@ header {
   width: 100%;
   height: 80px;
   display: flex;
-  background: rgb(156, 172, 247);
+  /*background: rgb(156, 172, 247);*/
+  background: url("/res/img/illust_69147540_20181022_231432.jpeg");
   padding: 160px 20px;
   justify-content: center;
   align-items: center;
