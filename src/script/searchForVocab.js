@@ -8,7 +8,7 @@ function loadVocabList() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-             rawVocabList = xhttp.responseText.split("\r\n");
+             rawVocabList = xhttp.responseText.split("\n");
             addVocabListToAutoComplete();
         }
     };
@@ -17,14 +17,9 @@ function loadVocabList() {
 }
 
 function addVocabListToAutoComplete() {
-    // vocabList = rawVocabList.filter(checkIfEmpty);
     vocabList = rawVocabList.filter(function(value) { return value });
     vocabList.forEach(createNewAutoCompleteListObject)
 }
-
-// function checkIfEmpty(value) {
-//     return value;
-// }
 
 function createNewAutoCompleteListObject(values) {
     let newVocab = document.createElement("option");

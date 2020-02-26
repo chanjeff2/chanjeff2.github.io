@@ -7,7 +7,9 @@ header {
   height: 80px;
   display: flex;
   /*background: rgb(156, 172, 247);*/
-  background: url("/res/img/illust_69147540_20181022_231432.jpeg");
+  background-size: cover;
+  background: url("/res/img/illust_69147540_20181022_231432.jpeg") fixed;
+  background-position-y: -130px;
   padding: 160px 0;
   justify-content: center;
   align-items: center;
@@ -23,7 +25,9 @@ header {
 
 #container nav {
   width: 150px;
-  background: rgba(180, 255, 255, 1);
+  /*background: rgba(180, 255, 255, 1);*/
+  background: url("/res/img/Cute_cat.jpeg");
+  background-size: contain;
 }
 
 section{
