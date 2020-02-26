@@ -9,7 +9,7 @@ function loadVocabList() {
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             document.getElementById("testing").innerHTML = xhttp.responseText;
-            rawVocabList = xhttp.responseText.split("\r\n");
+            rawVocabList = xhttp.responseText.split("\n");
             addVocabListToAutoComplete();
         }
     };
