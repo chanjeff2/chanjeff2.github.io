@@ -8,7 +8,7 @@ function loadVocabList() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-             rawVocabList = xhttp.responseText.split("\r");
+             rawVocabList = xhttp.responseText.split(" ");
             addVocabListToAutoComplete();
         }
     };
