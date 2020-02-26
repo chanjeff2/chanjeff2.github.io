@@ -26,6 +26,10 @@ header {
   background: rgba(180, 255, 255, 1);
 }
 
+section{
+  padding: 20px;
+}
+
 #backToTop {
   background: #eee;
   border-radius: 50px 50px 15px 15px;
