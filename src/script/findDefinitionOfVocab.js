@@ -11,5 +11,5 @@ submitButton.onclick = function () { searchDefinition() };
 function searchDefinition() {
     let vocab = inputField.value;
     dictWebSite.src = "https://dictionary.cambridge.org/us/dictionary/english/" + vocab;
-    dictWebSite.display = "unset";
+    dictWebSite.display = "block";
 }
