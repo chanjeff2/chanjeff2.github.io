@@ -32,6 +32,10 @@ header {
 
 section{
   padding: 20px;
+  width: 80%;
+  background: url("/res/img/1033130353.jpeg") rgba(255,255,255,0) no-repeat;
+  background-size: cover;
+  background-blend-mode: lighten;
 }
 
 #backToTop {
