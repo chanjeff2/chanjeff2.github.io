@@ -43,6 +43,7 @@ section {
   height: 500px;
   resize: both;
   margin: 20px 0;
+  background: #fff;
 }
 
 #backToTop {
