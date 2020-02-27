@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="src/stylesheets/commonStyleSheet.css">
     <script src="src/script/basic_responsive_layout.js" defer></script>
     <script src="src/script/loadVocabIntoAutoComplete.js" defer></script>
+    <script src="src/script/findDefinitionOfVocab.js" defer></script>
 </head>
 
 <body>
@@ -21,15 +22,16 @@
         </nav>
 
         <section>
-            <p id="testing">reserved</p>
-            <form action="" method="get">
+            <p id="testing">Input your vocab here</p>
+            <form id="searchForm">
                 <label>
-                    <input list="vocabs">
+                    <input id="textField" list="vocabs" onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
                 </label>
                 <datalist id="vocabs">
                 </datalist>
-                <input type="button" value="submit">
+                <input id="submitButton" type="button" value="submit">
             </form>
+            <iframe id="cambridgeDict" src="https://dictionary.cambridge.org/us/dictionary/english/"></iframe>
         </section>
     </div>
 

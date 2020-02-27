@@ -1,6 +1,6 @@
 "use strict";
 
-document.body.onload = function() { main() };
+document.body.onload = function() { loadVocabList() };
 let vocabList = [];
 let rawVocabList = [];
 
@@ -26,8 +26,4 @@ function createNewAutoCompleteListObject(values) {
     newVocab.value = values;
     let dataList = document.getElementById("vocabs");
     dataList.appendChild(newVocab)
-}
-
-function main() {
-    loadVocabList();
 }
