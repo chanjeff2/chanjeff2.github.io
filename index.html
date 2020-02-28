@@ -25,7 +25,7 @@
             <p id="testing">Input your vocab here</p>
             <form id="searchForm">
                 <label>
-                    <input id="textField" list="vocabs" autofocus onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
+                    <input id="textField" list="vocabs" onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
                 </label>
                 <datalist id="vocabs">
                 </datalist>

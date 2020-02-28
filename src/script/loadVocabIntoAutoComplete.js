@@ -3,6 +3,7 @@
 document.body.onload = function() { loadVocabList() };
 let vocabList = [];
 let rawVocabList = [];
+let textField = document.getElementById("textField");
 
 function loadVocabList() {
     let xhttp = new XMLHttpRequest();
@@ -10,6 +11,7 @@ function loadVocabList() {
         if (this.readyState === 4 && this.status === 200) {
              rawVocabList = xhttp.responseText.split("\n");
             addVocabListToAutoComplete();
+            textField.focus();
         }
     };
     xhttp.open("GET", "/res/vocab/vocab.txt", true);
