@@ -39,7 +39,7 @@ function loadVocabList(filename) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-             rawVocabList = xhttp.responseText.split("\r\n");
+             rawVocabList = xhttp.responseText.split("\n");
             addVocabListToAutoComplete();
             storeVocabList()
         }
