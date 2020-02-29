@@ -38,6 +38,34 @@ section {
   background-blend-mode: lighten;
 }
 
+#searchForm{
+  display: flex;
+}
+
+#hintBox {
+  display: flex;
+  flex-wrap: wrap;
+  /*visibility: hidden;*/
+}
+
+#hint{
+  color: red;
+  /*display: none;*/
+  margin: unset;
+  margin-left: 50px;
+}
+
+#hint::before{
+  content: "! ";
+  font-weight: bold;
+  color: red;
+}
+
+#hint_vocabList {
+  margin: unset;
+  margin-left: 50px;
+}
+
 #cambridgeDict {
   width: 100%;
   height: 600px;

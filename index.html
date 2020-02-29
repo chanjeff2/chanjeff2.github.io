@@ -8,6 +8,7 @@
     <script src="src/script/basic_responsive_layout.js" defer></script>
     <script src="src/script/loadVocabIntoAutoComplete.js" defer></script>
     <script src="src/script/findDefinitionOfVocab.js" defer></script>
+
 </head>
 
 <body>
@@ -30,6 +31,10 @@
                 <datalist id="vocabs">
                 </datalist>
                 <input id="submitButton" type="button" value="submit">
+                <div id="hintBox">
+                    <p id="hint"><strong>Input vocab present in: </strong></p>
+                    <p id="hint_vocabList"><strong>test</strong></p>
+                </div>
             </form>
             <iframe id="cambridgeDict" src="https://dictionary.cambridge.org/us/dictionary/english/"></iframe>
         </section>
