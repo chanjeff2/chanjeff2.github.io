@@ -1,11 +1,19 @@
 "use strict";
 
-document.body.onload = function() { loadVocabList(); loadVocabList2(); textField.focus(); };
+document.body.onload = function() { main(); textField.focus(); };
 let vocabList = [];
 let rawVocabList = [];
 let textField = document.getElementById("textField");
+let vocabListFile = [
+    "fall_vocab1.txt",
+    "fall_vocab2.txt",
+    "fall_vocab3.txt",
+    "spring_vocab1",
+    "spring_vocab2",
+    "spring_vocab3"
+];
 
-function loadVocabList() {
+function loadVocabList(filename) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
@@ -13,19 +21,7 @@ function loadVocabList() {
             addVocabListToAutoComplete();
         }
     };
-    xhttp.open("GET", "/res/vocab/vocab.txt", true);
-    xhttp.send();
-}
-
-function loadVocabList2() {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-            rawVocabList = xhttp.responseText.split("\n");
-            addVocabListToAutoComplete();
-        }
-    };
-    xhttp.open("GET", "/res/vocab/vocabFromLastSem.txt", true);
+    xhttp.open("GET", "/res/vocab/" + filename, true);
     xhttp.send();
 }
 
@@ -39,4 +35,10 @@ function createNewAutoCompleteListObject(values) {
     newVocab.value = values;
     let dataList = document.getElementById("vocabs");
     dataList.appendChild(newVocab)
+}
+
+function main() {
+    for (let i in File) {
+        loadVocabList(i);
+    }
 }
