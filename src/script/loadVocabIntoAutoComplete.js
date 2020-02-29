@@ -70,11 +70,11 @@ function checkVocabInList() {
         tempVocabList = vocabList[key].filter(function(value) { return value === input;});
         if (!isEmpty(tempVocabList)) {
             hint.innerHTML = vocabListFile[count];
-            hintBox.visibility = "visible";
+            hintBox.style.visibility = "visible";
             return
         } else {
             hint.innerHTML = "";
-            hintBox.visibility = "hidden";
+            hintBox.style.visibility = "hidden";
         }
         count++;
     }
