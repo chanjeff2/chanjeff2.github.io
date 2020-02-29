@@ -45,7 +45,7 @@ section {
 #hintBox {
   display: flex;
   flex-wrap: wrap;
-  /*visibility: hidden;*/
+  visibility: hidden;
 }
 
 #hint{
