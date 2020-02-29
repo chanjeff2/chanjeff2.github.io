@@ -38,7 +38,7 @@ function createNewAutoCompleteListObject(values) {
 }
 
 function main() {
-    for (let i in vocabListFile) {
+    for (let i of vocabListFile) {
         loadVocabList(i);
     }
 }
