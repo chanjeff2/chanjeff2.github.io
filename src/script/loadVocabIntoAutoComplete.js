@@ -8,9 +8,9 @@ let vocabListFile = [
     "fall_vocab1.txt",
     "fall_vocab2.txt",
     "fall_vocab3.txt",
-    "spring_vocab1",
-    "spring_vocab2",
-    "spring_vocab3"
+    "spring_vocab1.txt",
+    "spring_vocab2.txt",
+    "spring_vocab3.txt"
 ];
 
 function loadVocabList(filename) {
