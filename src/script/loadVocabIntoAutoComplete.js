@@ -1,6 +1,6 @@
 "use strict";
 
-document.body.onload = function() { main(); textField.focus(); };
+document.body.onload = function() { main(); };
 let tempVocabList = [];
 let rawVocabList = [];
 let textField = document.getElementById("textField");
@@ -53,6 +53,7 @@ function main() {
     for (let i of vocabListFile) {
         loadVocabList(i);
     }
+    textField.focus();
 }
 
 function isEmpty(obj) {
