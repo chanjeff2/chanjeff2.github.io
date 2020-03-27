@@ -17,6 +17,11 @@ header {
   top: 0;
 }
 
+#title {
+  color: white;
+  text-shadow: 2px 1px 6px black;
+}
+
 #container {
   display: flex;
   height: 1800px;
