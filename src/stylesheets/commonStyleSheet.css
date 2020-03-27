@@ -87,5 +87,6 @@ section {
   display: none;
   position: fixed;
   right: 20px;
+  box-shadow: 0px 2px 10px 1px black;
 }
 /*# sourceMappingURL=commonStyleSheet.css.map */
