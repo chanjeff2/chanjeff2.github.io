@@ -5,7 +5,7 @@ let customVocabList = [];
 
 function updatePreview() {
     let input = document.getElementById("largeInputField").value;
-    let tempVocabArray = input.split(/\s+/);
+    let tempVocabArray = input.split(/\s{2,}/);
     let vocabPreviewList = document.getElementById("vocabPreviewList");
     vocabPreviewList.innerHTML = "";
     let listFragment = document.createDocumentFragment();
