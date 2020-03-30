@@ -6,16 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="res/img/favicon.jpeg">
     <link rel="stylesheet" href="src/stylesheets/commonStyleSheet.css">
+    <script src="src/script/login.js" defer></script>
     <script src="src/script/basic_responsive_layout.js" defer></script>
-    <script src="src/script/loadVocabIntoAutoComplete.js" defer></script>
+    <script src="src/script/usedVocabSaveLoad.js" defer></script>
     <script src="src/script/findDefinitionOfVocab.js" defer></script>
-
+    <!-- All other script should be place above. -->
+    <script src="src/script/loadVocabIntoAutoComplete.js" defer></script>
 </head>
 
 <body>
 
     <header id="header">
         <h1 id="title">Vocab Checker</h1>
+
+        <div id="loginBox" onclick="resizeLoginBlock()" >
+            <h2 id="loginLabel">Log in</h2>
+            <form id="login">
+                <div id="userNameInputField" class="inputField">
+                    <label for="userNameInput">User Name</label>
+                    <input id="userNameInput" placeholder="user name" onkeypress="if (event.keyCode === 13) {login(); return false;}">
+                </div>
+
+                <div id="rememberMeField" class="inputField">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember Me</label>
+                </div>
+            </form>
+            <p id="loginHint"></p>
+            <div id="loginButtonBox">
+                <input id="signUpButton" type="button" value="Sign Up" onclick="signUp()">
+                <input id="loginButton" type="button" value="Log in" onclick="login()">
+            </div>
+        </div>
+
+        <div id="welcomeMSG">
+            <h2 id="welcomeLabel">Welcome [username]</h2>
+        </div>
     </header>
 
     <div id="container">
@@ -27,7 +53,7 @@
             <p id="testing">Input your vocab here</p>
             <form id="searchForm">
                 <label>
-                    <input id="textField" list="vocabs" autofocus autocomplete="false" onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
+                    <input id="textField" list="vocabs" autofocus autocomplete="false" placeholder="Input your vocab here." onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
                 </label>
                 <datalist id="vocabs">
                 </datalist>
@@ -37,7 +63,20 @@
                     <p id="hint_vocabList"><strong>test</strong></p>
                 </div>
             </form>
+
             <iframe id="cambridgeDict" src="https://dictionary.cambridge.org/us/dictionary/english/"></iframe>
+
+            <div id="storeUsedVocab">
+                <h3>Input your used vocabs here. Use spaces or press enter to separate if input more than one vocabs.</h3>
+                <textarea id="largeInputField" placeholder="Input your used vocabs here. Use spaces or press enter to separate if input more than one vocabs." oninput="updatePreview()"></textarea>
+                <div id="previewUsedVocab">
+                    <h1 style="width:fit-content; margin: auto;">Preview</h1>
+                    <ol id="vocabPreviewList">
+                    </ol>
+                </div>
+                <br>
+                <input id="upload" type="button" value="upload" onclick="storeVocab()">
+            </div>
         </section>
     </div>
 
@@ -47,5 +86,30 @@
             <text x="10" y="50" fill="black">TOP</text>
         </svg>
     </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        let firebaseConfig = {
+            apiKey: "AIzaSyCAjeHV54kFKJLk2xyOBumaP-a6rZahvlA",
+            authDomain: "vocab-checker-debbe.firebaseapp.com",
+            databaseURL: "https://vocab-checker-debbe.firebaseio.com",
+            projectId: "vocab-checker-debbe",
+            storageBucket: "vocab-checker-debbe.appspot.com",
+            messagingSenderId: "264429287636",
+            appId: "1:264429287636:web:84b93696a86ee5292b2341",
+            measurementId: "G-4KQLTM7VP6"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
 </body>
 </html>
