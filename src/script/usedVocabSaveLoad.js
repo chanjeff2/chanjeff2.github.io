@@ -23,17 +23,15 @@ function updatePreview() {
 function storeVocab() {
     if(currentUser !== "") {
         let input = document.getElementById("largeInputField").value;
-        let tempVocabArray = input.split(/\s+/);
+        let tempVocabArray = input.split(/\s{2,}/);
         console.log(tempVocabArray);
         console.log(currentUser);
         tempVocabArray.forEach(function(value) {
             let vocabQuery = db.collection("vocabs").where("userName", "==", currentUser).where("vocab", "==", value);
                 vocabQuery.get()
                 .then(function(querySnapshot) {
-                    console.log(querySnapshot);
-                    console.log(querySnapshot.empty);
                     if(querySnapshot.empty) {
-                        db.collection("vocabs").add({
+                        db.collection("vocabs").doc(currentUser+"-"+value).set({
                             userName: currentUser,
                             vocab: value
                         })
