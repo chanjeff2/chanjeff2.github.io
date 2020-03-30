@@ -37,7 +37,7 @@ function storeVocab() {
                         })
                     } else {
                         console.log("vocab repeated: " + value);
-                        alert.log("vocab repeated: " + value);
+                        alert("vocab repeated: " + value);
                     }
                 })
                 .catch(function(error) {

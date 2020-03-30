@@ -22,7 +22,7 @@ let vocabListName = [
     "Spring Vocab List 1",
     "Spring Vocab List 2",
     "Spring Vocab List 3",
-    "Custom Vocab list"
+    "Custom Vocab List"
 ];
 let vocabList = {};
 let i = 1;
