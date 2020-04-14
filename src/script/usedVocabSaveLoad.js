@@ -5,7 +5,7 @@ let customVocabList = [];
 
 function updatePreview() {
     let input = document.getElementById("largeInputField").value;
-    let tempVocabArray = input.split(/\s{2,}/);
+    let tempVocabArray = input.split(/\s{2,}|\n\s*/);
     let vocabPreviewList = document.getElementById("vocabPreviewList");
     vocabPreviewList.innerHTML = "";
     let listFragment = document.createDocumentFragment();
@@ -23,7 +23,7 @@ function updatePreview() {
 function storeVocab() {
     if(currentUser !== "") {
         let input = document.getElementById("largeInputField").value;
-        let tempVocabArray = input.split(/\s{2,}/);
+        let tempVocabArray = input.split(/\s{2,}|\n\s*/);
         console.log(tempVocabArray);
         console.log(currentUser);
         tempVocabArray.forEach(function(value) {
