@@ -8,7 +8,7 @@ header {
   display: flex;
   /*background: rgb(156, 172, 247);*/
   background-size: cover;
-  background: url("/res/img/illust_69147540_20181022_231432.jpeg") fixed;
+  background: url("/res/img_vocab/illust_69147540_20181022_231432.jpeg") fixed;
   background-position: -150px -300px;
   padding: 160px 0;
   justify-content: center;
@@ -111,14 +111,14 @@ header {
 #container nav {
   width: 150px;
   /*background: rgba(180, 255, 255, 1);*/
-  background: url("/res/img/Cute_cat.jpeg");
+  background: url("/res/img_vocab/Cute_cat.jpeg");
   background-size: contain;
 }
 
 section {
   padding: 20px;
   width: 100%;
-  background: url("/res/img/1033130353.jpeg") rgba(255,255,255,0) no-repeat;
+  background: url("/res/img_vocab/1033130353.jpeg") rgba(255,255,255,0) no-repeat;
   background-size: cover;
   background-blend-mode: lighten;
 }
