@@ -1,0 +1,8 @@
+:root {
+    --background-color: #eee;
+    --text-color: #333;
+    --link-color: #b52;
+    --button-background-color: #222;
+    --img-filter: brightness(1) contrast(1);
+    --section-background-filter: unset
+}

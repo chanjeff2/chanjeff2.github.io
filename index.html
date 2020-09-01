@@ -5,92 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="res/img_vocab/favicon.jpeg">
-    <link rel="stylesheet" href="src/stylesheets_vocab/commonStyleSheet.css">
-    <script src="src/script_vocab/login.js" defer></script>
-    <script src="src/script_vocab/basic_responsive_layout.js" defer></script>
-    <script src="src/script_vocab/usedVocabSaveLoad.js" defer></script>
-    <script src="src/script_vocab/findDefinitionOfVocab.js" defer></script>
+    <link rel="stylesheet" href="src/stylesheets/commonStyleSheet.css">
+<!--    <link rel="stylesheet" href="src/stylesheets/darkTheme.css" media="(prefers-color-scheme: dark)">-->
+<!--    <link rel="stylesheet" href="src/stylesheets/lightTheme.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">-->
+    <link rel="stylesheet" href="src/stylesheets/lightTheme.css" id="theme">
+    <script src="src/script/basic_responsive_layout.js" defer></script>
     <!-- All other script should be place above. -->
-    <script src="src/script_vocab/loadVocabIntoAutoComplete.js" defer></script>
+<!--    <script src="src/script_vocab/loadVocabIntoAutoComplete.js" defer></script>-->
 </head>
 
 <body>
 
     <header id="header">
-        <h1 id="title">Vocab Checker</h1>
-
-        <div id="loginBox" onclick="resizeLoginBlock()" >
-            <h2 id="loginLabel">Log in</h2>
-            <form id="login">
-                <div id="userNameInputField" class="inputField">
-                    <label for="userNameInput">User Name</label>
-                    <input id="userNameInput" placeholder="user name" onkeypress="if (event.keyCode === 13) {login(); return false;}">
-                </div>
-
-                <div id="rememberMeField" class="inputField">
-                    <input type="checkbox" id="rememberMe">
-                    <label for="rememberMe">Remember Me</label>
-                </div>
-            </form>
-            <p id="loginHint"></p>
-            <div id="loginButtonBox">
-                <input id="signUpButton" type="button" value="Sign Up" onclick="signUp()">
-                <input id="loginButton" type="button" value="Log in" onclick="login()">
-            </div>
-        </div>
-
-        <div id="welcomeMSG">
-            <h2 id="welcomeLabel">Welcome [username]</h2>
-        </div>
+        <h1 id="title">Welcome</h1>
     </header>
 
     <div id="container">
-        <nav>
-            <p></p>
-        </nav>
+<!--        <nav>-->
+<!--            <p></p>-->
+<!--        </nav>-->
 
         <section>
             <p id="testing">Input your vocab here</p>
-            <form id="searchForm">
-                <label>
-                    <input id="textField" list="vocabs" autofocus autocomplete="false" placeholder="Input your vocab here." onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
-                </label>
-                <datalist id="vocabs">
-                </datalist>
-                <input id="submitButton" type="button" value="submit">
-                <div id="hintBox">
-                    <p id="hint"><strong>Input vocab present in: </strong></p>
-                    <p id="hint_vocabList"><strong>test</strong></p>
-                </div>
-            </form>
 
-            <iframe id="cambridgeDict" src="https://dictionary.cambridge.org/us/dictionary/english/"></iframe>
-
-            <div id="storeUsedVocab">
-                <h3>Input your used vocabs here. Use spaces or press enter to separate if input more than one vocabs.</h3>
-                <textarea id="largeInputField" placeholder="Input your used vocabs here. Use spaces or press enter to separate if input more than one vocabs." oninput="updatePreview()"></textarea>
-                <div id="previewUsedVocab">
-                    <h1 style="width:fit-content; margin: auto;">Preview</h1>
-                    <ol id="vocabPreviewList">
-                    </ol>
-                </div>
-                <br>
-                <input id="upload" type="button" value="upload" onclick="storeVocab()">
-            </div>
+            <a href="/vocab.html"><button>vocab</button></a>
+            <a id="test"><button>click me</button></a>
         </section>
     </div>
 
-    <div id="backToTop">
-        <svg width="50" height="50">
-            <polygon points="25,10,10,30,40,30" style="fill: dimgrey;stroke: black;stroke-width: 2"/>
-            <text x="10" y="50" fill="black">TOP</text>
+    <div id="backToTop" class="toolButton">
+        <svg width="32" height="26">
+            <path
+                d="M 34.999999,30.310887 17.5,30.310888 9.9228881e-7,30.310887 8.7499996,15.155443 17.5,0 26.25,15.155443 Z"
+                id="path1095"
+                style="opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.237636;stroke-opacity:1" />
+        </svg>
+    </div>
+
+    <div id="toggleTheme" class="toolButton">
+        <svg id="toggleThemeIcon" width="32" height="32">
+            <path
+                    d="M 7.6148594,30.652986 C 6.6266192,30.1873 5.1826622,29.291622 4.3364571,28.619418 3.3331345,27.822392 2.0379713,26.508021 1.2995407,25.53747 0.66575312,24.704451 -0.07824897,23.520335 0.00665435,23.479771 0.03359731,23.466898 0.4156306,23.542115 0.85562516,23.646929 1.9198773,23.900436 3.6708608,24.06715 4.8254434,24.024899 11.400416,23.784303 17.777055,19.591008 21.228791,13.238019 21.875059,12.04856 22.936179,9.0425818 23.142543,7.8166826 23.573849,5.2545715 23.503167,2.9239675 22.92969,0.79767031 22.786466,0.26663355 22.751474,-0.00901342 22.828453,2.2480782e-4 23.060356,0.02805099 24.547886,0.97572224 25.40201,1.6397814 c 3.909887,3.0398266 6.352103,7.7416869 6.578787,12.6657426 0.22832,4.959748 -1.585647,9.590637 -5.107772,13.039661 -1.796557,1.759268 -3.671644,2.957793 -5.989381,3.828292 -4.266148,1.602303 -9.172402,1.409841 -13.2687819,-0.520491 z"
+                    id="path1026"
+                    style="opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.133635;stroke-opacity:1" />
         </svg>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-firestore.js"></script>
