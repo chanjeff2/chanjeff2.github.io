@@ -124,19 +124,25 @@ section {
 
 #searchForm{
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#textField {
+  border-radius: 20px;
+  padding: 5px;
 }
 
 #hintBox {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
-  visibility: hidden;
 }
 
 #hint{
   color: red;
   /*display: none;*/
   margin: unset;
-  margin-left: 50px;
 }
 
 #hint::before{
@@ -147,7 +153,6 @@ section {
 
 #hint_vocabList {
   margin: unset;
-  margin-left: 50px;
 }
 
 #cambridgeDict {

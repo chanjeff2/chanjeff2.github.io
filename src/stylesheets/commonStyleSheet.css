@@ -19,90 +19,35 @@ header {
   top: 0;
 }
 
+button {
+  border: unset;
+  outline: unset;
+  background-color: #cccccc;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 5px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+input[type="button"] {
+  border: unset;
+  outline: unset;
+  background-color: #cccccc;
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 5px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
 #title {
   color: white;
   text-shadow: 2px 1px 6px black;
 }
 
-#loginBox {
-  box-shadow: 0 0 10px 2px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 300px;
-  height: 330px;
-  padding: 10px;
-  background: white;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-#loginLabel {
-  width: fit-content;
-  margin: 0 auto;
-}
-
-#login {
-  margin: 65px 10px 10px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.inputField {
-  margin: 20px 0;
-}
-
-#userNameInputField {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-}
-
-#rememberMeField {
-  width: fit-content;
-  margin: auto;
-}
-
-#loginButtonBox {
-  display: flex;
-  margin:20px 0;
-}
-
-#loginButton, #signUpButton{
-  width: 30%;
-  margin: auto;
-}
-
-#loginHint {
-  width: fit-content;
-  margin: auto;
-  visibility: hidden;
-}
-
-#welcomeMSG {
-  box-shadow: 0 0 10px 2px;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  width: 300px;
-  height: 30px;
-  padding: 10px;
-  background: white;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  flex-direction: column;
-  overflow: hidden;
-  display: none;
-}
-
-#welcomeLabel {
-  width: fit-content;
-  margin: 0 auto;
-
-}
 
 #container {
   display: flex;
@@ -124,63 +69,7 @@ section {
   /*background-size: cover;*/
   /*background-blend-mode: lighten;*/
   transition: -500ms;
-}
-
-#searchForm{
-  display: flex;
-}
-
-#hintBox {
-  display: flex;
-  flex-wrap: wrap;
-  visibility: hidden;
-}
-
-#hint{
-  color: red;
-  /*display: none;*/
-  margin: unset;
-  margin-left: 50px;
-}
-
-#hint::before{
-  content: "! ";
-  font-weight: bold;
-  color: red;
-}
-
-#hint_vocabList {
-  margin: unset;
-  margin-left: 50px;
-}
-
-#cambridgeDict {
-  width: 100%;
-  height: 600px;
-  resize: both;
-  margin: 20px 0;
-  background: #fff;
-}
-
-#storeUsedVocab {
-  display: none;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-#largeInputField {
-  height: 500px;
-  width: 49%
-}
-
-#previewUsedVocab {
-  width: 49%;
-  background: white;
-}
-
-#upload {
-  width: 10%;
-  margin: 20px;
+  font-family: Arial, sans-serif;
 }
 
 .toolButton {

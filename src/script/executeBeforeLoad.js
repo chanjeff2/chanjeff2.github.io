@@ -34,11 +34,6 @@ function checkThemeByCookie() {
 }
 
 function updateTheme(themeValue) {
-    // document.querySelectorAll(".toolButton").forEach(function(element) {
-    //     element.style.transition = "none"
-    // });
-    // document.body.style.transition = "none";
-    // document.querySelector("section").style.transition = "none";
     let theme = document.querySelector("#theme");
     switch (themeValue) {
         case "light":
@@ -50,9 +45,4 @@ function updateTheme(themeValue) {
         default:
             break
     }
-    // document.querySelectorAll(".toolButton").forEach(function(element) {
-    //     element.style.transition = ""
-    // });
-    // document.body.style.transition = "";
-    // document.querySelector("section").style.transition = "";
 }
