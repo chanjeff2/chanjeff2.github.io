@@ -8,20 +8,34 @@ let theme = document.getElementById("theme");
 backToTopButton.onclick = function() { backToTop() };
 toggleThemeButton.onclick = function() { toggleTheme() };
 window.onscroll = function () { onScroll() };
+document.body.onload = function() { onScroll() };
 
 function backToTop() {
     window.scroll({
         top: 0,
         behavior: "smooth"
     });
-    // backToTopButton.style.display = "none";
 }
 
 function toggleTheme() {
     if (theme.href.endsWith("lightTheme.css")) {
-        theme.href = "src/stylesheets/darkTheme.css"
+        theme.href = "src/stylesheets/darkTheme.css";
+        if (typeof(Storage) !== "undefined") {
+            // Code for localStorage/sessionStorage.
+            localStorage.setItem("prefer-color-scheme", "dark")
+        } else {
+            // Sorry! No Web Storage support..
+            document.cookie = "prefer-color-scheme=dark"
+        }
     } else {
-        theme.href = "src/stylesheets/lightTheme.css"
+        theme.href = "src/stylesheets/lightTheme.css";
+        if (typeof(Storage) !== "undefined") {
+            // Code for localStorage/sessionStorage.
+            localStorage.setItem("prefer-color-scheme", "light")
+        } else {
+            // Sorry! No Web Storage support..
+            document.cookie = "prefer-color-scheme=light"
+        }
     }
 }
 
