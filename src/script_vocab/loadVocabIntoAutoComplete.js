@@ -3,9 +3,9 @@
 document.body.onload = function() { main(); autoLogin();};
 let tempVocabList = [];
 let rawVocabList = [];
-let textField = document.getElementById("textField");
-let hint = document.getElementById("hint_vocabList");
-let hintBox = document.getElementById("hintBox");
+let textField = document.querySelector("#textField");
+let hint = document.querySelector("#hint_vocabList");
+let hintBox = document.querySelector("#hintBox");
 let vocabListFile = [
     "fall_vocab_list_1.txt",
     "fall_vocab_list_2.txt",
@@ -30,7 +30,7 @@ textField.oninput = function() { checkVocabInList() };
 
 function addVocabListToAutoComplete() {
     tempVocabList = rawVocabList.filter(function(value) { return value });
-    let dataList = document.getElementById("vocabs");
+    let dataList = document.querySelector("#vocabs");
     let datalistFragment = document.createDocumentFragment();
     tempVocabList.forEach(function(value) {
         let newVocab = document.createElement("option");
@@ -54,7 +54,7 @@ function loadVocabList(filename) {
             storeVocabList()
         }
     };
-    xhttp.open("GET", "/res/vocab/" + filename, true);
+    xhttp.open("GET", "res/vocab/" + filename, true);
     xhttp.send();
 }
 

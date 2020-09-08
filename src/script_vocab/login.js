@@ -19,12 +19,12 @@ function autoLogin() {
     }
 }
 
-function signUp(userName = document.getElementById("userNameInput").value) {
+function signUp(userName = document.querySelector("#userNameInput").value) {
     if(userName.trim() === "") {
         console.log("please enter user name");
         return;
     }
-    let hint = document.getElementById("loginHint");
+    let hint = document.querySelector("#loginHint");
     let userRef = db.collection("users").doc(userName);
     userRef.get().then(function(user) {
         if(user.exists) {
@@ -46,13 +46,13 @@ function signUp(userName = document.getElementById("userNameInput").value) {
         })
 }
 
-function login(userName = document.getElementById("userNameInput").value) {
+function login(userName = document.querySelector("#userNameInput").value) {
     if(userName.trim() === "") {
         console.log("please enter user name");
         return;
     }
-    let hint = document.getElementById("loginHint");
-    let rememberMe = document.getElementById("rememberMe").checked;
+    let hint = document.querySelector("#loginHint");
+    let rememberMe = document.querySelector("#rememberMe").checked;
     // console.log(rememberMe);
     let userRef = db.collection("users").doc(userName);
     userRef.get().then(function(user) {
@@ -68,10 +68,10 @@ function login(userName = document.getElementById("userNameInput").value) {
                 d.setTime(d.getTime() + 3 * 30 * 24 * 60 * 60 * 1000);
                 document.cookie = "username=" + userName + "; expires=" + d.toUTCString();
             }
-            document.getElementById("loginBox").style.display = "none";
-            document.getElementById("welcomeLabel").innerHTML = "Welcome " + userName;
-            document.getElementById("welcomeMSG").style.display = "block";
-            document.getElementById("storeUsedVocab").style.display = "flex";
+            document.querySelector("#loginBox").style.display = "none";
+            document.querySelector("#welcomeLabel").innerHTML = "Welcome " + userName;
+            document.querySelector("#welcomeMSG").style.display = "block";
+            document.querySelector("#storeUsedVocab").style.display = "flex";
             alreadyLogin = true;
         } else {
             console.log("user does not exists.");

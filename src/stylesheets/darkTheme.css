@@ -3,15 +3,5 @@
     --text-color: #ccc;
     --link-color: #f96;
     --button-background-color: #eee;
-    --img-filter: brightness(.8) contrast(1.2);
-    --section-background-filter: grayscale(1) invert(1);
-}
-
-body.dark {
-    --background-color: #222;
-    --text-color: #eee;
-    --link-color: #f96;
-    --button-background-color: #eee;
-    --img-filter: brightness(.8) contrast(1.2);
-    --section-background-filter: grayscale(1) invert(1);
+    --button-background-color-hover: #ccc;
 }

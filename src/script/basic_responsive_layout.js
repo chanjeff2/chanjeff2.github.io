@@ -1,10 +1,10 @@
 "use strict";
 
-let backToTopButton = document.getElementById("backToTop");
-let toggleThemeButton = document.getElementById("toggleTheme");
-let headerNav = document.getElementById("header");
-let container = document.getElementById("container");
-let theme = document.getElementById("theme");
+let backToTopButton = document.querySelector("#backToTop");
+let toggleThemeButton = document.querySelector("#toggleTheme");
+let headerNav = document.querySelector("#header");
+let container = document.querySelector("#container");
+let theme = document.querySelector("#theme");
 backToTopButton.onclick = function() { backToTop() };
 toggleThemeButton.onclick = function() { toggleTheme() };
 window.onscroll = function () { onScroll() };

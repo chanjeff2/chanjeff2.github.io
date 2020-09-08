@@ -1,6 +1,6 @@
 "use strict";
 
-let loginBox = document.getElementById("loginBox");
+let loginBox = document.querySelector("#loginBox");
 let loginBoxExpanded = true;
 
 function resizeLoginBlock() {

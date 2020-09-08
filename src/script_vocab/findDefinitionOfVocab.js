@@ -1,9 +1,9 @@
 "use strict";
 
-let dictWebSite = document.getElementById("cambridgeDict");
-// let inputForm = document.getElementById("searchForm");
-let inputField = document.getElementById("textField");
-let submitButton = document.getElementById("submitButton");
+let dictWebSite = document.querySelector("#cambridgeDict");
+// let inputForm = document.querySelector("#searchForm");
+let inputField = document.querySelector("#textField");
+let submitButton = document.querySelector("#submitButton");
 
 // inputForm.onsubmit = function () { searchDefinition() };
 submitButton.onclick = function () { searchDefinition() };

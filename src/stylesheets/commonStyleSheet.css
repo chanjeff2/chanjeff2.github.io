@@ -11,7 +11,7 @@ header {
   display: flex;
   /*background: rgb(156, 172, 247);*/
   background-size: cover;
-  background: url("/res/img_vocab/illust_69147540_20181022_231432.jpeg") fixed -150px -300px;
+  background: url("../../res/img_vocab/illust_69147540_20181022_231432.jpeg") fixed -150px -300px;
   padding: 160px 0;
   justify-content: center;
   align-items: center;
@@ -22,7 +22,7 @@ header {
 button {
   border: unset;
   outline: unset;
-  background-color: #cccccc;
+  background-color: #ccc;
   border-radius: 20px;
   padding: 5px 10px;
   margin: 5px;
@@ -31,16 +31,24 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: #cccc;
+}
+
 input[type="button"] {
   border: unset;
   outline: unset;
-  background-color: #cccccc;
+  background-color: #ccc;
   border-radius: 20px;
   padding: 5px 10px;
   margin: 5px;
   font-weight: bold;
   font-family: Arial, sans-serif;
   cursor: pointer;
+}
+
+input[type="button"]:hover {
+  background-color: #cccc;
 }
 
 #title {
@@ -58,14 +66,14 @@ input[type="button"] {
 #container nav {
   width: 150px;
   /*background: rgba(180, 255, 255, 1);*/
-  background: url("/res/img_vocab/Cute_cat.jpeg");
+  background: url("../../res/img_vocab/Cute_cat.jpeg");
   background-size: contain;
 }
 
 section {
   padding: 20px;
   width: 100%;
-  /*background: url("/res/img_vocab/1033130353.jpeg") rgba(255,255,255,0) no-repeat;*/
+  /*background: url("../../res/img_vocab/1033130353.jpeg") rgba(255,255,255,0) no-repeat;*/
   /*background-size: cover;*/
   /*background-blend-mode: lighten;*/
   transition: -500ms;
@@ -81,6 +89,10 @@ section {
   right: 20px;
   box-shadow: 0 2px 10px 1px black;
   transition: 500ms;
+}
+
+.toolButton:hover {
+  background: var(--button-background-color-hover);
 }
 
 #toggleTheme {

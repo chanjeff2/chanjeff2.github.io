@@ -4,9 +4,9 @@
 let customVocabList = [];
 
 function updatePreview() {
-    let input = document.getElementById("largeInputField").value;
+    let input = document.querySelector("#largeInputField").value;
     let tempVocabArray = input.split(/\s{2,}|\n\s*/);
-    let vocabPreviewList = document.getElementById("vocabPreviewList");
+    let vocabPreviewList = document.querySelector("#vocabPreviewList");
     vocabPreviewList.innerHTML = "";
     let listFragment = document.createDocumentFragment();
 
@@ -22,7 +22,7 @@ function updatePreview() {
 
 function storeVocab() {
     if(currentUser !== "") {
-        let input = document.getElementById("largeInputField").value;
+        let input = document.querySelector("#largeInputField").value;
         let tempVocabArray = input.split(/\s{2,}|\n\s*/);
         console.log(tempVocabArray);
         console.log(currentUser);
@@ -44,7 +44,7 @@ function storeVocab() {
                     console.log("error occurs: ", error);
                 })
         });
-        document.getElementById("largeInputField").value = "";
+        document.querySelector("#largeInputField").value = "";
         updatePreview();
         alert("Uploaded successfully")
     }
