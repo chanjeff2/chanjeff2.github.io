@@ -22,7 +22,7 @@ header {
 button {
   border: unset;
   outline: unset;
-  background-color: #ccc;
+  background-color: var(--general-button-background-color);
   border-radius: 20px;
   padding: 5px 10px;
   margin: 5px;
@@ -32,13 +32,13 @@ button {
 }
 
 button:hover {
-  background-color: #cccc;
+  background-color: var(--general-button-background-color-hover);
 }
 
 input[type="button"] {
   border: unset;
   outline: unset;
-  background-color: #ccc;
+  background-color: var(--general-button-background-color);
   border-radius: 20px;
   padding: 5px 10px;
   margin: 5px;
@@ -48,7 +48,11 @@ input[type="button"] {
 }
 
 input[type="button"]:hover {
-  background-color: #cccc;
+  background-color: var(--general-button-background-color-hover);
+}
+
+a {
+  display: contents;
 }
 
 #title {
@@ -81,7 +85,7 @@ section {
 }
 
 .toolButton {
-  background: var(--button-background-color);
+  background: var(--tool-button-background-color);
   border-radius: 50px;
   bottom: 20px;
   cursor: pointer;
@@ -92,7 +96,22 @@ section {
 }
 
 .toolButton:hover {
-  background: var(--button-background-color-hover);
+  background: var(--tool-button-background-color-hover);
+}
+
+
+#githubIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  margin: 10px;
+  filter: var(--github-icon-filter);
+  transition: 500ms;
+}
+
+#githubIcon:hover {
+  filter: var(--github-icon-filter-hover);
+  transform: scale(1.2);
 }
 
 #toggleTheme {

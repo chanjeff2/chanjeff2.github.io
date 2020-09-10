@@ -2,6 +2,10 @@
     --background-color: #eee;
     --text-color: #333;
     --link-color: #b52;
-    --button-background-color: #222;
-    --button-background-color-hover: #444;
+    --general-button-background-color: #ccc;
+    --general-button-background-color-hover: #ddd;
+    --tool-button-background-color: #222;
+    --tool-button-background-color-hover: #444;
+    --github-icon-filter: brightness(0.125);
+    --github-icon-filter-hover: brightness(0.25);
 }
