@@ -15,7 +15,7 @@
   /* place-items: center; */
   justify-content: center;
   align-items: center;
-  transition: transform 500ms;
+  transition: transform 1000ms;
 }
 
 #loading.slide-out-to-top {
