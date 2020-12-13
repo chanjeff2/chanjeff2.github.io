@@ -57,7 +57,7 @@ function loadVocabList(filename) {
             storeVocabList()
         }
     };
-    xhttp.open("GET", "res/vocab/" + filename, true);
+    xhttp.open("GET", "vocab/" + filename, true);
     xhttp.send();
 }
 
