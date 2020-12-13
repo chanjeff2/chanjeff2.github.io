@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Projects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/res/drawable/sashimi-icon.png">
+    <link rel="stylesheet" href="/src/stylesheets/commonStyleSheet.css">
+    
+    <script src="/src/script/loadTheme.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $("#loading").load("/common/loading/loading.html");
+            $("#floating-tools").load("/common/floating_tools/floating_tools.html");
+        });
+    </script>
+    <script src="/src/script/basic_responsive_layout.js" defer></script>
+    <!-- All other script should be place above. -->
+</head>
+
+<body>
+    
+    <div id="loading"></div>
+
+    <header id="header">
+        <h1 id="title">Welcome</h1>
+    </header>
+
+    <div id="container">
+        <section>
+            <a href="/projects/vocab/vocab.html" class="button">
+                vocab
+            </a>
+
+            <a id="test" class="button">
+                click me
+            </a>
+        </section>
+    </div>
+
+    <div id="floating-tools"></div>
+
+</body>
+</html>

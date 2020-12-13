@@ -2,7 +2,6 @@
 
 checkTheme();
 
-
 function checkTheme() {
     if (typeof(Storage) !== "undefined") {
         // Code for localStorage/sessionStorage.
@@ -30,19 +29,32 @@ function checkThemeByCookie() {
             }
         });
         updateTheme(themeValue)
+    } else {
+        updateTheme("dark");
     }
 }
 
 function updateTheme(themeValue) {
     let theme = document.querySelector("#theme");
+    if (theme == null) {
+        theme = document.createElement("link");
+        theme.type = "text/css";
+        theme.rel = "stylesheet";
+        theme.id = "theme";
+    }
     switch (themeValue) {
         case "light":
-            theme.href = "src/stylesheets/lightTheme.css";
+            theme.href = "/src/stylesheets/lightTheme.css";
+            console.log("light mode");
             break;
         case "dark":
-            theme.href = "src/stylesheets/darkTheme.css";
+            theme.href = "/src/stylesheets/darkTheme.css";
+            console.log("dark mode");
             break;
         default:
+            theme.href = "/src/stylesheets/darkTheme.css";
+            console.log("dark mode by default");
             break
     }
+    document.head.appendChild(theme);
 }

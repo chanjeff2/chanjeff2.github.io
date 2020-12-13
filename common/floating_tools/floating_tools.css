@@ -1,0 +1,18 @@
+.toolButton {
+    background: var(--tool-button-background-color);
+    border-radius: 50px;
+    bottom: 20px;
+    cursor: pointer;
+    position: fixed;
+    right: 20px;
+    box-shadow: 0 2px 10px 1px black;
+    transition: ease-out 500ms;
+}
+  
+.toolButton:hover {
+    background: var(--tool-button-background-color-hover);
+}
+
+#toggleTheme {
+    padding: 9px 9px 5px;
+}

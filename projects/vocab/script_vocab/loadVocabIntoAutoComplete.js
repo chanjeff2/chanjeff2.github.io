@@ -1,6 +1,9 @@
 "use strict";
 
-document.body.onload = function() { main(); autoLogin();};
+window.addEventListener("load", () => {
+    main();
+    autoLogin();
+});
 let tempVocabList = [];
 let rawVocabList = [];
 let textField = document.querySelector("#textField");

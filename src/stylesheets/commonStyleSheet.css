@@ -1,23 +1,58 @@
+:root {
+  color-scheme: light dark;
+  font-family: roboto;
+}
+
+#loading {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  /* place-items: center; */
+  justify-content: center;
+  align-items: center;
+  transition: transform 500ms;
+}
+
+#loading.slide-out-to-top {
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+}
+
 body{
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
-  transition: 500ms;
+  transition: ease-out 500ms;
 }
 
 header {
   width: 100%;
   height: 50px;
   display: flex;
-  /*background: rgb(156, 172, 247);*/
   background-size: cover;
-  background: url("../../res/img_vocab/illust_69147540_20181022_231432.jpeg") fixed -150px -300px;
+  background: url("/res/drawable/code_bg.png") center;
   padding: 160px 0;
   justify-content: center;
   align-items: center;
   position: relative;
   top: 0;
   z-index: 100;
+}
+
+a {
+  display: inline-block;
+  text-decoration: unset;
+  color: unset;
+}
+
+a.button {
+  color: black;
+  padding: 5px 15px;
 }
 
 button {
@@ -28,11 +63,24 @@ button {
   padding: 5px 10px;
   margin: 5px;
   font-weight: bold;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
 }
 
 button:hover {
+  background-color: var(--general-button-background-color-hover);
+}
+
+.button {
+  border: unset;
+  outline: unset;
+  background-color: var(--general-button-background-color);
+  border-radius: 20px;
+  padding: 5px 10px;
+  margin: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
   background-color: var(--general-button-background-color-hover);
 }
 
@@ -44,16 +92,11 @@ input[type="button"] {
   padding: 5px 10px;
   margin: 5px;
   font-weight: bold;
-  font-family: Arial, sans-serif;
   cursor: pointer;
 }
 
 input[type="button"]:hover {
   background-color: var(--general-button-background-color-hover);
-}
-
-a {
-  display: contents;
 }
 
 #title {
@@ -64,59 +107,86 @@ a {
 
 #container {
   display: flex;
-  height: 1800px;
   padding: 0 20px;
 }
 
 #container nav {
   width: 150px;
   /*background: rgba(180, 255, 255, 1);*/
-  background: url("../../res/img_vocab/Cute_cat.jpeg");
+  background: url("/res/img_vocab/Cute_cat.jpeg");
   background-size: contain;
 }
 
 section {
   padding: 20px;
   width: 100%;
-  /*background: url("../../res/img_vocab/1033130353.jpeg") rgba(255,255,255,0) no-repeat;*/
-  /*background-size: cover;*/
-  /*background-blend-mode: lighten;*/
-  transition: -500ms;
-  font-family: Arial, sans-serif;
 }
 
-.toolButton {
-  background: var(--tool-button-background-color);
+.circleIcon {
   border-radius: 50px;
-  bottom: 20px;
-  cursor: pointer;
-  position: fixed;
-  right: 20px;
-  box-shadow: 0 2px 10px 1px black;
-  transition: 500ms;
 }
-
-.toolButton:hover {
-  background: var(--tool-button-background-color-hover);
-}
-
 
 #githubIcon {
   width: 50px;
   height: 50px;
-  border-radius: 30px;
+  border-radius: 50px;
   margin: 10px;
   filter: var(--github-icon-filter);
-  transition: 500ms;
+  transition: ease-out 500ms;
 }
 
 #githubIcon:hover {
   filter: var(--github-icon-filter-hover);
   transform: scale(1.2);
+  backface-visibility: hidden;
 }
 
-#toggleTheme {
-  padding: 9px 9px 5px;
+#mainIconsContainer {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  filter: var(--github-icon-filter-hover);
+  width: 30%;
+  min-width: 50px;
+  max-width: 150px;
+  height: 30%;
+  min-height: 50px;
+  max-height: 150px;
+  border-radius: 10px;
+  padding: 5%;
+  margin: 2.5%;
+  filter: var(--github-icon-filter);
+  transition: 500ms;
+}
+
+.mainIcon:hover {
+  filter: var(--github-icon-filter);
+  background-color: #FFF2;
+  transform: scale(1.2);
+  backface-visibility: hidden;
+}
+
+.mainIcon img {
+  max-height: min(150px, 20vw);
+}
+
+.mainIcon p {
+  text-align: center;
+  width: fit-content;
+  white-space: nowrap;
+  margin: auto;
+  font-size: min(32px, 5vw);
 }
 
 #backToTop {
