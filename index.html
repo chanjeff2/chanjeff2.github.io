@@ -9,12 +9,6 @@
    
     <script src="/src/script/loadTheme.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#loading").load("/common/loading/loading.html");
-            $("#floating-tools").load("/common/floating_tools/floating_tools.html");
-        });
-    </script>
     <script src="/src/script/basic_responsive_layout.js" defer></script>
     <!-- All other script should be place above. -->
 </head>
@@ -51,6 +45,11 @@
     </div>
 
     <div id="floating-tools"></div>
+
+    <script>
+        $("#loading").load("/common/loading/loading.html");
+        $("#floating-tools").load("/common/floating_tools/floating_tools.html");
+    </script>
     
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>

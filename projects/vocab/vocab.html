@@ -10,13 +10,6 @@
     <link rel="stylesheet" href="stylesheets_vocab/commonStyleSheet.css">
     <!-- <link rel="stylesheet" href="src/stylesheets/loader.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script>
-        $(function() {
-            $("#loading").load("/common/loading/loading.html");
-            $("#floating-tools").load("/common/floating_tools/floating_tools.html");
-        });
-        $(document).ready( function() {console.log("ready");});
-    </script>
     <script src="/src/script/basic_responsive_layout.js" defer></script>
 
     <script src="script_vocab/login.js" defer></script>
@@ -95,6 +88,11 @@
     </div>
 
     <div id="floating-tools"></div>
+
+    <script>
+        $("#loading").load("/common/loading/loading.html");
+        $("#floating-tools").load("/common/floating_tools/floating_tools.html");
+    </script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>

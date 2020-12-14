@@ -32,7 +32,6 @@
 ::-webkit-scrollbar-track {
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  /* background: var(--tool-button-background-color); */
   background: var(--general-button-background-color-hover);
 }
 
@@ -40,8 +39,6 @@
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  /* background: var(--text-color); */
-  /* background: var(--general-button-background-color-hover); */
   background: var(--tool-button-background-color);
 }
 
