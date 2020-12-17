@@ -23,6 +23,14 @@ function backToTop() {
     });
 }
 
+function toVH(px) {
+    return px * 100 / window.innerHeight;
+}
+
+function toVW(px) {
+    return px * 100 / window.innerWidth;
+}
+
 function onScroll() {
     // show or hide display button
     if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
@@ -33,16 +41,19 @@ function onScroll() {
         toggleThemeButton.style.bottom = "20px";
     }
 
+    let title = document.querySelector("#title")
+    let scrollTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+
     // resizing header as scrolling
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        headerNav.style.padding = "10px 0";
+    if (toVH(scrollTop) > 36 - toVH(title.offsetHeight)) {
+        headerNav.style.padding = "2vh 0";
         headerNav.style.position = "fixed";
-        container.style.marginTop = "370px";
+        container.style.marginTop = 37 + toVH(title.offsetHeight) + "vh";
     } else {
         // headerNav.style.padding = "160px 0";
-        let paddingTop = Math.min(310, 160 + Math.max(document.body.scrollTop, document.documentElement.scrollTop));
-        let paddingBot = Math.max(10, 160 - Math.max(document.body.scrollTop, document.documentElement.scrollTop));
-        headerNav.style.padding = paddingTop.toString() + "px 0 " + paddingBot.toString() +"px";
+        let paddingTop = Math.min(38, 20 + toVH(scrollTop)) - toVH(title.offsetHeight);
+        let paddingBot = Math.max(2, 20 - toVH(scrollTop));
+        headerNav.style.padding = paddingTop.toString() + "vh 0 " + paddingBot.toString() +"vh";
         headerNav.style.position = "relative";
         container.style.marginTop = "0";
     }
