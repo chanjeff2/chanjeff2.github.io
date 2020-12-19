@@ -20,4 +20,8 @@
     --error-red: #FF9494;
     --valid-green: limegreen;
     --focus-blue: #719ECE;
+
+    --project-panel-bg: #0001;
+
+    --test: brightness(0.75);
 }
