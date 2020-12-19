@@ -5,6 +5,7 @@ let container = document.querySelector("#container");
 let theme = document.querySelector("#theme");
 
 let backToTopButton = document.querySelector("#backToTop");
+let toggleSnowEffectButton = document.querySelector("#snowBtn")
 
 backToTopButton.onclick = function() { backToTop() };
 
@@ -36,23 +37,27 @@ function onScroll() {
     if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
         backToTopButton.style.visibility = "visible";
         toggleThemeButton.style.bottom = "90px";
+        toggleSnowEffectButton.style.bottom = "160px";
     } else {
         backToTopButton.style.visibility = "hidden";
         toggleThemeButton.style.bottom = "20px";
+        toggleSnowEffectButton.style.bottom = "90px";
     }
 
     let title = document.querySelector("#title")
-    let scrollTop = Math.max(document.body.scrollTop, document.documentElement.scrollTop);
+    let scrollTop = toVH(Math.max(document.body.scrollTop, document.documentElement.scrollTop));
+    let header_height = 40; // vh
+    let header_padding = 3; // vh
+    let title_height = toVH(title?.offsetHeight ?? 0); // vh
 
     // resizing header as scrolling
-    if (toVH(scrollTop) > 36 - toVH(title.offsetHeight)) {
-        headerNav.style.padding = "2vh 0";
+    if (scrollTop > header_height - header_padding * 2) {
+        headerNav.style.padding = (header_padding - title_height / 2) + "vh 0";
         headerNav.style.position = "fixed";
-        container.style.marginTop = 37 + toVH(title.offsetHeight) + "vh";
+        container.style.marginTop = "40vh";
     } else {
-        // headerNav.style.padding = "160px 0";
-        let paddingTop = Math.min(38, 20 + toVH(scrollTop)) - toVH(title.offsetHeight);
-        let paddingBot = Math.max(2, 20 - toVH(scrollTop));
+        let paddingBot = (header_height - scrollTop) / 2 - title_height / 2;
+        let paddingTop = scrollTop + paddingBot;
         headerNav.style.padding = paddingTop.toString() + "vh 0 " + paddingBot.toString() +"vh";
         headerNav.style.position = "relative";
         container.style.marginTop = "0";

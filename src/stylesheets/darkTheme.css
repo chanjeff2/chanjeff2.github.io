@@ -1,11 +1,23 @@
 :root {
     --background-color: #222;
+
     --text-color: #ccc;
+
+    --input-text-color: #bbb;
+    --input-underline: #ccc;
+
     --link-color: #f96;
+
     --general-button-background-color: #ccc;
     --general-button-background-color-hover: #aaa;
+
     --tool-button-background-color: #eee;
     --tool-button-background-color-hover: #ccc;
+
     --github-icon-filter: brightness(0.75);
     --github-icon-filter-hover: brightness(0.625);
+
+    --error-red: #FF9494;
+    --valid-green: palegreen;
+    --focus-blue: #719ECE;
 }

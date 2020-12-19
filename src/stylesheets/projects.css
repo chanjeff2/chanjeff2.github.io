@@ -1,0 +1,41 @@
+#new-project-editor {
+	display: flex;
+	flex-wrap: wrap-reverse;
+	flex-direction: row-reverse;
+	justify-content: center;
+	align-items: center;
+}
+
+#new-project-panel {
+	flex: 1 0;
+}
+
+#new-project-preview-panel {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	flex: 2 1;
+}
+
+.project-panel {
+	display: flex;
+	/* width: 80vw; */
+	width: 100%;
+	background-color: #FFF1;
+	border-radius: 15px;
+}
+
+.project-panel img {
+	width: 40%;
+	margin: 5%;
+}
+
+.project-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	font-size: max(16px, 2vw);
+	width: 60%;
+}

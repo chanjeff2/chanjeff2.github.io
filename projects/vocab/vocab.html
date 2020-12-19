@@ -30,14 +30,14 @@
         <div id="loginBox" onclick="resizeLoginBlock()" >
             <h2 id="loginLabel">Log in</h2>
             <form id="login">
-                <div id="userNameInputField" class="inputField">
-                    <label for="userNameInput">User Name</label>
-                    <input id="userNameInput" placeholder="user name" onkeypress="if (event.keyCode === 13) {login(); return false;}">
+                <div id="userNameInputField" class="inputField, test-input-wrapper">
+                    <input type="text"  id="userNameInput" placeholder=" " onkeypress="if (event.keyCode === 13) {login(); return false;}">
+                    <label for="userNameInput" class="input-hint">User Name</label>
                 </div>
 
                 <div id="rememberMeField" class="inputField">
-                    <input type="checkbox" id="rememberMe">
                     <label for="rememberMe">Remember Me</label>
+                    <input type="checkbox" id="rememberMe">
                 </div>
             </form>
             <p id="loginHint"></p>
@@ -60,7 +60,8 @@
         <section>
             <form id="searchForm">
                 <label>
-                    Input your vocab here: <input id="textField" list="vocabs" autofocus autocomplete="false" placeholder="Input your vocab here." onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
+                    Input your vocab here: 
+                    <input id="textField" list="vocabs" autofocus autocomplete="false" placeholder="Input your vocab here." onkeypress="if (event.keyCode === 13) {searchDefinition(); return false;}">
                 </label>
                 <datalist id="vocabs">
                 </datalist>

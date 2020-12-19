@@ -20,30 +20,30 @@ function autoLogin() {
 }
 
 function signUp(userName = document.querySelector("#userNameInput").value) {
-    if(userName.trim() === "") {
-        console.log("please enter user name");
-        return;
-    }
-    let hint = document.querySelector("#loginHint");
-    let userRef = db.collection("users").doc(userName);
-    userRef.get().then(function(user) {
-        if(user.exists) {
-            console.log("user already exists.");
-            hint.innerHTML = "User already exists.";
-            hint.style.visibility = "visible";
-        } else {
-            // console.log("user does not exists.");
-            userRef.set({
-                userName: userName
-            });
-            hint.innerHTML = "Signed Up successfully";
-            hint.style.visibility = "visible";
-            login(userName)
-        }
-    })
-        .catch(function(error) {
-            console.log("error occurs: ", error);
-        })
+    // if(userName.trim() === "") {
+    //     console.log("please enter user name");
+    //     return;
+    // }
+    // let hint = document.querySelector("#loginHint");
+    // let userRef = db.collection("users").doc(userName);
+    // userRef.get().then(function(user) {
+    //     if(user.exists) {
+    //         console.log("user already exists.");
+    //         hint.innerHTML = "User already exists.";
+    //         hint.style.visibility = "visible";
+    //     } else {
+    //         // console.log("user does not exists.");
+    //         userRef.set({
+    //             userName: userName
+    //         });
+    //         hint.innerHTML = "Signed Up successfully";
+    //         hint.style.visibility = "visible";
+    //         login(userName)
+    //     }
+    // })
+    //     .catch(function(error) {
+    //         console.log("error occurs: ", error);
+    //     })
 }
 
 function login(userName = document.querySelector("#userNameInput").value) {

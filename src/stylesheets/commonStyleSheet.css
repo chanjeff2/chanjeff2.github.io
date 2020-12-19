@@ -1,5 +1,4 @@
-:root {
-  color-scheme: light dark;
+* {
   font-family: roboto;
 }
 
@@ -52,11 +51,9 @@ body{
 
 header {
   width: 100%;
-  height: 50px;
   display: flex;
   background-size: cover;
-  background: url("/res/drawable/code_bg.png") center;
-  padding: 20vh 0;
+  background: url("/res/drawable/code_bg.png") center fixed;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -119,28 +116,114 @@ input[type="button"]:hover {
   background-color: var(--general-button-background-color-hover);
 }
 
+input[type="checkbox"] {
+	display: inline-block;
+}
+
+form {
+	display: table;
+	border-spacing: 2vw ;
+}
+  
+form .test-input-wrapper {
+	display: table-row;
+	margin: 3%;
+}
+
+form .test-input-wrapper input[type="text"]:placeholder-shown + .input-hint,
+form .test-input-wrapper textarea:placeholder-shown + .input-hint {
+	transform: translateY(3vh);
+}
+
+form .test-input-wrapper .input-hint {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+						supported by Chrome, Edge, Opera and Firefox */
+	cursor: text;
+	text-align: right;
+	display: block;
+	width: fit-content;
+	white-space: normal;
+	
+	font-size: max(16px, 2vw);
+	font-weight: bold;
+	transition: transform 300ms;
+}
+
+form .test-input-wrapper input[type="text"]:focus + .input-hint,
+form .test-input-wrapper textarea:focus + .input-hint {
+	transform: unset;
+}
+
+form .test-input-wrapper textarea {
+	resize: none;
+	display: inline-block;
+}
+
+form .test-input-wrapper input[type="text"],
+form .test-input-wrapper textarea {
+	min-width: 30vw;
+	min-height: 3vh;
+	outline: unset;
+	background-color: transparent;
+	border: 0;
+	border-bottom: 2px solid;
+	color: var(--input-text-color);
+	transition: 300ms;
+	font-size: max(16px, 2vw);
+}
+
+form .test-input-wrapper input[type="text"]:invalid,
+form .test-input-wrapper textarea:invalid {
+	border-bottom-color: var(--error-red);
+}
+
+form .test-input-wrapper input[type="text"]:valid,
+form .test-input-wrapper textarea:valid {
+	border-bottom-color: var(--valid-green);
+}
+
+form .test-input-wrapper input[type="text"]:placeholder-shown,
+form .test-input-wrapper textarea:placeholder-shown {
+	border-bottom-color: var(--input-underline);
+}
+
+form .test-input-wrapper input[type="text"]:focus,
+form .test-input-wrapper textarea:focus {
+	border-bottom-color: var(--focus-blue);
+}
+
+form .test-input-wrapper {
+	display: flex;
+	flex-direction: column-reverse;
+}
+
 #title {
-  color: white;
-  text-shadow: 2px 1px 6px black;
-  margin: 0;
+	color: white;
+	text-shadow: 2px 1px 6px black;
+	margin: 0;
 }
 
 
 #container {
-  display: flex;
-  padding: 0 20px;
+	display: flex;
+	padding: 0 20px;
 }
 
 #container nav {
-  width: 150px;
-  /*background: rgba(180, 255, 255, 1);*/
-  background: url("/res/img_vocab/Cute_cat.jpeg");
-  background-size: contain;
+	width: 150px;
+	/*background: rgba(180, 255, 255, 1);*/
+	background: url("/res/img_vocab/Cute_cat.jpeg");
+	background-size: contain;
 }
 
 section {
-  padding: 20px;
-  width: 100%;
+	padding: 20px;
+	width: 100%;
 }
 
 .circleIcon {
@@ -163,7 +246,6 @@ section {
 }
 
 #mainIconsContainer {
-  margin: auto;
   width: 90%;
   display: flex;
   flex-wrap: wrap;
@@ -185,8 +267,8 @@ section {
   min-height: 50px;
   max-height: 150px;
   border-radius: 10px;
-  padding: 5%;
-  margin: 2.5%;
+  padding: 3%;
+  margin: 3%;
   filter: var(--github-icon-filter);
   transition: 500ms;
 }
@@ -204,13 +286,22 @@ section {
 
 .mainIcon p {
   text-align: center;
-  width: fit-content;
   white-space: nowrap;
-  margin: auto;
-  font-size: min(32px, 5vw);
+  margin: 0;
+  font-size: min(24px, 3vw);
 }
 
 #backToTop {
   visibility: hidden;
   padding: 10px 9px;
+}
+
+#snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
 }
