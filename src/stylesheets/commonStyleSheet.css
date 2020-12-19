@@ -119,14 +119,8 @@ input[type="button"]:hover {
 input[type="checkbox"] {
 	display: inline-block;
 }
-
-form {
-	display: table;
-	border-spacing: 2vw ;
-}
   
 form .test-input-wrapper {
-	display: table-row;
 	margin: 3%;
 }
 
@@ -216,13 +210,11 @@ form .test-input-wrapper {
 
 #container nav {
 	width: 150px;
-	/*background: rgba(180, 255, 255, 1);*/
 	background: url("/res/img_vocab/Cute_cat.jpeg");
 	background-size: contain;
 }
 
 section {
-	padding: 20px;
 	width: 100%;
 }
 

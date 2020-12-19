@@ -8,6 +8,7 @@
 
 #new-project-panel {
 	flex: 1 0;
+	padding: 0 10px;
 }
 
 #new-project-preview-panel {
@@ -15,12 +16,12 @@
 	justify-content: center;
 	align-items: center;
 
-	flex: 2 1;
+	flex: 1 0 50vw;
+	padding: 0 10px;
 }
 
 .project-panel {
 	display: flex;
-	/* width: 80vw; */
 	width: 100%;
 	background-color: #FFF1;
 	border-radius: 15px;
