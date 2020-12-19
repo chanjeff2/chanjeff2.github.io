@@ -1,3 +1,6 @@
 "use strict";
 
-window.onunload = function(){};
+function testAreaResize(element) {
+    element.style.height = "";
+    element.style.height = element.scrollHeight + "px";
+}
