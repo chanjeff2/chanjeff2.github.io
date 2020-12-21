@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 function toggleSnowEffect() {
+    let snow = document.querySelector("#snow");
     if (snow.style.display == "block") {
         snow.style.display = "none";
     } else {

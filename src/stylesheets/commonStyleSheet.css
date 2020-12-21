@@ -121,7 +121,7 @@ input[type="checkbox"] {
 }
   
 form .test-input-wrapper {
-	margin: 3%;
+	margin: 2% 0;
 }
 
 form .test-input-wrapper input[type="text"]:placeholder-shown + .input-hint,
@@ -161,7 +161,7 @@ form .test-input-wrapper textarea {
 form .test-input-wrapper input[type="text"],
 form .test-input-wrapper textarea {
 	min-width: 30vw;
-	min-height: 3vh;
+	min-height: 4vh;
 	outline: unset;
 	background-color: transparent;
 	border: 0;
@@ -238,6 +238,7 @@ section {
 }
 
 #mainIconsContainer {
+  margin: 5% auto;
   width: 90%;
   display: flex;
   flex-wrap: wrap;
@@ -280,7 +281,7 @@ section {
   text-align: center;
   white-space: nowrap;
   margin: 0;
-  font-size: min(24px, 3vw);
+  font-size: clamp(24px, 3vw, 36px);
 }
 
 #backToTop {
