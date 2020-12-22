@@ -23,5 +23,8 @@
 
     --project-panel-bg: #0001;
 
-    --test: brightness(0.75);
+    --adaptive-icon-filter: brightness(0.125);
+    --adaptive-icon-filter-hover: brightness(0.25);
+    --revert-adaptive-icon-filter: brightness(0.75);
+    --revert-adaptive-icon-filter-hover: brightness(0.625);
 }

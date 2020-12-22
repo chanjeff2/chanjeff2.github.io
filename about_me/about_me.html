@@ -10,15 +10,14 @@
     
     <script src="/src/script/loadTheme.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/common/loadElements.js" defer></script>
     <script src="/src/script/basic_responsive_layout.js" defer></script>
     <!-- All other script should be place above. -->
 </head>
 
 <body>
-    
-    <div id="loading"></div>
-
-    <header id="header"></header>
+    <div id="loader-wrapper"></div>
+    <script src="/common/loading/loader.js"></script>
 
     <div id="container">
         <section>
@@ -27,13 +26,6 @@
             </div>
         </section>
     </div>
-
-    <div id="floating-tools"></div>
-    
-    <script>
-        $("#loading").load("/common/loading/loading.html");
-        $("#floating-tools").load("/common/floating_tools/floating_tools.html");
-    </script>
 
 </body>
 </html>

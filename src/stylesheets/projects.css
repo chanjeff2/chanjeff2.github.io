@@ -39,4 +39,5 @@
 	align-items: flex-start;
 	font-size: max(16px, 2vw);
 	width: 60%;
+	word-break: break-word;
 }

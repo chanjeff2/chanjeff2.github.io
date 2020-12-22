@@ -1,25 +1,6 @@
 * {
   font-family: roboto;
-}
-
-#loading {
-  display: flex;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--background-color);
-  /* place-items: center; */
-  justify-content: center;
-  align-items: center;
-  transition: transform 1000ms;
-}
-
-#loading.slide-out-to-top {
-  transform: translateY(-100%);
-  -webkit-transform: translateY(-100%);
+  --header-height: 6;
 }
 
 /* width */
@@ -41,24 +22,28 @@
   background: var(--tool-button-background-color);
 }
 
+#loader-wrapper {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color);
+  transition: transform 500ms;
+}
+
+#loader-wrapper.slide-out-to-top {
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+}
+
 body{
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
   transition: ease-out 500ms;
   overflow: hidden;
-}
-
-header {
-  width: 100%;
-  display: flex;
-  background-size: cover;
-  background: url("/res/drawable/code_bg.png") center fixed;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  top: 0;
-  z-index: 10;
 }
 
 a {
@@ -119,7 +104,8 @@ input[type="button"]:hover {
 input[type="checkbox"] {
 	display: inline-block;
 }
-  
+
+/* better form */
 form .test-input-wrapper {
 	margin: 2% 0;
 }
@@ -150,7 +136,8 @@ form .test-input-wrapper .input-hint {
 
 form .test-input-wrapper input[type="text"]:focus + .input-hint,
 form .test-input-wrapper textarea:focus + .input-hint {
-	transform: unset;
+  transform: unset;
+  color: var(--focus-blue);
 }
 
 form .test-input-wrapper textarea {
@@ -196,6 +183,8 @@ form .test-input-wrapper {
 	flex-direction: column-reverse;
 }
 
+/* end of better form */
+
 #title {
 	color: white;
 	text-shadow: 2px 1px 6px black;
@@ -227,12 +216,10 @@ section {
   height: 50px;
   border-radius: 50px;
   margin: 10px;
-  filter: var(--github-icon-filter);
   transition: ease-out 500ms;
 }
 
 #githubIcon:hover {
-  filter: var(--github-icon-filter-hover);
   transform: scale(1.2);
   backface-visibility: hidden;
 }
@@ -242,7 +229,7 @@ section {
   width: 90%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -262,12 +249,10 @@ section {
   border-radius: 10px;
   padding: 3%;
   margin: 3%;
-  filter: var(--github-icon-filter);
   transition: 500ms;
 }
 
 .mainIcon:hover {
-  filter: var(--github-icon-filter);
   background-color: #FFF2;
   transform: scale(1.2);
   backface-visibility: hidden;
@@ -281,7 +266,7 @@ section {
   text-align: center;
   white-space: nowrap;
   margin: 0;
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: clamp(16px, 4vw, 36px);
 }
 
 #backToTop {
@@ -297,4 +282,28 @@ section {
   bottom: 0;
   pointer-events: none;
   z-index: 1000;
+}
+
+.adaptive-icon {
+  filter: var(--adaptive-icon-filter);
+}
+
+.adaptive-icon-no-hover {
+  filter: var(--adaptive-icon-filter);
+}
+
+.adaptive-icon:hover {
+  filter: var(--adaptive-icon-filter-hover);
+}
+
+.adaptive-icon-revert {
+  filter: var(--revert-adaptive-icon-filter);
+}
+
+.adaptive-icon-revert-no-hover {
+  filter: var(--revert-adaptive-icon-filter);
+}
+
+.adaptive-icon-revert:hover {
+  filter: var(--revert-adaptive-icon-filter-hover);
 }

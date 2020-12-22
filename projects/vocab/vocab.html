@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="stylesheets_vocab/commonStyleSheet.css">
     <!-- <link rel="stylesheet" href="src/stylesheets/loader.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/common/loadElements.js" header-type="large" defer></script>
     <script src="/src/script/basic_responsive_layout.js" defer></script>
 
     <script src="script_vocab/login.js" defer></script>
@@ -21,41 +22,34 @@
 </head>
 
 <body>
+    <div id="loader-wrapper"></div>
+    <script src="/common/loading/loader.js"></script>
 
-    <div id="loading"></div>
-
-    <header id="header">
-        <h1 id="title">Vocab Checker</h1>
-
-        <div id="loginBox" onclick="resizeLoginBlock()" >
-            <h2 id="loginLabel">Log in</h2>
-            <form id="login">
-                <div id="userNameInputField" class="inputField, test-input-wrapper">
-                    <input type="text"  id="userNameInput" placeholder=" " onkeypress="if (event.keyCode === 13) {login(); return false;}">
-                    <label for="userNameInput" class="input-hint">User Name</label>
-                </div>
-
-                <div id="rememberMeField" class="inputField">
-                    <label for="rememberMe">Remember Me</label>
-                    <input type="checkbox" id="rememberMe">
-                </div>
-            </form>
-            <p id="loginHint"></p>
-            <div id="loginButtonBox">
-                <input id="signUpButton" type="button" value="Sign Up" onclick="signUp()">
-                <input id="loginButton" type="button" value="Log in" onclick="login()">
+    <div id="loginBox" onclick="resizeLoginBlock()" >
+        <h2 id="loginLabel">Log in</h2>
+        <form id="login">
+            <div id="userNameInputField" class="inputField, test-input-wrapper">
+                <input type="text"  id="userNameInput" placeholder=" " onkeypress="if (event.keyCode === 13) {login(); return false;}">
+                <label for="userNameInput" class="input-hint">User Name</label>
             </div>
-        </div>
 
-        <div id="welcomeMSG">
-            <h2 id="welcomeLabel">Welcome [username]</h2>
+            <div id="rememberMeField" class="inputField">
+                <label for="rememberMe">Remember Me</label>
+                <input type="checkbox" id="rememberMe">
+            </div>
+        </form>
+        <p id="loginHint"></p>
+        <div id="loginButtonBox">
+            <input id="signUpButton" type="button" value="Sign Up" onclick="signUp()">
+            <input id="loginButton" type="button" value="Log in" onclick="login()">
         </div>
-    </header>
+    </div>
+
+    <div id="welcomeMSG">
+        <h2 id="welcomeLabel">Welcome [username]</h2>
+    </div>
 
     <div id="container">
-        <!-- <nav>
-            <p></p>
-        </nav> -->
 
         <section>
             <form id="searchForm">
@@ -87,13 +81,6 @@
             </div>
         </section>
     </div>
-
-    <div id="floating-tools"></div>
-
-    <script>
-        $("#loading").load("/common/loading/loading.html");
-        $("#floating-tools").load("/common/floating_tools/floating_tools.html");
-    </script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>

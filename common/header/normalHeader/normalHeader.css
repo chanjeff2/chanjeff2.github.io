@@ -1,0 +1,25 @@
+header {
+    width: 100%;
+    height: calc(var(--header-height) * 1vh);
+    display: flex;
+    background-size: cover;
+    background: url("/res/drawable/code_bg.png") center top fixed;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    top: 0;
+    z-index: 10;
+}
+
+#homepage-anchor {
+    height: 100%;
+    padding: 0 2vw;
+    justify-self: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#homepage-anchor img {
+    width: 4vh;
+}

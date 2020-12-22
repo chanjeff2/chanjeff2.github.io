@@ -1,0 +1,11 @@
+header {
+    width: 100%;
+    display: flex;
+    background-size: cover;
+    background: url("/res/drawable/code_bg.png") center top fixed;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0;
+    z-index: 10;
+  }

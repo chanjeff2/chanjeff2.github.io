@@ -10,26 +10,25 @@
    
     <script src="/src/script/loadTheme.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/common/loadElements.js" defer></script>
     <script src="/src/script/basic_responsive_layout.js" defer></script>
     <script src="/admin/new_project/new_project.js" defer></script>
-    <script src="/common/floating_tools/snow.js" defer></script>
     <!-- All other script should be place above. -->
 </head>
 
 <body>
-    <div id="loading"></div>
 
-    <header id="header"></header>
+    <div id="loader-wrapper"></div>
+    <script src="/common/loading/loader.js"></script>
 
     <div id="container">
         <section>
             <div id="mainIconsContainer">
-                <!-- <div id="testing" class="mainIcon">projects</div> -->
-                <a class="mainIcon">
+                <a class="mainIcon adaptive-icon">
                     <img src="/res/drawable/code.svg" alt="projects">
                     <p>new project</p>
                 </a>
-                <a class="mainIcon">
+                <a class="mainIcon adaptive-icon">
                     <img src="/res/drawable/about_me.svg" alt="about me">
                     <p>manage projects</p>
                 </a>
@@ -72,7 +71,7 @@
                 </div>
                 <div id="new-project-preview-panel">
                     <div class="project-panel">
-                        <img src="/res/drawable/code.svg" alt="project image">
+                        <img src="/res/drawable/code.svg" class="adaptive-icon-no-hover" alt="project image">
                         <div class="project-details">
                             <p>[Name]</p>
                             <p>[Description]</p>
@@ -83,13 +82,6 @@
             </div>
         </section>
     </div>
-
-    <div id="floating-tools"></div>
-
-    <script>
-        $("#loading").load("/common/loading/loading.html");
-        $("#floating-tools").load("/common/floating_tools/floating_tools.html");
-    </script>
 
 </body>
 </html>

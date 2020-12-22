@@ -9,28 +9,24 @@
    
     <script src="/src/script/loadTheme.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/common/loadElements.js" header-type="large" defer></script>
     <script src="/src/script/basic_responsive_layout.js" defer></script>
-    <script src="/common/floating_tools/snow.js" defer></script>
     <!-- All other script should be place above. -->
 </head>
 
 <body>
-
-    <div id="loading"></div>
-
-    <header id="header">
-        <h1 id="title">Welcome</h1>
-    </header>
+    <div id="loader-wrapper"></div>
+    <script src="/common/loading/loader.js"></script>
 
     <div id="container">
 
         <section>
             <div id="mainIconsContainer">
-                <a class="mainIcon" href="projects/projects.html">
+                <a class="mainIcon adaptive-icon" href="projects/projects.html">
                     <img src="res/drawable/code.svg" alt="projects">
                     <p>projects</p>
                 </a>
-                <a class="mainIcon" href="about_me/about_me.html">
+                <a class="mainIcon adaptive-icon" href="about_me/about_me.html">
                     <img src="res/drawable/about_me.svg" alt="about me">
                     <p>about me</p>
                 </a>
@@ -39,17 +35,10 @@
             <br>
 
             <a href="https://github.com/chanjeff2" target="_blank" id="github" class="circleIcon">
-                <img src="res/drawable/GitHub-Mark-Light-64px.png" id="githubIcon" alt="Github Icon">
+                <img class="adaptive-icon" src="res/drawable/GitHub-Mark-Light-64px.png" id="githubIcon" alt="Github Icon">
             </a>
         </section>
     </div>
-
-    <div id="floating-tools"></div>
-
-    <script>
-        $("#loading").load("/common/loading/loading.html");
-        $("#floating-tools").load("/common/floating_tools/floating_tools.html");
-    </script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
