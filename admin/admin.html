@@ -37,25 +37,53 @@
             <div id="new-project-editor">
                 <div id="new-project-panel">
                     <form autocomplete="off" oninput="onInput()">
-                        <div class="test-input-wrapper">
+                        <div class="text-input-wrapper">
                             <input type="text" id="project-name" name="project-name" placeholder=" " required>
                             <label for="project-name" class="input-hint">Name</label>
                             
                         </div>
-                        <div class="test-input-wrapper">
+                        <div class="text-input-wrapper">
                             <textarea type="text" rows="1" oninput="testAreaResize(this)" id="project-description" name="project-description" placeholder=" "></textarea>
                             <label for="project-description" class="input-hint">Description</label>
                             
                         </div>
-                        <div class="test-input-wrapper">
-                            <input type="text" id="project-language" name="project-language" placeholder=" ">
-                            <label for="project-language" class="input-hint">Language</label>
+                        <div class="checkbox-group-wrapper" id="project-language">
+                            <p>Language</p>
+                            <input type="checkbox" id="C/C++" name="C/C++">
+                            <label for="C/C++" class="input-hint">C/C++</label>
                             
+                            <input type="checkbox" id="Java" name="Java">
+                            <label for="Java" class="input-hint">Java</label>
+
+                            <input type="checkbox" id="Kotlin" name="Kotlin">
+                            <label for="Kotlin" class="input-hint">Kotlin</label>
+                            
+                            <input type="checkbox" id="Python" name="Python">
+                            <label for="Python" class="input-hint">Python</label>
+                            
+                            <input type="checkbox" id="HTML-CSS" name="HTML-CSS">
+                            <label for="HTML-CSS" class="input-hint">HTML CSS</label>
+
+                            <input type="checkbox" id="JavaScript" name="JavaScript">
+                            <label for="JavaScript" class="input-hint">JavaScript</label>
                         </div>
-                        <div class="test-input-wrapper">
-                            <input type="text" id="project-platform" name="project-platform" placeholder=" ">
-                            <label for="project-platform" class="input-hint">Platform</label>
+
+                        <div class="checkbox-group-wrapper" id="project-platform">
+                            <p>Platform</p>
+                            <input type="checkbox" id="Window" name="Window">
+                            <label for="Window" class="input-hint">Window</label>
+
+                            <input type="checkbox" id="Linux" name="Linux">
+                            <label for="Linux" class="input-hint">Linux</label>
+
+                            <input type="checkbox" id="MacOS" name="MacOS">
+                            <label for="MacOS" class="input-hint">MacOS</label>
                             
+                            <input type="checkbox" id="Android" name="Android">
+                            <label for="Android" class="input-hint">Android</label>
+                            
+                            <input type="checkbox" id="iOS" name="iOS">
+                            <label for="iOS" class="input-hint">iOS</label>
                         </div>
                         <div class="test-input-wrapper">
                             <input type="text" id="project-platform" name="project-platform" placeholder=" ">

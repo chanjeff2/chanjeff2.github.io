@@ -11,12 +11,18 @@ class Project {
 
 function onInput() {
     let name = document.querySelector("#project-name").value;
-    console.log(name);
     let description = document.querySelector("#project-description").value;
-    console.log(description);
-    let language = document.querySelector("#project-language").value;
+    let languageNodes = document.querySelector("#project-language").querySelectorAll("input[type=checkbox]:checked + .input-hint");
+    let language = [];
+    languageNodes.forEach( node => {
+        language.push(node.innerHTML);
+    });
     console.log(language);
-    let platform = document.querySelector("#project-platform").value;
+    let platformNodes = document.querySelector("#project-platform").querySelectorAll("input[type=checkbox]:checked + .input-hint");
+    let platform = [];
+    platformNodes.forEach( node => {
+        platform.push(node.innerHTML);
+    });
     console.log(platform);
 
     let newProject = new Project(name, description, language, platform);
@@ -42,7 +48,7 @@ function generateProjectPanel(proj_json_string) {
     let project_details = document.createElement("div");
     project_details.classList.toggle("project-details");
 
-    let name = document.createElement("p");
+    let name = document.createElement("h2");
     name.innerHTML = project.name ? project.name : "[name]";
 
     project_details.append(name);
@@ -52,8 +58,13 @@ function generateProjectPanel(proj_json_string) {
 
     project_details.append(description);
 
+    let language = document.createElement("p");
+    language.innerHTML = project.language.length > 0 ? project.language.join(", ") : "[language]";
+
+    project_details.append(language);
+
     let platform = document.createElement("p");
-    platform.innerHTML = project.platform ? project.platform : "[platform]";
+    platform.innerHTML = project.platform.length > 0 ? project.platform.join(", ") : "Unspecified";
 
     project_details.append(platform);
 

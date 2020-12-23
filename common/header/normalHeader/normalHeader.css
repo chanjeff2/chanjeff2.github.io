@@ -18,8 +18,10 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #ccc;
 }
 
 #homepage-anchor img {
     width: 4vh;
+    margin-right: 1vw;
 }

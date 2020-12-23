@@ -22,14 +22,18 @@
 
 .project-panel {
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
 	background-color: var(--project-panel-bg);
 	border-radius: 15px;
+	padding: 20px;
+	gap: 3vw;
 }
 
 .project-panel img {
-	width: 40%;
-	margin: 5%;
+	width: 200px;
 }
 
 .project-details {
@@ -38,6 +42,6 @@
 	justify-content: center;
 	align-items: flex-start;
 	font-size: max(16px, 2vw);
-	width: 60%;
 	word-break: break-word;
+	flex-grow: 1;
 }

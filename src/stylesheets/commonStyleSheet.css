@@ -106,16 +106,19 @@ input[type="checkbox"] {
 }
 
 /* better form */
-form .test-input-wrapper {
-	margin: 2% 0;
+/* text input */
+form .text-input-wrapper {
+  margin: 2% 0;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
-form .test-input-wrapper input[type="text"]:placeholder-shown + .input-hint,
-form .test-input-wrapper textarea:placeholder-shown + .input-hint {
+form .text-input-wrapper input[type="text"]:placeholder-shown + .input-hint,
+form .text-input-wrapper textarea:placeholder-shown + .input-hint {
 	transform: translateY(3vh);
 }
 
-form .test-input-wrapper .input-hint {
+form .text-input-wrapper .input-hint {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
 	-khtml-user-select: none; /* Konqueror HTML */
@@ -124,7 +127,7 @@ form .test-input-wrapper .input-hint {
 	user-select: none; /* Non-prefixed version, currently
 						supported by Chrome, Edge, Opera and Firefox */
 	cursor: text;
-	text-align: right;
+	text-align: start;
 	display: block;
 	width: fit-content;
 	white-space: normal;
@@ -134,19 +137,19 @@ form .test-input-wrapper .input-hint {
 	transition: transform 300ms;
 }
 
-form .test-input-wrapper input[type="text"]:focus + .input-hint,
-form .test-input-wrapper textarea:focus + .input-hint {
+form .text-input-wrapper input[type="text"]:focus + .input-hint,
+form .text-input-wrapper textarea:focus + .input-hint {
   transform: unset;
   color: var(--focus-blue);
 }
 
-form .test-input-wrapper textarea {
+form .text-input-wrapper textarea {
 	resize: none;
 	display: inline-block;
 }
 
-form .test-input-wrapper input[type="text"],
-form .test-input-wrapper textarea {
+form .text-input-wrapper input[type="text"],
+form .text-input-wrapper textarea {
 	min-width: 30vw;
 	min-height: 4vh;
 	outline: unset;
@@ -158,31 +161,78 @@ form .test-input-wrapper textarea {
 	font-size: max(16px, 2vw);
 }
 
-form .test-input-wrapper input[type="text"]:invalid,
-form .test-input-wrapper textarea:invalid {
+form .text-input-wrapper input[type="text"]:invalid,
+form .text-input-wrapper textarea:invalid {
 	border-bottom-color: var(--error-red);
 }
 
-form .test-input-wrapper input[type="text"]:valid,
-form .test-input-wrapper textarea:valid {
+form .text-input-wrapper input[type="text"]:valid,
+form .text-input-wrapper textarea:valid {
 	border-bottom-color: var(--valid-green);
 }
 
-form .test-input-wrapper input[type="text"]:placeholder-shown,
-form .test-input-wrapper textarea:placeholder-shown {
+form .text-input-wrapper input[type="text"]:placeholder-shown,
+form .text-input-wrapper textarea:placeholder-shown {
 	border-bottom-color: var(--input-underline);
 }
 
-form .test-input-wrapper input[type="text"]:focus,
-form .test-input-wrapper textarea:focus {
+form .text-input-wrapper input[type="text"]:focus,
+form .text-input-wrapper textarea:focus {
 	border-bottom-color: var(--focus-blue);
 }
 
-form .test-input-wrapper {
-	display: flex;
-	flex-direction: column-reverse;
+/* end of text input */
+/* checkbox */
+
+form .checkbox-group-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, min-content auto);
+  /* display: flex; */
+  gap: 5px;
+  padding: 2vh 0;
 }
 
+form .checkbox-group-wrapper p {
+  text-align: start;
+	display: block;
+	width: fit-content;
+  white-space: normal;
+
+  grid-column: 1/-1;
+  margin: unset;
+	
+	font-size: max(16px, 2vw);
+	font-weight: bold;
+}
+
+form .checkbox-group-wrapper .input-hint {
+  margin: auto 0;
+  user-select: none;
+  font-size: max(14px, 1.5vw);
+}
+
+form .checkbox-group-wrapper input[type="checkbox"] {
+  outline: unset;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+  border: 2px solid var(--background-color);
+  border-radius: 5px;
+  background: transparent;
+  box-shadow: 0 0 0 1.5px var(--text-color);
+  transition: transform 500ms;
+}
+
+form .checkbox-group-wrapper input[type="checkbox"]:checked {
+  background: var(--focus-blue);
+}
+
+form .checkbox-group-wrapper input[type="checkbox"]:checked + .input-hint {
+  color: var(--focus-blue);
+}
+
+/* end of checkbox */
 /* end of better form */
 
 #title {
@@ -204,7 +254,9 @@ form .test-input-wrapper {
 }
 
 section {
-	width: 100%;
+  width: 100%;
+  padding-top: 2vh;
+  padding-bottom: 10vh;
 }
 
 .circleIcon {
