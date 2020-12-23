@@ -1,13 +1,33 @@
 "use strict";
 
 class Project {
-    constructor(name, description, language, platform) {
+    constructor(name, description, language, platform, image) {
         this.name = name;
         this.description = description;
         this.language = language;
         this.platform = platform;
+        this.image = image;
     };
 };
+
+function onUploadFile(input) {
+    console.log(input.files);
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            let img = document.createElement("img");
+            img.src = e.target.result;
+            img.addEventListener("click", () => {
+                img.remove();
+                $(".new-project-form").trigger("input");
+            })
+            $(".upload-preivew-box").append(img);
+            $(".new-project-form").trigger("input");
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 function onInput() {
     let name = document.querySelector("#project-name").value;
@@ -23,9 +43,15 @@ function onInput() {
     platformNodes.forEach( node => {
         platform.push(node.innerHTML);
     });
-    console.log(platform);
 
-    let newProject = new Project(name, description, language, platform);
+    let imageNodes = document.querySelector(".upload-preivew-box").querySelectorAll("img");
+    let image = [];
+    imageNodes.forEach( node => {
+        console.log(node);
+        image.push(node.src);
+    })
+
+    let newProject = new Project(name, description, language, platform, image);
     let json_string = JSON.stringify(newProject);
 
     generateProjectPanel(json_string);
@@ -40,7 +66,8 @@ function generateProjectPanel(proj_json_string) {
     project_panel.classList.toggle("project-panel");
 
     let img = document.createElement("img");
-    img.src = "/res/drawable/code.svg";
+    console.log(project.image);
+    img.src = project.image.length > 0 ? project.image[0] : "/res/drawable/code.svg";
     img.alt = "project image";
 
     project_panel.append(img);

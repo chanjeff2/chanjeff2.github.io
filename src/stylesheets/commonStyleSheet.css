@@ -233,6 +233,82 @@ form .checkbox-group-wrapper input[type="checkbox"]:checked + .input-hint {
 }
 
 /* end of checkbox */
+/* file upload */
+
+.upload-uploading,
+.upload-success,
+.upload-error {
+  display: none;
+}
+
+.upload-icon {
+	width: 100%;
+}
+
+form .file-upload-wrapper p {
+	text-align: start;
+	display: block;
+	width: fit-content;
+	white-space: normal;
+
+  	margin: unset;
+
+	font-size: max(16px, 2vw);
+	font-weight: bold;
+}
+
+form .file-upload-wrapper .upload-box {	  
+  	cursor: pointer;
+	background: #c8dadf;
+	padding: 30px 20px;
+  	border-radius: 5px;
+
+	outline: 2px dashed #92b0b3;
+	outline-offset: -10px;
+	-webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+	transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+
+form .file-upload-wrapper .upload-box p {	  
+  	color: black;
+  	margin: auto;
+}
+
+form .file-upload-wrapper .upload-box:hover {	  
+  	outline-offset: -7px;
+}
+
+form .upload-box.is-dragover {
+  	background-color: #d7e1e4;
+  	outline-offset: -7px;
+}
+
+.box.is-uploading .box__input {
+  	visibility: none;
+}
+.box.is-uploading .box__uploading {
+  	display: block;
+}
+
+.upload-preivew-box {
+  	display: flex;
+}
+
+.upload-preivew-box:empty {
+  	display: none;
+}
+
+.upload-preivew-box img {
+	margin: 5px;
+	cursor: pointer;
+	width: 100px;
+}
+
+.upload-preivew-box img:hover {
+  	filter: blur(1px);
+}
+
+/* end of file upload */
 /* end of better form */
 
 #title {

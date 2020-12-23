@@ -34,7 +34,7 @@
 }
 
 .project-panel img {
-	width: 200px;
+	width: min(80vw, 400px);
 }
 
 .project-details {
@@ -45,4 +45,5 @@
 	font-size: max(16px, 2vw);
 	word-break: break-word;
 	flex-grow: 1;
+	flex-basis: min(30vw, 200px);
 }
