@@ -22,10 +22,10 @@
 
 .project-panel {
 	display: flex;
+	flex-grow: 1;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
 	background-color: var(--project-panel-bg);
 	border-radius: 15px;
 	padding: 20px;
