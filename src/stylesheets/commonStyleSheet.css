@@ -87,11 +87,6 @@ form .text-input-wrapper {
   flex-direction: column-reverse;
 }
 
-form .text-input-wrapper input[type="text"]:placeholder-shown + .field-name,
-form .text-input-wrapper textarea:placeholder-shown + .field-name {
-	transform: translateY(3vh);
-}
-
 form .text-input-wrapper .field-name,
 form .checkbox-group-wrapper .field-name,
 form .file-upload-wrapper .field-name {
@@ -114,6 +109,17 @@ form .file-upload-wrapper .field-name {
 
 form .text-input-wrapper .field-name {
 	transition: transform 300ms;
+}
+
+form .text-input-wrapper input[type="text"]:invalid + .field-name,
+form .text-input-wrapper textarea:invalid + .field-name{
+	color: var(--error-red);
+}
+
+form .text-input-wrapper input[type="text"]:placeholder-shown + .field-name,
+form .text-input-wrapper textarea:placeholder-shown + .field-name {
+	transform: translateY(3vh);
+	color: var(--input-text-color);
 }
 
 form .text-input-wrapper input[type="text"]:focus + .field-name,
@@ -205,8 +211,8 @@ form .checkbox-group-wrapper input[type="checkbox"]:checked + .input-hint {
 /* end of checkbox */
 /* file upload */
 
-form .file-upload-wrapper .upload-box .upload-icon {
-  width: 100%;
+form .file-upload-wrapper {
+	padding: 2vh 0;
 }
 
 form .file-upload-wrapper .upload-box .upload-icon {
