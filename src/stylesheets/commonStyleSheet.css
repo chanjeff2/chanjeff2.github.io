@@ -57,38 +57,10 @@ a.button {
   padding: 5px 15px;
 }
 
-button {
-  border: unset;
-  outline: unset;
-  background-color: var(--general-button-background-color);
-  border-radius: 20px;
-  padding: 5px 10px;
-  margin: 5px;
-  font-weight: bold;
-}
-
-button:hover {
-  background-color: var(--general-button-background-color-hover);
-}
-
-.button {
-  border: unset;
-  outline: unset;
-  background-color: var(--general-button-background-color);
-  border-radius: 20px;
-  padding: 5px 10px;
-  margin: 5px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: var(--general-button-background-color-hover);
-}
-
+button,
+.button,
 input[type="button"] {
   border: unset;
-  outline: unset;
   background-color: var(--general-button-background-color);
   border-radius: 20px;
   padding: 5px 10px;
@@ -97,6 +69,8 @@ input[type="button"] {
   cursor: pointer;
 }
 
+button:hover,
+.button:hover,
 input[type="button"]:hover {
   background-color: var(--general-button-background-color-hover);
 }
@@ -208,7 +182,7 @@ form .checkbox-group-wrapper .input-hint {
 }
 
 form .checkbox-group-wrapper input[type="checkbox"] {
-  outline: unset;
+  /* outline: unset; */
   appearance: none;
   height: 20px;
   width: 20px;
@@ -301,6 +275,11 @@ form .upload-box.is-dragover {
 
 .upload-preivew-box img:hover {
 	transform: scale(2.5);
+}
+
+form input[type="submit"] {
+	display: block;
+	margin: 10px auto;
 }
 
 /* end of file upload */

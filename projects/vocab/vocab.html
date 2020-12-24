@@ -30,12 +30,12 @@
         <form id="login">
             <div id="userNameInputField" class="inputField text-input-wrapper">
                 <input type="text"  id="userNameInput" placeholder=" " onkeypress="if (event.keyCode === 13) {login(); return false;}">
-                <label for="userNameInput" class="input-hint">User Name</label>
+                <label for="userNameInput" class="field-name">User Name</label>
             </div>
 
-            <div id="rememberMeField" class="inputField">
-                <label for="rememberMe">Remember Me</label>
+            <div id="rememberMeField" class="inputField checkbox-group-wrapper">
                 <input type="checkbox" id="rememberMe">
+                <label for="rememberMe" class="input-hint">Remember Me</label>
             </div>
         </form>
         <p id="loginHint"></p>

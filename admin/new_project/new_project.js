@@ -49,14 +49,25 @@ function onUploadFile(input) {
 }
 
 function onInput() {
+    let json_string = generateProjectJSONString();
+
+    let project_panel = generateProjectPanel(json_string);
+
+    let preview_section = document.querySelector("#new-project-preview-panel");
+    preview_section.innerHTML = "";
+    preview_section.append(project_panel);
+}
+
+function generateProjectJSONString() {
     let name = document.querySelector("#project-name").value;
     let description = document.querySelector("#project-description").value;
+    
     let languageNodes = document.querySelector("#project-language").querySelectorAll("input[type=checkbox]:checked + .input-hint");
     let language = [];
     languageNodes.forEach( node => {
         language.push(node.innerHTML);
     });
-    console.log(language);
+
     let platformNodes = document.querySelector("#project-platform").querySelectorAll("input[type=checkbox]:checked + .input-hint");
     let platform = [];
     platformNodes.forEach( node => {
@@ -66,27 +77,27 @@ function onInput() {
     let imageNodes = document.querySelector(".upload-preivew-box").querySelectorAll("img");
     let image = [];
     imageNodes.forEach( node => {
-        console.log(node);
         image.push(node.src);
     })
 
     let newProject = new Project(name, description, language, platform, image);
-    let json_string = JSON.stringify(newProject);
-
-    generateProjectPanel(json_string);
+    return JSON.stringify(newProject);
 }
 
 function generateProjectPanel(proj_json_string) {
     let project = JSON.parse(proj_json_string);
 
-    let preview_section = document.querySelector("#new-project-preview-panel");
-
     let project_panel = document.createElement("div");
     project_panel.classList.toggle("project-panel");
 
     let img = document.createElement("img");
-    console.log(project.image);
-    img.src = project.image.length > 0 ? project.image[0] : "/res/drawable/code.svg";
+
+    if (project.image.length > 0) {
+        img.src = project.image[0];
+    } else {
+        img.src = "/res/drawable/code.svg";
+        img.classList.toggle("adaptive-icon-no-hover");
+    }
     img.alt = "project image";
 
     project_panel.append(img);
@@ -116,6 +127,5 @@ function generateProjectPanel(proj_json_string) {
 
     project_panel.append(project_details);
 
-    preview_section.innerHTML = "";
-    preview_section.append(project_panel);
+    return project_panel;
 }
