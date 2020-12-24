@@ -9,10 +9,12 @@ $(".upload-box").on('drag dragstart dragend dragover dragenter dragleave drop', 
 
 .on('dragover dragenter', function() {
     $(".upload-box").addClass('is-dragover');
+    $(".upload-message").html("Drop Here!");
 })
 
 .on('dragleave dragend drop', function() {
     $(".upload-box").removeClass('is-dragover');
+    $(".upload-message").html("Choose a file or drag it here");
 })
 
 .on('drop', function(e) {

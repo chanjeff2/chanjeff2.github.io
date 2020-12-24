@@ -12,20 +12,39 @@ class Project {
 
 function onUploadFile(input) {
     console.log(input.files);
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+    let uploading = document.querySelector(".upload-message");
 
-        reader.onload = function (e) {
-            let img = document.createElement("img");
-            img.src = e.target.result;
-            img.addEventListener("click", () => {
-                img.remove();
-                $(".new-project-form").trigger("input");
-            })
-            $(".upload-preivew-box").append(img);
-            $(".new-project-form").trigger("input");
-        };
-        reader.readAsDataURL(input.files[0]);
+    if (input.files && input.files[0]) {
+
+        uploading.innerHTML = "Uploading...";
+
+        let imgFiles = Array.from(input.files);
+
+        let counter = imgFiles.length;
+
+        imgFiles.forEach( file => {
+            setTimeout(() => {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    let img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.addEventListener("click", () => {
+                        img.remove();
+                        $(".new-project-form").trigger("input");
+                    })
+                    $(".upload-preivew-box").append(img);
+                    $(".new-project-form").trigger("input");
+
+                    --counter;
+                    if (counter == 0) {
+                        uploading.innerHTML = "Done!";
+                        setTimeout(() => {uploading.innerHTML = "Choose a file or drag it here";}, 1000);
+                    }
+                };
+                reader.readAsDataURL(file);
+            }, 0);
+        });
     }
 }
 

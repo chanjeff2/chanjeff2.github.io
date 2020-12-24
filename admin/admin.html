@@ -40,16 +40,16 @@
                     <form class="new-project-form" autocomplete="off" oninput="onInput()">
                         <div class="text-input-wrapper">
                             <input type="text" id="project-name" name="project-name" placeholder=" " required>
-                            <label for="project-name" class="input-hint">Name</label>
+                            <label for="project-name" class="field-name">Name</label>
                             
                         </div>
                         <div class="text-input-wrapper">
                             <textarea type="text" rows="1" oninput="testAreaResize(this)" id="project-description" name="project-description" placeholder=" "></textarea>
-                            <label for="project-description" class="input-hint">Description</label>
+                            <label for="project-description" class="field-name">Description</label>
                             
                         </div>
                         <div class="checkbox-group-wrapper" id="project-language">
-                            <p>Language</p>
+                            <p class="field-name">Language</p>
                             <input type="checkbox" id="C/C++" name="C/C++">
                             <label for="C/C++" class="input-hint">C/C++</label>
                             
@@ -63,14 +63,14 @@
                             <label for="Python" class="input-hint">Python</label>
                             
                             <input type="checkbox" id="HTML-CSS" name="HTML-CSS">
-                            <label for="HTML-CSS" class="input-hint">HTML CSS</label>
+                            <label for="HTML-CSS" class="input-hint">HTML, CSS</label>
 
                             <input type="checkbox" id="JavaScript" name="JavaScript">
                             <label for="JavaScript" class="input-hint">JavaScript</label>
                         </div>
 
                         <div class="checkbox-group-wrapper" id="project-platform">
-                            <p>Platform</p>
+                            <p class="field-name">Platform</p>
                             <input type="checkbox" id="Window" name="Window">
                             <label for="Window" class="input-hint">Window</label>
 
@@ -88,19 +88,16 @@
                         </div>
 
                         <div class="file-upload-wrapper">
-                            <p>Image</p>
-                            <input class="upload-input" onChange="onUploadFile(this)" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple hidden/>
+                            <p class="field-name">Image</p>
+                            <input class="upload-input" onChange="onUploadFile(this)" accept="image/*" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple hidden/>
                             <label for="file">
                                 <div class="upload-box">
                                     <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43">
                                         <path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"></path>
                                     </svg>
-                                    <p>Choose a file or drag it here</p>
+                                    <p class="upload-message">Choose a file or drag it here</p>
                                 </div>
                             </label>
-                            <div class="upload-uploading">Uploading…</div>
-                            <div class="upload-success">Done!</div>
-                            <div class="upload-error">Error!</div>
                             <div class="upload-preivew-box"></div>
                         </div>
                         <div class="text-input-wrapper">

@@ -113,12 +113,14 @@ form .text-input-wrapper {
   flex-direction: column-reverse;
 }
 
-form .text-input-wrapper input[type="text"]:placeholder-shown + .input-hint,
-form .text-input-wrapper textarea:placeholder-shown + .input-hint {
+form .text-input-wrapper input[type="text"]:placeholder-shown + .field-name,
+form .text-input-wrapper textarea:placeholder-shown + .field-name {
 	transform: translateY(3vh);
 }
 
-form .text-input-wrapper .input-hint {
+form .text-input-wrapper .field-name,
+form .checkbox-group-wrapper .field-name,
+form .file-upload-wrapper .field-name {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
 	-khtml-user-select: none; /* Konqueror HTML */
@@ -134,11 +136,14 @@ form .text-input-wrapper .input-hint {
 	
 	font-size: max(16px, 2vw);
 	font-weight: bold;
+}
+
+form .text-input-wrapper .field-name {
 	transition: transform 300ms;
 }
 
-form .text-input-wrapper input[type="text"]:focus + .input-hint,
-form .text-input-wrapper textarea:focus + .input-hint {
+form .text-input-wrapper input[type="text"]:focus + .field-name,
+form .text-input-wrapper textarea:focus + .field-name {
   transform: unset;
   color: var(--focus-blue);
 }
@@ -187,22 +192,13 @@ form .text-input-wrapper textarea:focus {
 form .checkbox-group-wrapper {
   display: grid;
   grid-template-columns: repeat(2, min-content auto);
-  /* display: flex; */
   gap: 5px;
   padding: 2vh 0;
 }
 
-form .checkbox-group-wrapper p {
-  text-align: start;
-	display: block;
-	width: fit-content;
-  white-space: normal;
-
-  grid-column: 1/-1;
-  margin: unset;
-	
-	font-size: max(16px, 2vw);
-	font-weight: bold;
+form .checkbox-group-wrapper .field-name {
+  	grid-column: 1/-1;
+  	margin: unset;
 }
 
 form .checkbox-group-wrapper .input-hint {
@@ -235,31 +231,22 @@ form .checkbox-group-wrapper input[type="checkbox"]:checked + .input-hint {
 /* end of checkbox */
 /* file upload */
 
-.upload-uploading,
-.upload-success,
-.upload-error {
-  display: none;
+form .file-upload-wrapper .upload-box .upload-icon {
+  width: 100%;
 }
 
-.upload-icon {
-	width: 100%;
+form .file-upload-wrapper .upload-box .upload-icon {
+  width: 100%;
 }
 
-form .file-upload-wrapper p {
-	text-align: start;
-	display: block;
-	width: fit-content;
-	white-space: normal;
-
+form .file-upload-wrapper .field-name {
   	margin: unset;
-
-	font-size: max(16px, 2vw);
-	font-weight: bold;
 }
 
 form .file-upload-wrapper .upload-box {	  
   	cursor: pointer;
 	background: #c8dadf;
+	margin: 10px;
 	padding: 30px 20px;
   	border-radius: 5px;
 
@@ -269,9 +256,20 @@ form .file-upload-wrapper .upload-box {
 	transition: outline-offset .15s ease-in-out, background-color .15s linear;
 }
 
-form .file-upload-wrapper .upload-box p {	  
-  	color: black;
-  	margin: auto;
+form .file-upload-wrapper .upload-box * {	  
+	pointer-events: none;
+}
+
+form .file-upload-wrapper .upload-box .upload-message {	  
+	color: black;
+	margin: auto;
+
+	width: fit-content;
+	white-space: normal;
+	
+	font-size: max(16px, 2vw);
+	font-weight: bold;
+
 }
 
 form .file-upload-wrapper .upload-box:hover {	  
@@ -283,15 +281,10 @@ form .upload-box.is-dragover {
   	outline-offset: -7px;
 }
 
-.box.is-uploading .box__input {
-  	visibility: none;
-}
-.box.is-uploading .box__uploading {
-  	display: block;
-}
-
 .upload-preivew-box {
-  	display: flex;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 .upload-preivew-box:empty {
@@ -301,11 +294,13 @@ form .upload-box.is-dragover {
 .upload-preivew-box img {
 	margin: 5px;
 	cursor: pointer;
+	aspect-ratio: initial;
 	width: 100px;
+	transition: 500ms;
 }
 
 .upload-preivew-box img:hover {
-  	filter: blur(1px);
+	transform: scale(2.5);
 }
 
 /* end of file upload */
