@@ -112,17 +112,20 @@ form .text-input-wrapper .field-name {
 }
 
 form .text-input-wrapper input[type="text"]:invalid + .field-name,
+form .text-input-wrapper input[type="url"]:invalid + .field-name,
 form .text-input-wrapper textarea:invalid + .field-name{
 	color: var(--error-red);
 }
 
 form .text-input-wrapper input[type="text"]:placeholder-shown + .field-name,
+form .text-input-wrapper input[type="url"]:placeholder-shown + .field-name,
 form .text-input-wrapper textarea:placeholder-shown + .field-name {
 	transform: translateY(3vh);
 	color: var(--input-text-color);
 }
 
 form .text-input-wrapper input[type="text"]:focus + .field-name,
+form .text-input-wrapper input[type="url"]:focus + .field-name,
 form .text-input-wrapper textarea:focus + .field-name {
   transform: unset;
   color: var(--focus-blue);
@@ -134,6 +137,7 @@ form .text-input-wrapper textarea {
 }
 
 form .text-input-wrapper input[type="text"],
+form .text-input-wrapper input[type="url"],
 form .text-input-wrapper textarea {
 	min-width: 30vw;
 	min-height: 4vh;
@@ -147,21 +151,25 @@ form .text-input-wrapper textarea {
 }
 
 form .text-input-wrapper input[type="text"]:invalid,
+form .text-input-wrapper input[type="url"]:invalid,
 form .text-input-wrapper textarea:invalid {
 	border-bottom-color: var(--error-red);
 }
 
 form .text-input-wrapper input[type="text"]:valid,
+form .text-input-wrapper input[type="url"]:valid,
 form .text-input-wrapper textarea:valid {
 	border-bottom-color: var(--valid-green);
 }
 
 form .text-input-wrapper input[type="text"]:placeholder-shown,
+form .text-input-wrapper input[type="url"]:placeholder-shown,
 form .text-input-wrapper textarea:placeholder-shown {
 	border-bottom-color: var(--input-underline);
 }
 
 form .text-input-wrapper input[type="text"]:focus,
+form .text-input-wrapper input[type="url"]:focus,
 form .text-input-wrapper textarea:focus {
 	border-bottom-color: var(--focus-blue);
 }
