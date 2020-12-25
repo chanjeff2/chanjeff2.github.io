@@ -34,10 +34,14 @@
 }
 
 .project-panel .project-image {
-	width: min(80vw, 400px);
+	display: none;
+	width: 100%;
+	position: relative;
+	transition: ease-out 300ms;
 }
 
 .project-panel .project-video {
+	display: none;
 	width: min(80vw, 400px);
 	height: calc(min(80vw, 400px) * 0.5625);
 }
@@ -58,4 +62,102 @@
 	width: 100%;
 	justify-content: space-evenly;
 	align-items: center;
+}
+
+.media-container-wrapper {
+	position: relative;
+	height: calc(min(80vw, 400px) * 0.75);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.media-container {
+	position: relative;
+	width: min(80vw, 400px);
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	flex-flow: row nowrap;
+	transition: 500ms;
+}
+
+.media-container-left,
+.media-container-right {
+	cursor: pointer;
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	z-index: 50;
+	background: #2222;
+	outline: unset;
+	border: unset;
+	color: #eee;
+	transition: ease-out 200ms;
+	border-radius: 5px;
+}
+
+.media-container-left:hover,
+.media-container-right:hover {
+	background: #2225;
+}
+
+.media-container-left {
+	left: 0;
+}
+
+.media-container-right {
+	right: 0;
+}
+
+.multiple-media.media-container:hover > .media-container-left,
+.multiple-media.media-container:hover > .media-container-right {
+	visibility: visible;
+	opacity: 1;
+}
+
+.media-container > .display {
+	display: block;
+}
+
+.navigator-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	bottom: 0;
+}
+
+.navigator-container .navigator {
+	background: transparent;
+	border: unset;
+	color: var(--text-color);
+}
+
+.navigator-container .navigator .selector {
+	visibility: hidden;
+}
+
+.navigator-container .navigator.display .selector {
+	visibility: visible;
+}
+
+.slide-in-left {
+	left: -100%;
+	transform: translateX(-100%);
+}
+
+.slide-in-right {
+	transform: translateX(100%);
+}
+
+.slide-out-left {
+	position: absolute !important;
+	transform: translateX(-100%);
+}
+
+.slide-out-right {
+	position: absolute !important;
+	transform: translateX(100%);
 }

@@ -25,11 +25,11 @@
     <div id="container">
         <section>
             <div id="mainIconsContainer">
-                <a class="mainIcon adaptive-icon" tabindex="0">
+                <a class="mainIcon adaptive-icon-no-hover" tabindex="0">
                     <img src="/res/drawable/code.svg" alt="projects">
                     <p>new project</p>
                 </a>
-                <a class="mainIcon adaptive-icon" tabindex="0">
+                <a class="mainIcon adaptive-icon-no-hover" tabindex="0">
                     <img src="/res/drawable/about_me.svg" alt="about me">
                     <p>manage projects</p>
                 </a>
@@ -124,12 +124,13 @@
                         <input type="submit" class="button" value="submit" tabindex="0">
                     </form>
                 </div>
+
                 <div id="new-project-preview-panel"></div>
             </div>
         </section>
     </div>
 
-    <template id="project-anchor-icon">
+    <template id="template-project-anchor-icon">
         <a target="_blank" class="circleIcon responsive-button" tabindex="0">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <title>Project Link</title>
@@ -138,13 +139,13 @@
         </a>
     </template>
 
-    <template id="github-anchor-icon">
+    <template id="template-github-anchor-icon">
         <a target="_blank" class="circleIcon responsive-button" tabindex="0">
             <img class="adaptive-icon githubIcon" src="/res/drawable/GitHub-Mark-Light-64px.png" alt="Github Icon" title="Github Link">
         </a>
     </template>
 
-    <template id="download-anchor-icon">
+    <template id="template-download-anchor-icon">
         <a target="_blank" class="circleIcon responsive-button" tabindex="0">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <title>Download Link</title>
@@ -154,12 +155,41 @@
         </a>
     </template>
 
-    <template id="youtube-embedded-video">
+    <template id="template-youtube-embedded-video">
         <iframe 
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowfullscreen>
         </iframe>
     </template>
+
+    <template id="template-media-container">
+        <div class="media-container-wrapper">
+            <div class="media-container">
+                <button class="media-container-left" onclick="previousMedia(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/>
+                    </svg>
+                </button>
+        
+                <button class="media-container-right" onclick="nextMedia(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="navigator-container"></div>
+        </div>
+    </template>
+
+    <template id="template-navigator">
+        <button class="navigator" onclick="gotoMedia(this)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="5" fill="currentColor" class="selector"></circle>
+            </svg>
+        </button>
+    </template>
+
 </body>
 </html>
