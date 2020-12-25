@@ -280,7 +280,7 @@ form .upload-box.is-dragover {
 }
 
 .upload-preivew-box img:hover {
-	transform: scale(2.5);
+	transform: scale(1.5);
 }
 
 form input[type="submit"] {
@@ -319,11 +319,10 @@ section {
   border-radius: 50px;
 }
 
-#githubIcon {
-  width: 50px;
-  height: 50px;
+.githubIcon {
+  width: 48px;
+  height: 48px;
   border-radius: 50px;
-  margin: 10px;
   transition: ease-out 500ms;
 }
 
@@ -362,8 +361,15 @@ section {
 
 .mainIcon:hover {
   background-color: #FFF2;
-  transform: scale(1.2);
   backface-visibility: hidden;
+}
+
+.responsive-button {
+  transition: transform 500ms;
+}
+
+.responsive-button:hover {
+  transform: scale(1.2);
 }
 
 .mainIcon img {
