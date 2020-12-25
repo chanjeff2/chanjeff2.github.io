@@ -1,7 +1,6 @@
 "use strict";
 
 let backToTopButton = document.querySelector("#backToTop");
-let toggleSnowEffectButton = document.querySelector("#snowBtn")
 
 backToTopButton.onclick = function() { backToTop() };
 
@@ -22,13 +21,14 @@ function backToTop() {
 
 function onScroll() {
     // show or hide display button
+    let floatTools = document.querySelector("#floating-tools");
     if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        floatTools.style.bottom = "20px";
         backToTopButton.style.visibility = "visible";
-        toggleThemeButton.style.bottom = "90px";
-        toggleSnowEffectButton.style.bottom = "160px";
+        backToTopButton.style.opacity = 1;
     } else {
+        floatTools.style.bottom = "-38px";
+        backToTopButton.style.opacity = 0;
         backToTopButton.style.visibility = "hidden";
-        toggleThemeButton.style.bottom = "20px";
-        toggleSnowEffectButton.style.bottom = "90px";
     }
 }
