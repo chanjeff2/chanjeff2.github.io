@@ -1,13 +1,21 @@
 "use strict";
 
+$(document).ready(() => {
+    onInput();
+})
+
 class Project {
-    constructor(name, description, language, platform, image) {
-        this.name = name;
-        this.description = description;
-        this.language = language;
-        this.platform = platform;
-        this.image = image;
-    };
+    /*
+     * name
+     * description
+     * language
+     * platform
+     * image
+     * videoLink
+     * projectLink
+     * githubLink
+     * downloadLink
+     */
 };
 
 function onUploadFile(input) {
@@ -59,28 +67,64 @@ function onInput() {
 }
 
 function generateProjectJSONString() {
+    let newProject = new Project();
+
+    // name
     let name = document.querySelector("#project-name").value;
+    newProject.name = name;
+
+    // description
     let description = document.querySelector("#project-description").value;
+    newProject.description = description;
     
+    // language
     let languageNodes = document.querySelector("#project-language").querySelectorAll("input[type=checkbox]:checked + .input-hint");
     let language = [];
     languageNodes.forEach( node => {
         language.push(node.innerHTML);
     });
+    newProject.language = language;
 
+    // platform
     let platformNodes = document.querySelector("#project-platform").querySelectorAll("input[type=checkbox]:checked + .input-hint");
     let platform = [];
     platformNodes.forEach( node => {
         platform.push(node.innerHTML);
     });
+    newProject.platform = platform;
 
+    // image
     let imageNodes = document.querySelector(".upload-preivew-box").querySelectorAll("img");
     let image = [];
     imageNodes.forEach( node => {
         image.push(node.src);
     })
+    newProject.image = image;
 
-    let newProject = new Project(name, description, language, platform, image);
+    // video link
+    let videoLink = document.querySelector("#project-video-link").value;
+    let videoID_regex = /v=([\d\w]+)|\.be\/([\d\w]+)/;
+    let match = videoID_regex.exec(videoLink);
+    console.log(match);
+    let videoID = "";
+    if (match) {
+        videoID = match[1] ?? match[2];
+    }
+    console.log(videoID);
+    newProject.videoLink = videoID ? "https://www.youtube.com/embed/" + videoID : "";
+
+    // project link
+    let projectLink = document.querySelector("#project-link").value;
+    newProject.projectLink = projectLink;
+
+    // github link
+    let githubLink = document.querySelector("#project-github-link").value;
+    newProject.githubLink = githubLink;
+
+    // download link
+    let downloadLink = document.querySelector("#project-download-link").value;
+    newProject.downloadLink = downloadLink;
+
     return JSON.stringify(newProject);
 }
 
@@ -90,17 +134,34 @@ function generateProjectPanel(proj_json_string) {
     let project_panel = document.createElement("div");
     project_panel.classList.toggle("project-panel");
 
-    let img = document.createElement("img");
+    
 
     if (project.image.length > 0) {
+        let img = document.createElement("img");
+
         img.src = project.image[0];
+        img.classList.toggle("project-image");
+
+        img.alt = "project image";
+        project_panel.append(img);
+    } else if (project.videoLink) {
+        let template = document.querySelector("#youtube-embedded-video");
+        let video = template.content.cloneNode(true);
+
+        video.querySelector("iframe").src = project.videoLink;
+        video.querySelector("iframe").classList.toggle("project-video");
+
+        project_panel.append(video);
     } else {
+        let img = document.createElement("img");
+
         img.src = "/res/drawable/code.svg";
         img.classList.toggle("adaptive-icon-no-hover");
-    }
-    img.alt = "project image";
+        img.classList.toggle("project-image");
 
-    project_panel.append(img);
+        img.alt = "project image";
+        project_panel.append(img);
+    }
 
     let project_details = document.createElement("div");
     project_details.classList.toggle("project-details");
@@ -116,14 +177,45 @@ function generateProjectPanel(proj_json_string) {
     project_details.append(description);
 
     let language = document.createElement("p");
-    language.innerHTML = project.language.length > 0 ? project.language.join(", ") : "[language]";
+    language.innerHTML = "<strong>Language</strong><br>" + (project.language.length > 0 ? project.language.join(", ") : "[language]");
 
     project_details.append(language);
 
     let platform = document.createElement("p");
-    platform.innerHTML = project.platform.length > 0 ? project.platform.join(", ") : "Unspecified";
+    platform.innerHTML = "<strong>Platform</strong><br>" + (project.platform.length > 0 ? project.platform.join(", ") : "Unspecified");
 
     project_details.append(platform);
+
+    if (project.projectLink || project.githubLink || project.downloadLink) {
+        let flexbox = document.createElement("div");
+        flexbox.classList.toggle("icons-container");
+
+        if (project.projectLink) {
+            let template = document.querySelector("#project-anchor-icon");
+            let project = template.content.cloneNode(true);
+            project.querySelector("a").href = project.projectLink;
+    
+            flexbox.append(project);
+        }
+
+        if (project.githubLink) {
+            let template = document.querySelector("#github-anchor-icon");
+            let github = template.content.cloneNode(true);
+            github.querySelector("a").href = project.githubLink;
+    
+            flexbox.append(github);
+        }
+    
+        if (project.downloadLink) {
+            let template = document.querySelector("#download-anchor-icon");
+            let download = template.content.cloneNode(true);
+            download.querySelector("a").href = project.downloadLink;
+    
+            flexbox.append(download);
+        }
+
+        project_details.append(flexbox);
+    }
 
     project_panel.append(project_details);
 
