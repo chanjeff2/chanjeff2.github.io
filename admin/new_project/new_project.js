@@ -167,16 +167,10 @@ function generateProjectPanel(proj_json_string) {
             img.classList.toggle("project-image");
             img.alt = "project image";
             img.dataset.index = counter;
-            img.onclick = () => {
-                event.stopPropagation();
 
+            project_media_container.onclick = () => {
                 mediaContainerWrapper.classList.toggle("enlarge");
-
-                mediaContainerWrapper.onclick = () => {
-                    mediaContainerWrapper.classList.toggle("enlarge");
-                    mediaContainerWrapper.onclick = () => {}
-                }
-            };
+            }
 
             project_media_container.append(img);
 
