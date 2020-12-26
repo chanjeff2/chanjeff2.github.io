@@ -182,7 +182,6 @@ function generateProjectPanel(proj_json_string) {
             project_media_container.classList.toggle("multiple-media");
         }
 
-        project_media_container.children[2].classList.toggle("display");
         project_media_navigator_container.children[0].classList.toggle("display");
     } else {
         let img = document.createElement("img");
@@ -194,6 +193,7 @@ function generateProjectPanel(proj_json_string) {
         img.alt = "project image";
         project_media_container.append(img);
     }
+    project_media_container.children[2].classList.toggle("display");
 
     project_panel.append(mediaContainerWrapper);
 
