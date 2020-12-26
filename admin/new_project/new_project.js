@@ -132,7 +132,7 @@ function generateProjectPanel(proj_json_string) {
     project_panel.classList.toggle("project-panel");
 
     let template = document.querySelector("#template-media-container");
-    let mediaContainerWrapper = template.content.cloneNode(true);
+    let mediaContainerWrapper = template.content.cloneNode(true).querySelector(".media-container-wrapper");
     let project_media_container = mediaContainerWrapper.querySelector(".media-container");
     let project_media_navigator_container = mediaContainerWrapper.querySelector(".navigator-container");
     let templateNavigator = document.querySelector("#template-navigator");
@@ -167,6 +167,16 @@ function generateProjectPanel(proj_json_string) {
             img.classList.toggle("project-image");
             img.alt = "project image";
             img.dataset.index = counter;
+            img.onclick = () => {
+                event.stopPropagation();
+
+                mediaContainerWrapper.classList.toggle("enlarge");
+
+                mediaContainerWrapper.onclick = () => {
+                    mediaContainerWrapper.classList.toggle("enlarge");
+                    mediaContainerWrapper.onclick = () => {}
+                }
+            };
 
             project_media_container.append(img);
 
@@ -180,6 +190,23 @@ function generateProjectPanel(proj_json_string) {
 
         if (counter >= 2) {
             project_media_container.classList.toggle("multiple-media");
+
+            let swiper = new Swipe(project_media_container);
+            swiper.onLeft = () => {
+                let btn = project_media_container.querySelector(".media-container-right");
+                if (btn.disabled) {
+                    return;
+                }
+                nextMedia(btn);
+            }
+            swiper.onRight = () => {
+                let btn = project_media_container.querySelector(".media-container-left");
+                if (btn.disabled) {
+                    return;
+                }
+                previousMedia(btn);
+            }
+            swiper.run();
         }
 
         project_media_navigator_container.children[0].classList.toggle("display");
@@ -257,6 +284,8 @@ function generateProjectPanel(proj_json_string) {
 }
 
 function previousMedia(node) {
+    event.stopPropagation();
+
     let container = node.parentNode;
     let noOfMedia = container.childElementCount - 2;
 
@@ -295,6 +324,8 @@ function previousMedia(node) {
 }
 
 function nextMedia(node) {
+    event.stopPropagation();
+
     let container = node.parentNode;
     let noOfMedia = container.childElementCount - 2;
 
@@ -334,6 +365,8 @@ function nextMedia(node) {
 }
 
 function gotoMedia(navigator) {
+    event.stopPropagation();
+
     let navigatorContainer = navigator.parentNode;
 
     let currentNavigator = navigatorContainer.querySelector(".display");
@@ -402,5 +435,79 @@ function gotoMedia(navigator) {
                 btn.disabled = false;
             });
         }, 300);
+    }
+}
+
+class Swipe {
+    constructor(element) {
+        this.xDown = null;
+        this.yDown = null;
+        this.element = typeof(element) === 'string' ? document.querySelector(element) : element;
+
+        this.element.addEventListener('touchstart', function(evt) {
+            this.xDown = evt.touches[0].clientX;
+            this.yDown = evt.touches[0].clientY;
+        }.bind(this), false);
+
+    }
+
+    onLeft(callback) {
+        this.onLeft = callback;
+
+        return this;
+    }
+
+    onRight(callback) {
+        this.onRight = callback;
+
+        return this;
+    }
+
+    onUp(callback) {
+        this.onUp = callback;
+
+        return this;
+    }
+
+    onDown(callback) {
+        this.onDown = callback;
+
+        return this;
+    }
+
+    handleTouchMove(evt) {
+        if ( ! this.xDown || ! this.yDown ) {
+            return;
+        }
+
+        var xUp = evt.touches[0].clientX;
+        var yUp = evt.touches[0].clientY;
+
+        this.xDiff = this.xDown - xUp;
+        this.yDiff = this.yDown - yUp;
+
+        if ( Math.abs( this.xDiff ) > Math.abs( this.yDiff ) ) { // Most significant.
+            if ( this.xDiff > 0 ) {
+                this.onLeft();
+            } else {
+                this.onRight();
+            }
+        } else {
+            if ( this.yDiff > 0 ) {
+                this.onUp();
+            } else {
+                this.onDown();
+            }
+        }
+
+        // Reset values.
+        this.xDown = null;
+        this.yDown = null;
+    }
+
+    run() {
+        this.element.addEventListener('touchmove', function(evt) {
+            this.handleTouchMove(evt);
+        }.bind(this), false);
     }
 }
