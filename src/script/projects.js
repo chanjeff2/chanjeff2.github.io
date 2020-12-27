@@ -2,7 +2,10 @@
 
 let callback = document.currentScript.getAttribute("callback-onload");
 callback = Function("\"use strict\"; " + callback );
-importProjectTemplate(callback);
+
+$(document.body).ready(() => {
+    importProjectTemplate(callback);
+})
 
 async function importProjectTemplate(callback) {
     let response = await fetch("/common/template/template_project.html");
