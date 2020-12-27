@@ -6,7 +6,7 @@ header {
     background: url("/res/drawable/code_bg.png") center top fixed;
     justify-content: flex-start;
     align-items: center;
-    position: relative;
+    position: sticky;
     top: 0;
     z-index: 10;
 }
