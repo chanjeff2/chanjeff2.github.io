@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <template id="template-project-anchor-icon">
+        <a target="_blank" class="circleIcon responsive-button" tabindex="0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Project Link</title>
+                <path d="M16 17l5-5-5-5M19.8 12H9M13 22a10 10 0 1 1 0-20"/>
+            </svg>
+        </a>
+    </template>
+
+    <template id="template-github-anchor-icon">
+        <a target="_blank" class="circleIcon responsive-button" tabindex="0">
+            <img class="adaptive-icon githubIcon" src="/res/drawable/GitHub-Mark-Light-64px.png" alt="Github Icon" title="Github Link">
+        </a>
+    </template>
+
+    <template id="template-download-anchor-icon">
+        <a target="_blank" class="circleIcon responsive-button" tabindex="0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <title>Download Link</title>
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M16 12l-4 4-4-4M12 8v7"/>
+            </svg>
+        </a>
+    </template>
+
+    <template id="template-youtube-embedded-video">
+        <iframe 
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </template>
+
+    <template id="template-media-container">
+        <div class="media-container-wrapper">
+            <div class="media-container">
+                <button class="media-container-left" onclick="previousMedia(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/>
+                    </svg>
+                </button>
+        
+                <button class="media-container-right" onclick="nextMedia(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="navigator-container"></div>
+        </div>
+    </template>
+
+    <template id="template-navigator">
+        <button class="navigator" onclick="gotoMedia(this)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="5" fill="currentColor" class="selector"></circle>
+            </svg>
+        </button>
+    </template>
+
+    <template id="template-project-editor-wrapper">
+        <div class="project-editor-wrapper">
+            <div class="edit-toolbar">
+                <button class="edit-button button display" onclick="startEditProject(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                    </svg>
+                </button>
+                <button class="remove-button button" onclick="removeProject(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <template id="template-project-editor">
+        <div id="project-editor">
+            <div class="project-edit-panel">
+                <form class="project-edit-form" autocomplete="off" oninput="onInput()" onsubmit="saveProject()">
+                    <div class="text-input-wrapper">
+                        <input type="text" id="project-name" name="project-name" placeholder=" " required>
+                        <label for="project-name" class="field-name">Name</label>
+                    </div>
+
+                    <div class="text-input-wrapper">
+                        <textarea type="text" rows="1" oninput="testAreaResize(this)" id="project-description" name="project-description" placeholder=" "></textarea>
+                        <label for="project-description" class="field-name">Description</label>
+                    </div>
+
+                    <div class="checkbox-group-wrapper" id="project-language">
+                        <p class="field-name">Language</p>
+                        <input type="checkbox" id="C/C++" name="C/C++">
+                        <label for="C/C++" class="input-hint">C/C++</label>
+                        
+                        <input type="checkbox" id="Java" name="Java">
+                        <label for="Java" class="input-hint">Java</label>
+
+                        <input type="checkbox" id="Kotlin" name="Kotlin">
+                        <label for="Kotlin" class="input-hint">Kotlin</label>
+                        
+                        <input type="checkbox" id="Python" name="Python">
+                        <label for="Python" class="input-hint">Python</label>
+                        
+                        <input type="checkbox" id="HTML-CSS" name="HTML-CSS">
+                        <label for="HTML-CSS" class="input-hint">HTML, CSS</label>
+
+                        <input type="checkbox" id="JavaScript" name="JavaScript">
+                        <label for="JavaScript" class="input-hint">JavaScript</label>
+                    </div>
+
+                    <div class="checkbox-group-wrapper" id="project-platform">
+                        <p class="field-name">Platform</p>
+                        <input type="checkbox" id="Window" name="Window">
+                        <label for="Window" class="input-hint">Window</label>
+
+                        <input type="checkbox" id="Linux" name="Linux">
+                        <label for="Linux" class="input-hint">Linux</label>
+
+                        <input type="checkbox" id="MacOS" name="MacOS">
+                        <label for="MacOS" class="input-hint">MacOS</label>
+                        
+                        <input type="checkbox" id="Android" name="Android">
+                        <label for="Android" class="input-hint">Android</label>
+                        
+                        <input type="checkbox" id="iOS" name="iOS">
+                        <label for="iOS" class="input-hint">iOS</label>
+                    </div>
+
+                    <div class="file-upload-wrapper">
+                        <p class="field-name">Image</p>
+                        <input class="upload-input" onChange="onUploadFile(this)" accept="image/*" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple hidden/>
+                        <label for="file" tabindex="0" onkeypress="if (event.keyCode === 13) {this.click(); return false;}">
+                            <div class="upload-box">
+                                <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 4.2v10.3"/>
+                                </svg>
+                                <p class="upload-message">Choose a file or drag it here</p>
+                            </div>
+                        </label>
+                        <div class="upload-preivew-box"></div>
+                    </div>
+
+                    <div class="text-input-wrapper">
+                        <input type="url" id="project-video-link" name="project-video-link" placeholder=" ">
+                        <label for="project-video-link" class="field-name">Demo Video Link</label>
+                    </div>
+
+                    <div class="text-input-wrapper">
+                        <input type="url" id="project-link" name="project-link" placeholder=" ">
+                        <label for="project-link" class="field-name">Project Link</label>
+                    </div>
+
+                    <div class="text-input-wrapper">
+                        <input type="url" id="project-github-link" name="project-github-link" placeholder=" ">
+                        <label for="project-github-link" class="field-name">Github Link</label>
+                    </div>
+
+                    <div class="text-input-wrapper">
+                        <input type="url" id="project-download-link" name="project-download-link" placeholder=" ">
+                        <label for="project-download-link" class="field-name">Download Link</label>
+                    </div>
+
+                    <!-- <input type="submit" class="button" value="submit" tabindex="0"> -->
+                    <input type="button" class="button" value="submit" tabindex="0" onclick="saveProject()">
+                </form>
+            </div>
+
+            <div id="new-project-preview-panel"></div>
+        </div>
+    </template>
+</body>

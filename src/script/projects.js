@@ -1,128 +1,54 @@
 "use strict";
 
-class Project {
-    /*
-     * name
-     * description
-     * language
-     * platform
-     * image
-     * videoLink
-     * projectLink
-     * githubLink
-     * downloadLink
-     */
-};
+let callback = document.currentScript.getAttribute("callback-onload");
+callback = Function("\"use strict\"; " + callback );
+importProjectTemplate(callback);
 
-function onUploadFile(input) {
-    let uploading = document.querySelector(".upload-message");
+async function importProjectTemplate(callback) {
+    let response = await fetch("/common/template/template_project.html");
+    let text = await response.text();
 
-    if (input.files && input.files[0]) {
+    $(document.body).append(text);
 
-        uploading.innerHTML = "Uploading...";
+    callback();
+}
 
-        let imgFiles = Array.from(input.files);
+function showAllProjects() {
+    // Cloud Firestore
+    let db = firebase.firestore();
 
-        let counter = imgFiles.length;
+    let project_container = document.querySelector("#project-container");
 
-        imgFiles.forEach( file => {
-            setTimeout(() => {
-                let reader = new FileReader();
+    db.collection("projects").get().then( querySnapshot => {
+        querySnapshot.forEach( doc => {
+            let projectPanel = generateProjectPanel(doc.data());
+            project_container.append(projectPanel);
+        }
+    )})
+}
 
-                reader.onload = function (e) {
-                    let img = document.createElement("img");
-                    img.src = e.target.result;
-                    img.addEventListener("click", () => {
-                        img.remove();
-                        $(".project-edit-form").trigger("input");
-                    })
-                    $(".upload-preivew-box").append(img);
-                    $(".project-edit-form").trigger("input");
+function showAllProjectsWithEdit() {
+    // Cloud Firestore
+    let db = firebase.firestore();
 
-                    --counter;
-                    if (counter == 0) {
-                        uploading.innerHTML = "Done!";
-                        setTimeout(() => {uploading.innerHTML = "Choose a file or drag it here";}, 1000);
-                    }
-                };
-                reader.readAsDataURL(file);
-            }, 0);
-        });
+    let project_container = document.querySelector("#project-edit-container");
+    let tempate = document.querySelector("#template-project-editor-wrapper");
+
+    db.collection("projects").get().then( querySnapshot => {
+        querySnapshot.forEach( doc => {
+            let projectPanel_wrapper = tempate.content.cloneNode(true).querySelector(".project-editor-wrapper");
+            let projectPanel = generateProjectPanel(doc.data());
+            projectPanel_wrapper.append(projectPanel);
+            project_container.append(projectPanel_wrapper);
+        }
+    )})
+}
+
+function generateProjectPanel(project) {
+
+    if (typeof(project) == "string") {
+        project = JSON.parse(project);
     }
-}
-
-function onInput() {
-    let project = generateProject();
-
-    let project_panel = generateProjectPanel(project);
-
-    let preview_section = document.querySelector("#new-project-preview-panel");
-    preview_section.innerHTML = "";
-    preview_section.append(project_panel);
-}
-
-function generateProject() {
-    let newProject = new Project();
-
-    // name
-    let name = document.querySelector("#project-name").value;
-    newProject.name = name;
-
-    // description
-    let description = document.querySelector("#project-description").value;
-    newProject.description = description;
-    
-    // language
-    let languageNodes = document.querySelector("#project-language").querySelectorAll("input[type=checkbox]:checked + .input-hint");
-    let language = [];
-    languageNodes.forEach( node => {
-        language.push(node.innerHTML);
-    });
-    newProject.language = language;
-
-    // platform
-    let platformNodes = document.querySelector("#project-platform").querySelectorAll("input[type=checkbox]:checked + .input-hint");
-    let platform = [];
-    platformNodes.forEach( node => {
-        platform.push(node.innerHTML);
-    });
-    newProject.platform = platform;
-
-    // image
-    let imageNodes = document.querySelector(".upload-preivew-box").querySelectorAll("img");
-    let image = [];
-    imageNodes.forEach( node => {
-        image.push(node.src);
-    })
-    newProject.image = image;
-
-    // video link
-    let videoLink = document.querySelector("#project-video-link").value;
-    let videoID_regex = /v=([\d\w]+)|\.be\/([\d\w]+)/;
-    let match = videoID_regex.exec(videoLink);
-    let videoID = "";
-    if (match) {
-        videoID = match[1] ?? match[2];
-    }
-    newProject.videoLink = videoID ? "https://www.youtube.com/embed/" + videoID : "";
-
-    // project link
-    let projectLink = document.querySelector("#project-link").value;
-    newProject.projectLink = projectLink;
-
-    // github link
-    let githubLink = document.querySelector("#project-github-link").value;
-    newProject.githubLink = githubLink;
-
-    // download link
-    let downloadLink = document.querySelector("#project-download-link").value;
-    newProject.downloadLink = downloadLink;
-
-    return newProject;
-}
-
-function generateProjectPanel(proj_json_string) {
-    let project = JSON.parse(proj_json_string);
 
     let project_panel = document.createElement("div");
     project_panel.classList.toggle("project-panel");
@@ -218,21 +144,25 @@ function generateProjectPanel(proj_json_string) {
     project_details.classList.toggle("project-details");
 
     let name = document.createElement("h2");
+    name.classList.toggle("project-name");
     name.innerHTML = project.name ? project.name : "[name]";
 
     project_details.append(name);
 
     let description = document.createElement("p");
+    description.classList.toggle("project-description");
     description.innerHTML = project.description ? project.description : "[description]";
 
     project_details.append(description);
 
     let language = document.createElement("p");
+    language.classList.toggle("project-language");
     language.innerHTML = "<strong>Language</strong><br>" + (project.language.length > 0 ? project.language.join(", ") : "[language]");
 
     project_details.append(language);
 
     let platform = document.createElement("p");
+    platform.classList.toggle("project-platform");
     platform.innerHTML = "<strong>Platform</strong><br>" + (project.platform.length > 0 ? project.platform.join(", ") : "Unspecified");
 
     project_details.append(platform);
@@ -243,26 +173,26 @@ function generateProjectPanel(proj_json_string) {
 
         if (project.projectLink) {
             let template = document.querySelector("#template-project-anchor-icon");
-            let project = template.content.cloneNode(true);
-            project.querySelector("a").href = project.projectLink;
+            let projectBtn = template.content.cloneNode(true);
+            projectBtn.querySelector("a").href = project.projectLink;
     
-            flexbox.append(project);
+            flexbox.append(projectBtn);
         }
 
         if (project.githubLink) {
             let template = document.querySelector("#template-github-anchor-icon");
-            let github = template.content.cloneNode(true);
-            github.querySelector("a").href = project.githubLink;
+            let githubBtn = template.content.cloneNode(true);
+            githubBtn.querySelector("a").href = project.githubLink;
     
-            flexbox.append(github);
+            flexbox.append(githubBtn);
         }
     
         if (project.downloadLink) {
             let template = document.querySelector("#template-download-anchor-icon");
-            let download = template.content.cloneNode(true);
-            download.querySelector("a").href = project.downloadLink;
+            let downloadBtn = template.content.cloneNode(true);
+            downloadBtn.querySelector("a").href = project.downloadLink;
     
-            flexbox.append(download);
+            flexbox.append(downloadBtn);
         }
 
         project_details.append(flexbox);
@@ -271,6 +201,80 @@ function generateProjectPanel(proj_json_string) {
     project_panel.append(project_details);
 
     return project_panel;
+}
+
+class Swipe {
+    constructor(element) {
+        this.xDown = null;
+        this.yDown = null;
+        this.element = typeof(element) === 'string' ? document.querySelector(element) : element;
+
+        this.element.addEventListener('touchstart', function(evt) {
+            this.xDown = evt.touches[0].clientX;
+            this.yDown = evt.touches[0].clientY;
+        }.bind(this), false);
+
+    }
+
+    onLeft(callback) {
+        this.onLeft = callback;
+
+        return this;
+    }
+
+    onRight(callback) {
+        this.onRight = callback;
+
+        return this;
+    }
+
+    onUp(callback) {
+        this.onUp = callback;
+
+        return this;
+    }
+
+    onDown(callback) {
+        this.onDown = callback;
+
+        return this;
+    }
+
+    handleTouchMove(evt) {
+        if ( ! this.xDown || ! this.yDown ) {
+            return;
+        }
+
+        var xUp = evt.touches[0].clientX;
+        var yUp = evt.touches[0].clientY;
+
+        this.xDiff = this.xDown - xUp;
+        this.yDiff = this.yDown - yUp;
+
+        if ( Math.abs( this.xDiff ) > Math.abs( this.yDiff ) ) { // Most significant.
+            if ( this.xDiff > 0 ) {
+                this.onLeft();
+            } else {
+                this.onRight();
+            }
+        } else {
+            if ( this.yDiff > 0 ) {
+                this.onUp();
+            } else {
+                this.onDown();
+            }
+        }
+
+        // Reset values.
+        this.xDown = null;
+        this.yDown = null;
+    }
+
+    run() {
+        this.element.addEventListener('touchmove', function(evt) {
+            this.handleTouchMove(evt);
+        }.bind(this), false);
+    }
 }
 
 function previousMedia(node) {
@@ -428,76 +432,3 @@ function gotoMedia(navigator) {
     }
 }
 
-class Swipe {
-    constructor(element) {
-        this.xDown = null;
-        this.yDown = null;
-        this.element = typeof(element) === 'string' ? document.querySelector(element) : element;
-
-        this.element.addEventListener('touchstart', function(evt) {
-            this.xDown = evt.touches[0].clientX;
-            this.yDown = evt.touches[0].clientY;
-        }.bind(this), false);
-
-    }
-
-    onLeft(callback) {
-        this.onLeft = callback;
-
-        return this;
-    }
-
-    onRight(callback) {
-        this.onRight = callback;
-
-        return this;
-    }
-
-    onUp(callback) {
-        this.onUp = callback;
-
-        return this;
-    }
-
-    onDown(callback) {
-        this.onDown = callback;
-
-        return this;
-    }
-
-    handleTouchMove(evt) {
-        if ( ! this.xDown || ! this.yDown ) {
-            return;
-        }
-
-        var xUp = evt.touches[0].clientX;
-        var yUp = evt.touches[0].clientY;
-
-        this.xDiff = this.xDown - xUp;
-        this.yDiff = this.yDown - yUp;
-
-        if ( Math.abs( this.xDiff ) > Math.abs( this.yDiff ) ) { // Most significant.
-            if ( this.xDiff > 0 ) {
-                this.onLeft();
-            } else {
-                this.onRight();
-            }
-        } else {
-            if ( this.yDiff > 0 ) {
-                this.onUp();
-            } else {
-                this.onDown();
-            }
-        }
-
-        // Reset values.
-        this.xDown = null;
-        this.yDown = null;
-    }
-
-    run() {
-        this.element.addEventListener('touchmove', function(evt) {
-            this.handleTouchMove(evt);
-        }.bind(this), false);
-    }
-}
