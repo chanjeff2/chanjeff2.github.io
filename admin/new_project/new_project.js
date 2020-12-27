@@ -121,383 +121,130 @@ function generateProject() {
     return newProject;
 }
 
-function generateProjectPanel(proj_json_string) {
-    let project = JSON.parse(proj_json_string);
+async function saveProject() {
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    let storage = firebase.storage();
+    let storageRef = storage.ref();
+    // Cloud Firestore
+    let db = firebase.firestore();
 
-    let project_panel = document.createElement("div");
-    project_panel.classList.toggle("project-panel");
+    console.log("save project");
+    let project = generateProject();
 
-    let template = document.querySelector("#template-media-container");
-    let mediaContainerWrapper = template.content.cloneNode(true).querySelector(".media-container-wrapper");
-    let project_media_container = mediaContainerWrapper.querySelector(".media-container");
-    let project_media_navigator_container = mediaContainerWrapper.querySelector(".navigator-container");
-    let templateNavigator = document.querySelector("#template-navigator");
+    let projectID = project.name.replace(/\s+/g, '-');
+
+    let project_dir_ref = storageRef.child(projectID);
+
+    let counter = 0;
     
-    if (project.image.length > 0 || project.videoLink) {
-        let counter = 0;
+    let uploadImg = [];
+    let img_downloadUrl = [];
 
-        // video
-        if (project.videoLink) {
-            let template = document.querySelector("#template-youtube-embedded-video");
-            let video = template.content.cloneNode(true).querySelector("iframe");
+    project.image.forEach(src => {
+        let fileName = projectID + '_' + counter;
+        ++counter;
+        let imageRef = project_dir_ref.child(fileName);
 
-            video.src = project.videoLink;
-            video.classList.toggle("project-video");
-            video.dataset.index = counter;
+        let saveImg = imageRef.putString(src, "data_url");
 
-            project_media_container.append(video);
+        uploadImg.push(saveImg);
 
-            let navigator = templateNavigator.content.cloneNode(true).querySelector(".navigator");
-            navigator.dataset.index = counter;
+        img_downloadUrl.push(imageRef.getDownloadURL());
+    })
 
-            project_media_navigator_container.append(navigator);
+    await Promise.all(uploadImg);
 
-            ++counter;
-        }
+    project.image = await Promise.all(img_downloadUrl);
 
-        // image
-        project.image.forEach(imageSrc => {
-            let img = document.createElement("img");
+    project = JSON.parse(JSON.stringify(project));
 
-            img.src = imageSrc;
-            img.classList.toggle("project-image");
-            img.alt = "project image";
-            img.dataset.index = counter;
+    db.collection("projects").doc(projectID).set(project)
+    .then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+    
+}
 
-            project_media_container.onclick = () => {
-                mediaContainerWrapper.classList.toggle("enlarge");
-            }
+async function startEditProject(toolbtn) {
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    let storage = firebase.storage();
+    let storageRef = storage.ref();
+    // Cloud Firestore
+    let db = firebase.firestore();
 
-            project_media_container.append(img);
+    let editWrapper = toolbtn.parentNode.parentNode
+    let projectPanel = editWrapper.querySelector(".project-panel");
+    let oldProjectEditor = document.querySelector("#project-editor");
+    oldProjectEditor.remove();
 
-            let navigator = templateNavigator.content.cloneNode(true).querySelector(".navigator");
-            navigator.dataset.index = counter;
+    let template_projectEditor = document.querySelector("#template-project-editor");
+    let projectEditor = template_projectEditor.content.cloneNode(true).querySelector("#project-editor");
 
-            project_media_navigator_container.append(navigator);
+    editWrapper.append(projectEditor);
+    projectPanel.style.display = "none";
 
-            ++counter;
-        })
+    let projectName = projectPanel.querySelector(".project-name").innerHTML;
+    let projectID = projectName.replace(/\s+/g, '-');
 
-        if (counter >= 2) {
-            project_media_container.classList.toggle("multiple-media");
+    let response = await db.collection("projects").doc(projectID).get();
 
-            let swiper = new Swipe(project_media_container);
-            swiper.onLeft = () => {
-                let btn = project_media_container.querySelector(".media-container-right");
-                if (btn.disabled) {
-                    return;
-                }
-                nextMedia(btn);
-            }
-            swiper.onRight = () => {
-                let btn = project_media_container.querySelector(".media-container-left");
-                if (btn.disabled) {
-                    return;
-                }
-                previousMedia(btn);
-            }
-            swiper.run();
-        }
+    let project = response.data();
 
-        project_media_navigator_container.children[0].classList.toggle("display");
-    } else {
+    projectEditor.querySelector("#project-name").value = project.name;
+    projectEditor.querySelector("#project-description").value = project.description;
+
+    let languageCheckbox = projectEditor.querySelector("#project-language");
+    project.language.forEach(language => {
+        let id = language.replace(/\s+/g, '-');
+        languageCheckbox.querySelector("#" + id).checked = true;
+    })
+
+    let platformCheckbox = projectEditor.querySelector("#project-platform");
+    project.platform.forEach(platform => {
+        let id = platform.replace(/\s+/g, '-');
+        platformCheckbox.querySelector("#" + id).checked = true;
+    })
+
+    project.image.forEach( src => {
         let img = document.createElement("img");
-
-        img.src = "/res/drawable/code.svg";
-        img.classList.toggle("adaptive-icon-no-hover");
-        img.classList.toggle("project-image");
-
-        img.alt = "project image";
-        project_media_container.append(img);
-    }
-    project_media_container.children[2].classList.toggle("display");
-
-    project_panel.append(mediaContainerWrapper);
-
-    let project_details = document.createElement("div");
-    project_details.classList.toggle("project-details");
-
-    let name = document.createElement("h2");
-    name.innerHTML = project.name ? project.name : "[name]";
-
-    project_details.append(name);
-
-    let description = document.createElement("p");
-    description.innerHTML = project.description ? project.description : "[description]";
-
-    project_details.append(description);
-
-    let language = document.createElement("p");
-    language.innerHTML = "<strong>Language</strong><br>" + (project.language.length > 0 ? project.language.join(", ") : "[language]");
-
-    project_details.append(language);
-
-    let platform = document.createElement("p");
-    platform.innerHTML = "<strong>Platform</strong><br>" + (project.platform.length > 0 ? project.platform.join(", ") : "Unspecified");
-
-    project_details.append(platform);
-
-    if (project.projectLink || project.githubLink || project.downloadLink) {
-        let flexbox = document.createElement("div");
-        flexbox.classList.toggle("icons-container");
-
-        if (project.projectLink) {
-            let template = document.querySelector("#template-project-anchor-icon");
-            let project = template.content.cloneNode(true);
-            project.querySelector("a").href = project.projectLink;
-    
-            flexbox.append(project);
-        }
-
-        if (project.githubLink) {
-            let template = document.querySelector("#template-github-anchor-icon");
-            let github = template.content.cloneNode(true);
-            github.querySelector("a").href = project.githubLink;
-    
-            flexbox.append(github);
-        }
-    
-        if (project.downloadLink) {
-            let template = document.querySelector("#template-download-anchor-icon");
-            let download = template.content.cloneNode(true);
-            download.querySelector("a").href = project.downloadLink;
-    
-            flexbox.append(download);
-        }
-
-        project_details.append(flexbox);
-    }
-
-    project_panel.append(project_details);
-
-    return project_panel;
-}
-
-function previousMedia(node) {
-    event.stopPropagation();
-
-    let container = node.parentNode;
-    let noOfMedia = container.childElementCount - 2;
-
-    node.parentNode.children[0].disabled = true;
-    node.parentNode.children[1].disabled = true;
-
-    let currentMedia = container.querySelector(".display");
-    let index = currentMedia.dataset.index;
-
-    let previousIndex = 2 + (((+index - 1) % noOfMedia) + noOfMedia) % noOfMedia;
-    let previousMedia = container.children[previousIndex];
-
-    let navigatorContainer = container.parentNode.querySelector(".navigator-container");
-    let currentNavigator = navigatorContainer.querySelector(".display");
-    let nextNavigator = navigatorContainer.querySelector("[data-index=\"" + (previousIndex - 2) + "\"]");
-    currentNavigator.classList.toggle("display");
-    nextNavigator.classList.toggle("display");
-
-    setTimeout(() => {
-        currentMedia.classList.toggle("slide-out-right");
-    }, 0);
-
-    setTimeout(() => {
-        previousMedia.classList.toggle("display");
-        previousMedia.classList.toggle("slide-in-left");
-    }, 0);
-
-    setTimeout(() => {
-        currentMedia.classList.toggle("display");
-        currentMedia.classList.toggle("slide-out-right");
-        previousMedia.classList.toggle("slide-in-left");
-
-        container.children[0].disabled = false;
-        container.children[1].disabled = false;
-    }, 300);
-}
-
-function nextMedia(node) {
-    event.stopPropagation();
-
-    let container = node.parentNode;
-    let noOfMedia = container.childElementCount - 2;
-
-    container.children[0].disabled = true;
-    container.children[1].disabled = true;
-
-    let currentMedia = container.querySelector(".display");
-    let index = currentMedia.dataset.index;
-
-    let nextIndex = 2 + (((+index + 1) % noOfMedia) + noOfMedia) % noOfMedia;
-    let nextMedia = container.children[nextIndex];
-
-    let navigatorContainer = container.parentNode.querySelector(".navigator-container");
-    let currentNavigator = navigatorContainer.querySelector(".display");
-    let nextNavigator = navigatorContainer.querySelector("[data-index=\"" + (nextIndex - 2) + "\"]");
-    
-    currentNavigator.classList.toggle("display");
-    nextNavigator.classList.toggle("display");
-
-    setTimeout(() => {
-        currentMedia.classList.toggle("slide-out-left");
-    }, 0);
-
-    setTimeout(() => {
-        nextMedia.classList.toggle("display");
-        nextMedia.classList.toggle("slide-in-right");
-    }, 0);
-
-    setTimeout(() => {
-        currentMedia.classList.toggle("display");
-        currentMedia.classList.toggle("slide-out-left");
-        nextMedia.classList.toggle("slide-in-right");
-
-        container.children[0].disabled = false;
-        container.children[1].disabled = false;
-    }, 300);
-}
-
-function gotoMedia(navigator) {
-    event.stopPropagation();
-
-    let navigatorContainer = navigator.parentNode;
-
-    let currentNavigator = navigatorContainer.querySelector(".display");
-    let index = currentNavigator.dataset.index;
-    let nextIndex = navigator.dataset.index;
-
-    if (index == nextIndex) {
-        return;
-    }
-
-    currentNavigator.classList.toggle("display");
-    navigator.classList.toggle("display");
-
-    let container = navigatorContainer.parentNode.querySelector(".media-container");
-
-    container.children[0].disabled = true;
-    container.children[1].disabled = true;
-    navigatorContainer.querySelectorAll(".navigator").forEach( btn => {
-        btn.disabled = true;
+        img.src = src;
+        img.addEventListener("click", () => {
+            img.remove();
+            $(".project-edit-form").trigger("input");
+        })
+        $(".upload-preivew-box").append(img);
+        $(".project-edit-form").trigger("input");
     });
 
-    let currentMedia = container.querySelector(".display");
-
-    let nextMedia = container.querySelector("[data-index=\"" + nextIndex + "\"]");
-
-    if (nextIndex > index) {
-        // go to right, next
-        setTimeout(() => {
-            currentMedia.classList.toggle("slide-out-left");
-        }, 0);
-    
-        setTimeout(() => {
-            nextMedia.classList.toggle("display");
-            nextMedia.classList.toggle("slide-in-right");
-        }, 0);
-    
-        setTimeout(() => {
-            currentMedia.classList.toggle("display");
-            currentMedia.classList.toggle("slide-out-left");
-            nextMedia.classList.toggle("slide-in-right");
-    
-            container.children[0].disabled = false;
-            container.children[1].disabled = false;
-            navigatorContainer.querySelectorAll(".navigator").forEach( btn => {
-                btn.disabled = false;
-            });
-        }, 300);
-    } else {
-        setTimeout(() => {
-            currentMedia.classList.toggle("slide-out-right");
-        }, 0);
-    
-        setTimeout(() => {
-            nextMedia.classList.toggle("display");
-            nextMedia.classList.toggle("slide-in-left");
-        }, 0);
-    
-        setTimeout(() => {
-            currentMedia.classList.toggle("display");
-            currentMedia.classList.toggle("slide-out-right");
-            nextMedia.classList.toggle("slide-in-left");
-    
-            container.children[0].disabled = false;
-            container.children[1].disabled = false;
-            navigatorContainer.querySelectorAll(".navigator").forEach( btn => {
-                btn.disabled = false;
-            });
-        }, 300);
-    }
+    onInput()
 }
 
-class Swipe {
-    constructor(element) {
-        this.xDown = null;
-        this.yDown = null;
-        this.element = typeof(element) === 'string' ? document.querySelector(element) : element;
+async function removeProject(toolbtn) {
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    let storage = firebase.storage();
+    let storageRef = storage.ref();
+    // Cloud Firestore
+    let db = firebase.firestore();
 
-        this.element.addEventListener('touchstart', function(evt) {
-            this.xDown = evt.touches[0].clientX;
-            this.yDown = evt.touches[0].clientY;
-        }.bind(this), false);
+    let editWrapper = toolbtn.parentNode.parentNode
+    let projectPanel = editWrapper.querySelector(".project-panel");
 
-    }
+    let projectName = projectPanel.querySelector(".project-name").innerHTML;
+    let projectID = projectName.replace(/\s+/g, '-');
 
-    onLeft(callback) {
-        this.onLeft = callback;
+    let response = await db.collection("projects").doc(projectID).get();
 
-        return this;
-    }
+    let project = response.data();
 
-    onRight(callback) {
-        this.onRight = callback;
+    project.image.forEach( src => {
+        let ref = storage.refFromURL(src);
+        ref.delete();
+    })
 
-        return this;
-    }
+    db.collection("projects").doc(projectID).delete();
 
-    onUp(callback) {
-        this.onUp = callback;
-
-        return this;
-    }
-
-    onDown(callback) {
-        this.onDown = callback;
-
-        return this;
-    }
-
-    handleTouchMove(evt) {
-        if ( ! this.xDown || ! this.yDown ) {
-            return;
-        }
-
-        var xUp = evt.touches[0].clientX;
-        var yUp = evt.touches[0].clientY;
-
-        this.xDiff = this.xDown - xUp;
-        this.yDiff = this.yDown - yUp;
-
-        if ( Math.abs( this.xDiff ) > Math.abs( this.yDiff ) ) { // Most significant.
-            if ( this.xDiff > 0 ) {
-                this.onLeft();
-            } else {
-                this.onRight();
-            }
-        } else {
-            if ( this.yDiff > 0 ) {
-                this.onUp();
-            } else {
-                this.onDown();
-            }
-        }
-
-        // Reset values.
-        this.xDown = null;
-        this.yDown = null;
-    }
-
-    run() {
-        this.element.addEventListener('touchmove', function(evt) {
-            this.handleTouchMove(evt);
-        }.bind(this), false);
-    }
+    editWrapper.remove();
 }
