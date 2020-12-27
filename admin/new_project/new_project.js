@@ -131,7 +131,7 @@ async function saveProject() {
     console.log("save project");
     let project = generateProject();
 
-    let projectID = project.name.replace(/\s+/g, '-');
+    let projectID = project.name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/\+/g, 'p');
 
     let project_dir_ref = storageRef.child(projectID);
 
@@ -223,7 +223,7 @@ async function startEditProject(toolbtn) {
     projectPanel.style.display = "none";
 
     let projectName = projectPanel.querySelector(".project-name").innerHTML;
-    let projectID = projectName.replace(/\s+/g, '-');
+    let projectID = projectName.replace(/\s+/g, '-').replace(/\//g, '-').replace(/\+/g, 'p');
 
     let response = await db.collection("projects").doc(projectID).get();
 
@@ -234,13 +234,13 @@ async function startEditProject(toolbtn) {
 
     let languageCheckbox = projectEditor.querySelector("#project-language");
     project.language.forEach(language => {
-        let id = language.replace(/\s+/g, '-');
+        let id = language.replace(/\s+/g, '-').replace(/\//g, '-').replace(/\+/g, 'p');
         languageCheckbox.querySelector("#" + id).checked = true;
     })
 
     let platformCheckbox = projectEditor.querySelector("#project-platform");
     project.platform.forEach(platform => {
-        let id = platform.replace(/\s+/g, '-');
+        let id = platform.replace(/\s+/g, '-').replace(/\//g, '-').replace(/\+/g, 'p');
         platformCheckbox.querySelector("#" + id).checked = true;
     })
 
@@ -274,7 +274,7 @@ async function removeProject(toolbtn) {
     let projectPanel = editWrapper.querySelector(".project-panel");
 
     let projectName = projectPanel.querySelector(".project-name").innerHTML;
-    let projectID = projectName.replace(/\s+/g, '-');
+    let projectID = projectName.replace(/\s+/g, '-').replace(/\//g, '-').replace(/\+/g, 'p');
 
     let response = await db.collection("projects").doc(projectID).get();
 
