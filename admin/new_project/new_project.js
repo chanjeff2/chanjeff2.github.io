@@ -165,7 +165,26 @@ async function saveProject() {
     .catch(function(error) {
         console.error("Error adding document: ", error);
     });
-    
+}
+
+function newProject(toolbtn) {
+    let editWrapper = toolbtn.parentNode
+    let projectPanel = editWrapper.querySelector(".project-panel");
+    let oldProjectEditor = document.querySelector("#project-editor");
+
+    if (oldProjectEditor) {
+        let oldProjectPanel = oldProjectEditor.parentNode.querySelector(".project-panel");
+        oldProjectPanel.style.display = "";
+        oldProjectEditor.remove();
+    }
+
+    let template_projectEditor = document.querySelector("#template-project-editor");
+    let projectEditor = template_projectEditor.content.cloneNode(true).querySelector("#project-editor");
+
+    editWrapper.append(projectEditor);
+    projectPanel.style.display = "none";
+
+    onInput();
 }
 
 async function startEditProject(toolbtn) {
@@ -226,7 +245,7 @@ async function startEditProject(toolbtn) {
     projectEditor.querySelector("#project-github-link").value = project.githubLink;
     projectEditor.querySelector("#project-download-link").value = project.downloadLink;
 
-    onInput()
+    onInput();
 }
 
 async function removeProject(toolbtn) {

@@ -239,3 +239,7 @@
 	opacity: 1;
 	visibility: visible;
 }
+
+.new-project-btn {
+	cursor: pointer;
+}
