@@ -221,6 +221,11 @@ async function startEditProject(toolbtn) {
         $(".project-edit-form").trigger("input");
     });
 
+    projectEditor.querySelector("#project-video-link").value = project.videoLink;
+    projectEditor.querySelector("#project-link").value = project.projectLink;
+    projectEditor.querySelector("#project-github-link").value = project.githubLink;
+    projectEditor.querySelector("#project-download-link").value = project.downloadLink;
+
     onInput()
 }
 
