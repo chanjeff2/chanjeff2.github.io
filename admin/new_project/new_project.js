@@ -178,6 +178,8 @@ async function startEditProject(toolbtn) {
     let editWrapper = toolbtn.parentNode.parentNode
     let projectPanel = editWrapper.querySelector(".project-panel");
     let oldProjectEditor = document.querySelector("#project-editor");
+    let oldProjectPanel = oldProjectEditor.parentNode.querySelector(".project-panel");
+    oldProjectPanel.style.display = "";
     oldProjectEditor.remove();
 
     let template_projectEditor = document.querySelector("#template-project-editor");
