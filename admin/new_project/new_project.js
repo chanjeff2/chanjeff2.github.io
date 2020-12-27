@@ -161,6 +161,7 @@ async function saveProject() {
     db.collection("projects").doc(projectID).set(project)
     .then(function() {
         console.log("Document successfully written!");
+        location.reload();
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
@@ -175,6 +176,10 @@ function newProject(toolbtn) {
     if (oldProjectEditor) {
         let oldProjectPanel = oldProjectEditor.parentNode.querySelector(".project-panel");
         oldProjectPanel.style.display = "";
+
+        let oldtoolbar = oldProjectEditor.parentNode.querySelector(".edit-toolbar");
+        oldtoolbar?.querySelector(".remove-button").classList.toggle("display");
+
         oldProjectEditor.remove();
     }
 
@@ -195,11 +200,21 @@ async function startEditProject(toolbtn) {
     let db = firebase.firestore();
 
     let editWrapper = toolbtn.parentNode.parentNode
+    let removeBtn = toolbtn.parentNode.querySelector(".remove-button");
+    removeBtn.classList.toggle("display");
     let projectPanel = editWrapper.querySelector(".project-panel");
     let oldProjectEditor = document.querySelector("#project-editor");
-    let oldProjectPanel = oldProjectEditor.parentNode.querySelector(".project-panel");
-    oldProjectPanel.style.display = "";
-    oldProjectEditor.remove();
+    if (oldProjectEditor) {
+        let oldProjectPanel = oldProjectEditor.parentNode.querySelector(".project-panel");
+
+        oldProjectPanel.style.display = "";
+
+        let oldtoolbar = oldProjectEditor.parentNode.querySelector(".edit-toolbar");
+        oldtoolbar?.querySelector(".remove-button").classList.toggle("display");
+
+        oldProjectEditor.remove();
+    }
+
 
     let template_projectEditor = document.querySelector("#template-project-editor");
     let projectEditor = template_projectEditor.content.cloneNode(true).querySelector("#project-editor");

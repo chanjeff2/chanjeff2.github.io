@@ -87,7 +87,7 @@
     <template id="template-project-editor">
         <div id="project-editor">
             <div class="project-edit-panel">
-                <form class="project-edit-form" autocomplete="off" oninput="onInput()" onsubmit="saveProject()">
+                <form action="#" class="project-edit-form" autocomplete="off" oninput="onInput()" onsubmit="saveProject(); return false;">
                     <div class="text-input-wrapper">
                         <input type="text" id="project-name" name="project-name" placeholder=" " required>
                         <label for="project-name" class="field-name">Name</label>
@@ -171,7 +171,7 @@
                         <label for="project-download-link" class="field-name">Download Link</label>
                     </div>
 
-                    <input type="submit" class="button" value="submit" tabindex="0" onclick="saveProject()">
+                    <input type="submit" class="button" value="submit" tabindex="0">
                 </form>
             </div>
 
