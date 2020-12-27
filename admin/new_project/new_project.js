@@ -189,6 +189,8 @@ function newProject(toolbtn) {
     editWrapper.append(projectEditor);
     projectPanel.style.display = "none";
 
+    attachDragDropHandler();
+
     onInput();
 }
 
@@ -259,6 +261,8 @@ async function startEditProject(toolbtn) {
     projectEditor.querySelector("#project-link").value = project.projectLink;
     projectEditor.querySelector("#project-github-link").value = project.githubLink;
     projectEditor.querySelector("#project-download-link").value = project.downloadLink;
+
+    attachDragDropHandler();
 
     onInput();
 }
