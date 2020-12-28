@@ -162,6 +162,11 @@
 	max-height: 100%;
 }
 
+.media-container-wrapper.enlarge .media-container iframe {
+	width: 100vw;
+	height: calc(100vw * 0.5625);
+}
+
 .navigator-container {
 	display: flex;
 	justify-content: center;
