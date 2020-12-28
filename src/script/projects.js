@@ -93,10 +93,6 @@ function generateProjectPanel(project) {
             img.alt = "project image";
             img.dataset.index = counter;
 
-            project_media_container.onclick = () => {
-                mediaContainerWrapper.classList.toggle("enlarge");
-            }
-
             project_media_container.append(img);
 
             let navigator = templateNavigator.content.cloneNode(true).querySelector(".navigator");
@@ -139,6 +135,10 @@ function generateProjectPanel(project) {
         img.alt = "project image";
         project_media_container.append(img);
     }
+    project_media_container.onclick = () => {
+        mediaContainerWrapper.classList.toggle("enlarge");
+    }
+
     project_media_container.children[2].classList.toggle("display");
 
     project_panel.append(mediaContainerWrapper);
