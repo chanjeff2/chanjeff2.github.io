@@ -133,26 +133,33 @@ async function saveProject() {
 
     let projectID = project.name.replace(/\s+/g, '-').replace(/\//g, '-').replace(/\+/g, 'p');
 
-    let project_dir_ref = storageRef.child(projectID);
+    let project_dir_ref = storageRef.child("projects/" + projectID);
 
     let counter = 0;
     
-    let uploadImg = [];
     let img_downloadUrl = [];
+
+    let base64_regex = /^data:/;
 
     project.image.forEach(src => {
         let fileName = projectID + '_' + counter;
         ++counter;
+
+        if (src.match(base64_regex) == null) {
+            img_downloadUrl.push(src);
+            return;
+        }
+
         let imageRef = project_dir_ref.child(fileName);
 
-        let saveImg = imageRef.putString(src, "data_url");
+        let getUrl = async () => {
+            let snapshot = await imageRef.putString(src, "data_url");
+            let url = await snapshot.ref.getDownloadURL();
+            return url;
+        }
 
-        uploadImg.push(saveImg);
-
-        img_downloadUrl.push(imageRef.getDownloadURL());
+        img_downloadUrl.push(getUrl());
     })
-
-    await Promise.all(uploadImg);
 
     project.image = await Promise.all(img_downloadUrl);
 
@@ -232,7 +239,9 @@ async function startEditProject(toolbtn) {
     let project = response.data();
 
     projectEditor.querySelector("#project-name").value = project.name;
-    projectEditor.querySelector("#project-description").value = project.description;
+    let description = projectEditor.querySelector("#project-description")
+    description.value = project.description;
+    testAreaResize(description);
 
     let languageCheckbox = projectEditor.querySelector("#project-language");
     project.language.forEach(language => {
