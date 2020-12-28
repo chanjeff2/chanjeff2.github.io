@@ -77,9 +77,10 @@
 
 .media-container-wrapper {
 	position: relative;
-	height: calc(min(80vw, 400px) * 0.75);
+	height: calc(min(80vw, 400px) * 0.9);
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	gap: 20px;
 }
@@ -87,6 +88,7 @@
 .media-container {
 	position: relative;
 	width: min(80vw, 400px);
+	height: calc(min(80vw, 400px) * 0.75);
 	display: flex;
 	align-items: center;
 	overflow: hidden;
