@@ -14,6 +14,60 @@ class Project {
      */
 };
 
+class RemoveImageCommandInvoker {
+    /*
+     * commandList // List of commands
+     * addCommand(command) // add command
+     * execute() // execute all remove command
+     * reset() // clear all command
+     */
+    constructor() {
+        this.commandList = [];
+    }
+
+    addCommand(command) {
+        console.log("RemoveImageCommandInvoker: added a remove request to queue")
+        this.commandList.push(command);
+    }
+
+    reset() {
+        console.log("RemoveImageCommandInvoker: reset")
+        this.commandList = [];
+    }
+
+    execute() {
+        console.log("RemoveImageCommandInvoker: execute all commands")
+        this.commandList.forEach( command => {
+            command.execute();
+        })
+        // reset after execute
+        this.reset();
+    }
+}
+
+let invoker = new RemoveImageCommandInvoker();
+
+class RemoveImageCommand {
+    /*
+     * url // url for file to be removed
+     * execute() // execute remove command
+     */
+    constructor(url) {
+        this.url = url;
+    }
+
+    execute() {
+        let ref = firebase.storage().refFromURL(this.url);
+        ref.delete();
+    }
+}
+
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+}
+
 function onUploadFile(input) {
     let uploading = document.querySelector(".upload-message");
 
@@ -135,27 +189,31 @@ async function saveProject() {
 
     let project_dir_ref = storageRef.child("projects/" + projectID);
 
-    let counter = 0;
+    // remove unwanted images
+    invoker.execute();
     
+    // upload new images (if any)
     let img_downloadUrl = [];
 
     let base64_regex = /^data:/;
 
     project.image.forEach(src => {
-        let fileName = projectID + '_' + counter;
-        ++counter;
-
         if (src.match(base64_regex) == null) {
             img_downloadUrl.push(src);
             return;
         }
 
-        let imageRef = project_dir_ref.child(fileName);
-
         let getUrl = async () => {
-            let snapshot = await imageRef.putString(src, "data_url");
-            let url = await snapshot.ref.getDownloadURL();
-            return url;
+            let fileName = projectID + '-' + uuidv4();
+            let imageRef = project_dir_ref.child(fileName);
+            try {
+                let snapshot = await imageRef.putString(src, "data_url");
+                let url = await snapshot.ref.getDownloadURL();
+                return url;
+            } catch (e) {
+                // re-try upload if failed due to duplicated name or other exceptions
+                return await getUrl();
+            }
         }
 
         img_downloadUrl.push(getUrl());
@@ -202,6 +260,9 @@ function newProject(toolbtn) {
 }
 
 async function startEditProject(toolbtn) {
+    // reset invoker
+    invoker.reset();
+
     // Get a reference to the storage service, which is used to create references in your storage bucket
     let storage = firebase.storage();
     let storageRef = storage.ref();
@@ -261,6 +322,9 @@ async function startEditProject(toolbtn) {
         img.addEventListener("click", () => {
             img.remove();
             $(".project-edit-form").trigger("input");
+
+            let command = new RemoveImageCommand(src);
+            invoker.addCommand(command);
         })
         $(".upload-preivew-box").append(img);
         $(".project-edit-form").trigger("input");
@@ -301,9 +365,11 @@ async function removeProject(toolbtn) {
     let project = response.data();
 
     project.image.forEach( src => {
-        let ref = storage.refFromURL(src);
-        ref.delete();
+        let command = new RemoveImageCommand(src);
+        invoker.addCommand(command);
     })
+
+    invoker.execute();
 
     db.collection("projects").doc(projectID).delete();
 
