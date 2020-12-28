@@ -277,16 +277,23 @@ async function startEditProject(toolbtn) {
 }
 
 async function removeProject(toolbtn) {
-    // Get a reference to the storage service, which is used to create references in your storage bucket
-    let storage = firebase.storage();
-    let storageRef = storage.ref();
-    // Cloud Firestore
-    let db = firebase.firestore();
 
     let editWrapper = toolbtn.parentNode.parentNode
     let projectPanel = editWrapper.querySelector(".project-panel");
 
     let projectName = projectPanel.querySelector(".project-name").innerHTML;
+
+    let input = prompt("please input project name to delete project:");
+    if (input != projectName) {
+        return;
+    }
+
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+    let storage = firebase.storage();
+    let storageRef = storage.ref();
+    // Cloud Firestore
+    let db = firebase.firestore();
+    
     let projectID = projectName.replace(/\s+/g, '-').replace(/\//g, '-').replace(/\+/g, 'p');
 
     let response = await db.collection("projects").doc(projectID).get();
