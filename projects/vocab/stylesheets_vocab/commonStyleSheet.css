@@ -133,6 +133,7 @@ section {
   height: 600px;
   resize: both;
   margin: 20px 0;
+  background: #eee;
 }
 
 #storeUsedVocab {
