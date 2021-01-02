@@ -66,6 +66,7 @@ header {
   flex-direction: column;
   overflow: hidden;
   display: none;
+  z-index: 500;
 }
 
 #welcomeLabel {
