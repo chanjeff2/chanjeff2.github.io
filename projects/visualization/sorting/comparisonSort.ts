@@ -306,3 +306,54 @@ class MergeSort extends ComparisonSort {
         return this.dataset;
     }
 }
+
+class QuickSort extends ComparisonSort {
+    random(start: number, end: number): number {
+        // include start exclude end
+        return Math.floor(Math.random() * (end - start)) + start;
+    }
+
+    async quickSortRecurHelper(first: number, last: number, callback: Callback) {
+        if (first >= last) {
+            return;
+        }
+        
+        let pivot = this.random(first, last + 1);
+        let divider = first - 1;
+
+        // move pivot to last
+        this.swap(pivot, last);
+        pivot = last;
+
+        // partition
+        for (let i = first; i < last; ++i) {
+            try {
+                await this.checkPause();
+            } catch (e) {
+                return [];
+            }
+
+            await callback(this.dataset, pivot, i);
+
+            if (this.dataset[i] < this.dataset[pivot]) {
+                ++divider;
+                this.swap(i, divider);
+            }
+        }
+
+        // swap pivot to middle (belongs to second half)
+        ++divider;
+        await callback(this.dataset, pivot, divider);
+        this.swap(pivot, divider);
+        pivot = divider;
+
+        await this.quickSortRecurHelper(first, pivot - 1, callback);
+        await this.quickSortRecurHelper(pivot, last, callback);
+    }
+
+    async sort(callback: Callback): Promise<Array<number>> {
+        this.quickSortRecurHelper(0, this.dataset.length - 1, callback);
+        await callback(this.dataset, -1, -1);
+        return this.dataset;
+    }
+}

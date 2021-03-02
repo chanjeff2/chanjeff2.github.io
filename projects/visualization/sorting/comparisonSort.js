@@ -490,3 +490,86 @@ var MergeSort = /** @class */ (function (_super) {
     };
     return MergeSort;
 }(ComparisonSort));
+var QuickSort = /** @class */ (function (_super) {
+    __extends(QuickSort, _super);
+    function QuickSort() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    QuickSort.prototype.random = function (start, end) {
+        // include start exclude end
+        return Math.floor(Math.random() * (end - start)) + start;
+    };
+    QuickSort.prototype.quickSortRecurHelper = function (first, last, callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            var pivot, divider, i, e_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (first >= last) {
+                            return [2 /*return*/];
+                        }
+                        pivot = this.random(first, last + 1);
+                        divider = first - 1;
+                        // move pivot to last
+                        this.swap(pivot, last);
+                        pivot = last;
+                        i = first;
+                        _a.label = 1;
+                    case 1:
+                        if (!(i < last)) return [3 /*break*/, 8];
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, this.checkPause()];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        e_7 = _a.sent();
+                        return [2 /*return*/, []];
+                    case 5: return [4 /*yield*/, callback(this.dataset, pivot, i)];
+                    case 6:
+                        _a.sent();
+                        if (this.dataset[i] < this.dataset[pivot]) {
+                            ++divider;
+                            this.swap(i, divider);
+                        }
+                        _a.label = 7;
+                    case 7:
+                        ++i;
+                        return [3 /*break*/, 1];
+                    case 8:
+                        // swap pivot to middle (belongs to second half)
+                        ++divider;
+                        return [4 /*yield*/, callback(this.dataset, pivot, divider)];
+                    case 9:
+                        _a.sent();
+                        this.swap(pivot, divider);
+                        pivot = divider;
+                        return [4 /*yield*/, this.quickSortRecurHelper(first, pivot - 1, callback)];
+                    case 10:
+                        _a.sent();
+                        return [4 /*yield*/, this.quickSortRecurHelper(pivot, last, callback)];
+                    case 11:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    QuickSort.prototype.sort = function (callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.quickSortRecurHelper(0, this.dataset.length - 1, callback);
+                        return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/, this.dataset];
+                }
+            });
+        });
+    };
+    return QuickSort;
+}(ComparisonSort));
