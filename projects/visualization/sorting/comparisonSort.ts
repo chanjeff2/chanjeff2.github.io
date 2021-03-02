@@ -1,5 +1,8 @@
 // sorting
 abstract class ComparisonSort {
+    cancel: boolean = false;
+    pause: boolean = false;
+
     dataset: Array<number>
     // target to compare
     // target to be compared
@@ -8,11 +11,11 @@ abstract class ComparisonSort {
     }
 
     async checkPause() {
-        if (cancelSorting) {
+        if (this.cancel) {
             throw "Cancel";
         }
 
-        if (pauseSorting) {
+        if (this.pause) {
             await new Promise((resolve, reject) => {
                 resumeEventHandler = function() { 
                     console.log("Resolved, resuming now");

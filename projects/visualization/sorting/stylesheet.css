@@ -10,6 +10,12 @@
     --BACKGROUND-COLOR: #FAFAFA;
 }
 
+body {
+    font-family: 'ROBOTO';
+    margin: 0;
+    background-color: var(--BACKGROUND-COLOR);
+}
+
 header {
     height: 60px;
     background: var(--DARK-PRIMARY-COLOR);
@@ -20,8 +26,13 @@ header {
     gap: 10px;
 }
 
+@media only screen and (max-width: 750px) {
+    header > label {
+        display: none;
+    }
+}
+
 header > * {
-    font-family: 'ROBOTO';
     font-size: 2em;
     color: var(--TEXT-ICONS);
 }
@@ -36,11 +47,6 @@ header > select > option {
     background: transparent;
 }
 
-body {
-    margin: 0;
-    background-color: var(--BACKGROUND-COLOR);
-}
-
 #main-canvas {
     position: relative;
     height: calc(100vh - 60px - 150px);
@@ -48,6 +54,7 @@ body {
 
 #control-panel {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     height: 150px;
@@ -65,4 +72,9 @@ svg {
 
 #pause {
     display: none;
+}
+
+#inversion-number {
+    text-align: center;
+    width: 100%;
 }

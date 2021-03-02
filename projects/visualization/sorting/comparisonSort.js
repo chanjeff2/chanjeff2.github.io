@@ -54,6 +54,8 @@ var ComparisonSort = /** @class */ (function () {
     // target to compare
     // target to be compared
     function ComparisonSort(dataset) {
+        this.cancel = false;
+        this.pause = false;
         this.dataset = dataset;
     }
     ComparisonSort.prototype.checkPause = function () {
@@ -61,10 +63,10 @@ var ComparisonSort = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (cancelSorting) {
+                        if (this.cancel) {
                             throw "Cancel";
                         }
-                        if (!pauseSorting) return [3 /*break*/, 2];
+                        if (!this.pause) return [3 /*break*/, 2];
                         return [4 /*yield*/, new Promise(function (resolve, reject) {
                                 resumeEventHandler = function () {
                                     console.log("Resolved, resuming now");

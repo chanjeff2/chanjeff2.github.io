@@ -42,9 +42,7 @@ let chart = new Chart(ctx, {
     }
 })
 
-let cancelSorting = false;
-let pauseSorting = false;
-let sortingManager = null;
+let sortingManager = new SelectionSort(dataSet);;
 let inversionManger = new MergeSort([...dataSet]);
 let inversionNumberPlaceholder = document.querySelector("#inversion-number");
 inversionManger.getInversionNumber().then( inversionNumber => {
@@ -64,21 +62,18 @@ function toggleStart(start) {
 }
 
 function refresh() {
-    cancelSorting = true;
-    pauseSorting = false;
+    sortingManager.cancel = true;
+    sortingManager.pause = false;
     toggleStart(false);
 
     shuffleArray(dataSet);
 
-    if (sortingManager != null) {
-        sortingManager.updateDataset(dataSet);
-    }
-    if (inversionManger != null) {
-        let inversionManger = new MergeSort([...dataSet]);
-        inversionManger.getInversionNumber().then( inversionNumber => {
-            inversionNumberPlaceholder.innerHTML = "inversion number: " + inversionNumber;
-        })
-    }
+    sortingManager.updateDataset(dataSet);
+
+    let inversionManger = new MergeSort([...dataSet]);
+    inversionManger.getInversionNumber().then( inversionNumber => {
+        inversionNumberPlaceholder.innerHTML = "inversion number: " + inversionNumber;
+    })
 
     chart.data.datasets[0].data = dataSet;
     chart.data.datasets[0].backgroundColor = Array(chart.data.datasets[0].data.length).fill(color);
@@ -92,7 +87,7 @@ document.querySelector("#refresh").addEventListener("click", () => {
 let pauseBtn = document.querySelector("#pause");
 
 pauseBtn.addEventListener("click", () => {
-    pauseSorting = true;
+    sortingManager.pause = true;
     toggleStart(false);
 })
 
@@ -110,27 +105,25 @@ sampleSizeDropDown.addEventListener("change", () => {
 let sortMethodDropDown = document.querySelector("#sort-method");
 
 sortMethodDropDown.addEventListener("change", () => {
-    sortingManager = new window[sortMethodDropDown.value](dataSet);
+    // cancel old sorting method
+    sortingManager.cancel = true;
 
+    sortingManager = new window[sortMethodDropDown.value](dataSet);
     refresh();
 })
 
 let startBtn = document.querySelector("#start")
 
 startBtn.addEventListener("click", () => {
-    cancelSorting = false;
+    sortingManager.cancel = false;
     toggleStart(true);
 
-    if (pauseSorting) {
-        pauseSorting = false;
+    if (sortingManager.pause) {
+        sortingManager.pause = false;
         return;
     }
 
     console.log("attempt to sort " + sampleSizeDropDown.value + " data by " + sortMethodDropDown.value);
-
-    if (sortingManager == null) {
-        sortingManager = new SelectionSort(dataSet);
-    }
 
     sortingManager.sort(async (dataset, current, target) => {
         chart.data.datasets[0].data = dataset;
