@@ -339,7 +339,7 @@ class QuickSort extends ComparisonSort {
             return;
         }
         
-        let pivot = this.random(first, last + 1);
+        let pivot = (last - first + 1 == 2) ? last : this.random(first, last + 1);
         let divider = first - 1;
 
         // move pivot to last
