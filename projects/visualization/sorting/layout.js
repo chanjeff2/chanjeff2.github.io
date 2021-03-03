@@ -1,6 +1,20 @@
 "use strict";
 
-let dataSet = [...Array(100).keys()].map(x => ++x);
+function mapToDomain(indicator) {
+    switch (indicator) {
+        case -1:
+            // negative
+            return value => -(value + 1);
+        case 0:
+            // both positive + negative
+            return value => value - parseInt(sampleSizeDropDown.value) / 2;
+        case 1:
+            // positive
+            return value => ++value;
+    }
+}
+
+let dataSet = [...Array(100).keys()].map(x => mapToDomain(1)(x));
 shuffleArray(dataSet);
 
 let ctx = document.querySelector("#main-canvas").getContext("2d");
@@ -89,16 +103,26 @@ let pauseBtn = document.querySelector("#pause");
 pauseBtn.addEventListener("click", () => {
     sortingManager.pause = true;
     toggleStart(false);
-})
+});
+
+function updateDataset() {
+    dataSet = [...Array(parseInt(sampleSizeDropDown.value)).keys()].map(x => mapToDomain(parseInt(sampleDomainDropDown.value))(x));
+
+    chart.data.labels = dataSet;
+    chart.data.datasets[0].backgroundColor = Array(parseInt(sampleSizeDropDown.value)).fill(color);
+}
 
 let sampleSizeDropDown = document.querySelector("#sample-size");
 
 sampleSizeDropDown.addEventListener("change", () => {
-    dataSet = [...Array(parseInt(sampleSizeDropDown.value)).keys()].map(x => ++x);
+    updateDataset();
+    refresh();
+})
 
-    chart.data.labels = dataSet;
-    chart.data.datasets[0].backgroundColor = Array(parseInt(sampleSizeDropDown.value)).fill(color);
-    
+let sampleDomainDropDown = document.querySelector("#sample-domain");
+
+sampleDomainDropDown.addEventListener("change", () => {
+    updateDataset();
     refresh();
 })
 

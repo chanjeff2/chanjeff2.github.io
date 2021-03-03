@@ -66,11 +66,11 @@ class CountingSort extends NonComparisonSort {
 class RadixSort extends CountingSort {
     k_digit(value: number, k: number) {
         // k of LSD is 1
-        return Math.floor(value / (10 ** (k - 1))) % 10;
+        return this.modulo(Math.floor(value / (10 ** (k - 1))), 10);
     }
 
     async sort(callback: Callback): Promise<Array<number>> {
-        let max = Math.max(...this.dataset);
+        let max = Math.max(...this.dataset.map(a => Math.abs(a)));
         let maxDigit = Math.floor(Math.log10(max)) + 1;
 
         for (let i = 0; i < maxDigit; ++i) {
@@ -78,6 +78,11 @@ class RadixSort extends CountingSort {
                 return this.k_digit(value, i + 1);
             });
         }
+
+        // additional sort for sign
+        await super.sort(callback, 2, value => {
+            return (value >= 0) ? 1 : 0;
+        });
 
         await callback(this.dataset, -1, -1);
         return this.dataset;

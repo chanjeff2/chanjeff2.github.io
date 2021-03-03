@@ -157,7 +157,7 @@ var RadixSort = /** @class */ (function (_super) {
     }
     RadixSort.prototype.k_digit = function (value, k) {
         // k of LSD is 1
-        return Math.floor(value / (Math.pow(10, (k - 1)))) % 10;
+        return this.modulo(Math.floor(value / (Math.pow(10, (k - 1)))), 10);
     };
     RadixSort.prototype.sort = function (callback) {
         return __awaiter(this, void 0, void 0, function () {
@@ -166,7 +166,7 @@ var RadixSort = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        max = Math.max.apply(Math, this.dataset);
+                        max = Math.max.apply(Math, this.dataset.map(function (a) { return Math.abs(a); }));
                         maxDigit = Math.floor(Math.log10(max)) + 1;
                         _loop_1 = function (i) {
                             return __generator(this, function (_b) {
@@ -192,8 +192,16 @@ var RadixSort = /** @class */ (function (_super) {
                     case 3:
                         ++i;
                         return [3 /*break*/, 1];
-                    case 4: return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                    case 4: 
+                    // additional sort for sign
+                    return [4 /*yield*/, _super.prototype.sort.call(this, callback, 2, function (value) {
+                            return (value >= 0) ? 1 : 0;
+                        })];
                     case 5:
+                        // additional sort for sign
+                        _a.sent();
+                        return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                    case 6:
                         _a.sent();
                         return [2 /*return*/, this.dataset];
                 }
