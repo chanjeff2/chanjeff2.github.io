@@ -32,12 +32,16 @@ header {
     }
 }
 
+header > label {
+    font-size: min(2vw ,1em);
+}
+
 header > * {
-    font-size: 2em;
     color: var(--TEXT-ICONS);
 }
 
 header > select {
+    font-size: min(3vw ,1.5em);
     background: transparent;
     border: none;
 }
