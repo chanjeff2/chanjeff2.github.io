@@ -1,12 +1,15 @@
 // sorting
-abstract class ComparisonSort {
+abstract class SortAlgorithm {
     cancel: boolean = false;
     pause: boolean = false;
 
     dataset: Array<number>
-    // target to compare
-    // target to be compared
+
     constructor(dataset: Array<number>) {
+        this.dataset = dataset;
+    }
+
+    updateDataset(dataset: Array<number>) {
         this.dataset = dataset;
     }
 
@@ -37,12 +40,11 @@ abstract class ComparisonSort {
         }
     }
 
-    updateDataset(dataset: Array<number>) {
-        this.dataset = dataset;
-    }
-    
     abstract sort(callback: Callback): Promise<Array<number>>;
-
+}
+abstract class ComparisonSort extends SortAlgorithm {
+    // target to compare
+    // target to be compared
     swap(index1: number, index2: number) {
         // return if same
         if (index1 == index2) {
@@ -84,6 +86,7 @@ class SelectionSort extends ComparisonSort {
             await callback(this.dataset, i, minIndex);
         }
 
+        await callback(this.dataset, -1, -1);
         return this.dataset;
     }
 }
@@ -267,6 +270,7 @@ class HeapSort extends ComparisonSort {
             await callback(this.dataset, this.dataset.length - 1, 0);
         }
 
+        await callback(this.dataset, -1, -1);
         return this.dataset;
     }
 }

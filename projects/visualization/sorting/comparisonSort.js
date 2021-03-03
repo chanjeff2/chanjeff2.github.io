@@ -50,15 +50,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 // sorting
-var ComparisonSort = /** @class */ (function () {
-    // target to compare
-    // target to be compared
-    function ComparisonSort(dataset) {
+var SortAlgorithm = /** @class */ (function () {
+    function SortAlgorithm(dataset) {
         this.cancel = false;
         this.pause = false;
         this.dataset = dataset;
     }
-    ComparisonSort.prototype.checkPause = function () {
+    SortAlgorithm.prototype.updateDataset = function (dataset) {
+        this.dataset = dataset;
+    };
+    SortAlgorithm.prototype.checkPause = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -93,9 +94,15 @@ var ComparisonSort = /** @class */ (function () {
             });
         });
     };
-    ComparisonSort.prototype.updateDataset = function (dataset) {
-        this.dataset = dataset;
-    };
+    return SortAlgorithm;
+}());
+var ComparisonSort = /** @class */ (function (_super) {
+    __extends(ComparisonSort, _super);
+    function ComparisonSort() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // target to compare
+    // target to be compared
     ComparisonSort.prototype.swap = function (index1, index2) {
         // return if same
         if (index1 == index2) {
@@ -106,7 +113,7 @@ var ComparisonSort = /** @class */ (function () {
         this.dataset[index2] = temp;
     };
     return ComparisonSort;
-}());
+}(SortAlgorithm));
 var SelectionSort = /** @class */ (function (_super) {
     __extends(SelectionSort, _super);
     function SelectionSort() {
@@ -157,7 +164,10 @@ var SelectionSort = /** @class */ (function (_super) {
                     case 11:
                         ++i;
                         return [3 /*break*/, 1];
-                    case 12: return [2 /*return*/, this.dataset];
+                    case 12: return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                    case 13:
+                        _a.sent();
+                        return [2 /*return*/, this.dataset];
                 }
             });
         });
@@ -449,7 +459,10 @@ var HeapSort = /** @class */ (function (_super) {
                     case 15:
                         _a.sent();
                         return [3 /*break*/, 9];
-                    case 16: return [2 /*return*/, this.dataset];
+                    case 16: return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                    case 17:
+                        _a.sent();
+                        return [2 /*return*/, this.dataset];
                 }
             });
         });
@@ -566,7 +579,7 @@ var QuickSort = /** @class */ (function (_super) {
                         if (first >= last) {
                             return [2 /*return*/];
                         }
-                        pivot = this.random(first, last + 1);
+                        pivot = (last - first + 1 == 2) ? last : this.random(first, last + 1);
                         divider = first - 1;
                         // move pivot to last
                         this.swap(pivot, last);
