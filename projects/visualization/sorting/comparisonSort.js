@@ -311,49 +311,16 @@ var HeapSort = /** @class */ (function (_super) {
         }
         return (this.dataset[leftChildIndex] < this.dataset[rightChildIndex]) ? leftChildIndex : rightChildIndex;
     };
-    HeapSort.prototype.pushToHeap = function (index) {
-        ++this.heapSize;
-        while (index >= this.heapSizeStartIndex) {
-            var parentIndex = this.getParentIndex(index);
-            if (this.dataset[index] < this.dataset[parentIndex])
-                this.swap(index, parentIndex);
-            index = parentIndex;
-        }
-    };
-    HeapSort.prototype.popMinFromHeap = function () {
-        --this.heapSize;
-        // swap first (min) with last item
-        this.swap(this.heapSizeStartIndex, this.heapSizeStartIndex + this.heapSize); // <= note that this doesn't belongs to the heap
-        // move the min item to the last of the chart
-        for (var i = this.heapSizeStartIndex + this.heapSize + 1; i < this.dataset.length; ++i) {
-            this.swap(i, i - 1);
-        }
-        // adjust (balance) the heap
-        var index = this.heapSizeStartIndex;
-        while (index < this.heapSizeStartIndex + this.heapSize) {
-            var minChildIndex = this.getMinChildIndex(index);
-            if (isNaN(minChildIndex)) {
-                break;
-            }
-            if (this.dataset[index] > this.dataset[minChildIndex]) {
-                this.swap(index, minChildIndex);
-                index = minChildIndex;
-            }
-            else {
-                break;
-            }
-        }
-    };
-    HeapSort.prototype.sort = function (callback) {
+    HeapSort.prototype.pushToHeap = function (index, callback) {
         return __awaiter(this, void 0, void 0, function () {
-            var i, e_4, e_5;
+            var e_4, parentIndex;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        i = 0;
+                        ++this.heapSize;
                         _a.label = 1;
                     case 1:
-                        if (!(i < this.dataset.length)) return [3 /*break*/, 8];
+                        if (!(index >= this.heapSizeStartIndex)) return [3 /*break*/, 7];
                         _a.label = 2;
                     case 2:
                         _a.trys.push([2, 4, , 5]);
@@ -365,33 +332,120 @@ var HeapSort = /** @class */ (function (_super) {
                         e_4 = _a.sent();
                         return [2 /*return*/, []];
                     case 5:
-                        this.pushToHeap(i);
-                        return [4 /*yield*/, callback(this.dataset, i, -1)];
+                        parentIndex = this.getParentIndex(index);
+                        return [4 /*yield*/, callback(this.dataset, index, parentIndex)];
                     case 6:
                         _a.sent();
-                        _a.label = 7;
-                    case 7:
-                        ++i;
+                        if (this.dataset[index] < this.dataset[parentIndex])
+                            this.swap(index, parentIndex);
+                        index = parentIndex;
                         return [3 /*break*/, 1];
-                    case 8:
-                        if (!(this.heapSize > 0)) return [3 /*break*/, 14];
-                        _a.label = 9;
-                    case 9:
-                        _a.trys.push([9, 11, , 12]);
-                        return [4 /*yield*/, this.checkPause()];
-                    case 10:
+                    case 7: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    HeapSort.prototype.popMinFromHeap = function (callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            var i, index, e_5, minChildIndex;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        --this.heapSize;
+                        // swap first (min) with last item
+                        this.swap(this.heapSizeStartIndex, this.heapSizeStartIndex + this.heapSize); // <= note that this doesn't belongs to the heap
+                        // move the min item to the last of the chart
+                        for (i = this.heapSizeStartIndex + this.heapSize + 1; i < this.dataset.length; ++i) {
+                            this.swap(i, i - 1);
+                        }
+                        return [4 /*yield*/, callback(this.dataset, this.dataset.length - 1, this.heapSizeStartIndex)];
+                    case 1:
                         _a.sent();
-                        return [3 /*break*/, 12];
-                    case 11:
+                        index = this.heapSizeStartIndex;
+                        _a.label = 2;
+                    case 2:
+                        if (!(index < this.heapSizeStartIndex + this.heapSize)) return [3 /*break*/, 8];
+                        _a.label = 3;
+                    case 3:
+                        _a.trys.push([3, 5, , 6]);
+                        return [4 /*yield*/, this.checkPause()];
+                    case 4:
+                        _a.sent();
+                        return [3 /*break*/, 6];
+                    case 5:
                         e_5 = _a.sent();
                         return [2 /*return*/, []];
-                    case 12:
-                        this.popMinFromHeap();
-                        return [4 /*yield*/, callback(this.dataset, this.dataset.length - 1, 0)];
-                    case 13:
+                    case 6:
+                        minChildIndex = this.getMinChildIndex(index);
+                        if (isNaN(minChildIndex)) {
+                            return [3 /*break*/, 8];
+                        }
+                        return [4 /*yield*/, callback(this.dataset, index, minChildIndex)];
+                    case 7:
                         _a.sent();
-                        return [3 /*break*/, 8];
-                    case 14: return [2 /*return*/, this.dataset];
+                        if (this.dataset[index] > this.dataset[minChildIndex]) {
+                            this.swap(index, minChildIndex);
+                            index = minChildIndex;
+                        }
+                        else {
+                            return [3 /*break*/, 8];
+                        }
+                        return [3 /*break*/, 2];
+                    case 8: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    HeapSort.prototype.sort = function (callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            var i, e_6, e_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        i = 0;
+                        _a.label = 1;
+                    case 1:
+                        if (!(i < this.dataset.length)) return [3 /*break*/, 9];
+                        _a.label = 2;
+                    case 2:
+                        _a.trys.push([2, 4, , 5]);
+                        return [4 /*yield*/, this.checkPause()];
+                    case 3:
+                        _a.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        e_6 = _a.sent();
+                        return [2 /*return*/, []];
+                    case 5: return [4 /*yield*/, this.pushToHeap(i, callback)];
+                    case 6:
+                        _a.sent();
+                        return [4 /*yield*/, callback(this.dataset, i, -1)];
+                    case 7:
+                        _a.sent();
+                        _a.label = 8;
+                    case 8:
+                        ++i;
+                        return [3 /*break*/, 1];
+                    case 9:
+                        if (!(this.heapSize > 0)) return [3 /*break*/, 16];
+                        _a.label = 10;
+                    case 10:
+                        _a.trys.push([10, 12, , 13]);
+                        return [4 /*yield*/, this.checkPause()];
+                    case 11:
+                        _a.sent();
+                        return [3 /*break*/, 13];
+                    case 12:
+                        e_7 = _a.sent();
+                        return [2 /*return*/, []];
+                    case 13: return [4 /*yield*/, this.popMinFromHeap(callback)];
+                    case 14:
+                        _a.sent();
+                        return [4 /*yield*/, callback(this.dataset, this.dataset.length - 1, 0)];
+                    case 15:
+                        _a.sent();
+                        return [3 /*break*/, 9];
+                    case 16: return [2 /*return*/, this.dataset];
                 }
             });
         });
@@ -405,7 +459,7 @@ var MergeSort = /** @class */ (function (_super) {
     }
     MergeSort.prototype.mergeSortRecurHelper = function (first, last, callback) {
         return __awaiter(this, void 0, void 0, function () {
-            var mid, left, right, merge, i, j, e_6, k;
+            var mid, left, right, merge, i, j, e_8, k;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -433,7 +487,7 @@ var MergeSort = /** @class */ (function (_super) {
                         _a.sent();
                         return [3 /*break*/, 7];
                     case 6:
-                        e_6 = _a.sent();
+                        e_8 = _a.sent();
                         return [2 /*return*/, []];
                     case 7: return [4 /*yield*/, callback(this.dataset, i, j)];
                     case 8:
@@ -501,7 +555,7 @@ var QuickSort = /** @class */ (function (_super) {
     };
     QuickSort.prototype.quickSortRecurHelper = function (first, last, callback) {
         return __awaiter(this, void 0, void 0, function () {
-            var pivot, divider, i, e_7;
+            var pivot, divider, i, e_9;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -525,7 +579,7 @@ var QuickSort = /** @class */ (function (_super) {
                         _a.sent();
                         return [3 /*break*/, 5];
                     case 4:
-                        e_7 = _a.sent();
+                        e_9 = _a.sent();
                         return [2 /*return*/, []];
                     case 5: return [4 /*yield*/, callback(this.dataset, pivot, i)];
                     case 6:

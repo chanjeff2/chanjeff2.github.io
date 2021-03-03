@@ -185,11 +185,19 @@ class HeapSort extends ComparisonSort {
         return (this.dataset[leftChildIndex] < this.dataset[rightChildIndex]) ? leftChildIndex : rightChildIndex;
     }
     
-    pushToHeap(index: number) {
+    async pushToHeap(index: number, callback: Callback) {
         ++this.heapSize;
 
         while (index >= this.heapSizeStartIndex) {
+            try {
+                await this.checkPause();
+            } catch (e) {
+                return [];
+            }
+
             let parentIndex = this.getParentIndex(index);
+
+            await callback(this.dataset, index, parentIndex);
             
             if (this.dataset[index] < this.dataset[parentIndex])
             this.swap(index, parentIndex);
@@ -197,7 +205,7 @@ class HeapSort extends ComparisonSort {
         }
     }
 
-    popMinFromHeap() {
+    async popMinFromHeap(callback: Callback) {
         --this.heapSize;
         // swap first (min) with last item
         this.swap(this.heapSizeStartIndex, this.heapSizeStartIndex + this.heapSize); // <= note that this doesn't belongs to the heap
@@ -206,13 +214,23 @@ class HeapSort extends ComparisonSort {
             this.swap(i, i - 1);
         }
 
+        await callback(this.dataset, this.dataset.length - 1, this.heapSizeStartIndex);
+
         // adjust (balance) the heap
         let index = this.heapSizeStartIndex;
         while (index < this.heapSizeStartIndex + this.heapSize) {
+            try {
+                await this.checkPause();
+            } catch (e) {
+                return [];
+            }
+
             let minChildIndex = this.getMinChildIndex(index);
             if (isNaN(minChildIndex)) {
                 break;
             }
+
+            await callback(this.dataset, index, minChildIndex);
 
             if (this.dataset[index] > this.dataset[minChildIndex]) {
                 this.swap(index, minChildIndex);
@@ -231,7 +249,7 @@ class HeapSort extends ComparisonSort {
                 return [];
             }
 
-            this.pushToHeap(i);
+            await this.pushToHeap(i, callback);
             await callback(this.dataset, i, -1);
         }
 
@@ -242,7 +260,7 @@ class HeapSort extends ComparisonSort {
                 return [];
             }
 
-            this.popMinFromHeap();
+            await this.popMinFromHeap(callback);
             await callback(this.dataset, this.dataset.length - 1, 0);
         }
 
