@@ -336,9 +336,13 @@ var HeapSort = /** @class */ (function (_super) {
                         return [4 /*yield*/, callback(this.dataset, index, parentIndex)];
                     case 6:
                         _a.sent();
-                        if (this.dataset[index] < this.dataset[parentIndex])
+                        if (this.dataset[index] < this.dataset[parentIndex]) {
                             this.swap(index, parentIndex);
-                        index = parentIndex;
+                            index = parentIndex;
+                        }
+                        else {
+                            return [3 /*break*/, 7];
+                        }
                         return [3 /*break*/, 1];
                     case 7: return [2 /*return*/];
                 }

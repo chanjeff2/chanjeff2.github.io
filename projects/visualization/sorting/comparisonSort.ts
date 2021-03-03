@@ -199,9 +199,12 @@ class HeapSort extends ComparisonSort {
 
             await callback(this.dataset, index, parentIndex);
             
-            if (this.dataset[index] < this.dataset[parentIndex])
-            this.swap(index, parentIndex);
-            index = parentIndex;
+            if (this.dataset[index] < this.dataset[parentIndex]) {
+                this.swap(index, parentIndex);
+                index = parentIndex;
+            } else {
+                break;
+            }
         }
     }
 
