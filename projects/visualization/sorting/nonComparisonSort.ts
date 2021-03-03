@@ -73,16 +73,16 @@ class RadixSort extends CountingSort {
         let max = Math.max(...this.dataset.map(a => Math.abs(a)));
         let maxDigit = Math.floor(Math.log10(max)) + 1;
 
+        // additional sort for sign
+        await super.sort(callback, 2, value => {
+            return (value >= 0) ? 1 : 0;
+        });
+
         for (let i = 0; i < maxDigit; ++i) {
             await super.sort(callback, 10, value => {
                 return this.k_digit(value, i + 1);
             });
         }
-
-        // additional sort for sign
-        await super.sort(callback, 2, value => {
-            return (value >= 0) ? 1 : 0;
-        });
 
         await callback(this.dataset, -1, -1);
         return this.dataset;
