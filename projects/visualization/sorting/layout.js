@@ -113,6 +113,7 @@ sortMethodDropDown.addEventListener("change", () => {
 })
 
 let startBtn = document.querySelector("#start")
+let intervalDropDown = document.querySelector("#interval");
 
 startBtn.addEventListener("click", () => {
     sortingManager.cancel = false;
@@ -140,7 +141,7 @@ startBtn.addEventListener("click", () => {
             duration: 0
         })
 
-        await new Promise(resolve => setTimeout(resolve, 10));
+        await new Promise(resolve => setTimeout(resolve, intervalDropDown.value));
     });
 })
 
