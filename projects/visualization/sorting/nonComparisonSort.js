@@ -168,13 +168,6 @@ var RadixSort = /** @class */ (function (_super) {
                     case 0:
                         max = Math.max.apply(Math, this.dataset.map(function (a) { return Math.abs(a); }));
                         maxDigit = Math.floor(Math.log10(max)) + 1;
-                        // additional sort for sign
-                        return [4 /*yield*/, _super.prototype.sort.call(this, callback, 2, function (value) {
-                                return (value >= 0) ? 1 : 0;
-                            })];
-                    case 1:
-                        // additional sort for sign
-                        _a.sent();
                         _loop_1 = function (i) {
                             return __generator(this, function (_b) {
                                 switch (_b.label) {
@@ -189,17 +182,25 @@ var RadixSort = /** @class */ (function (_super) {
                         };
                         this_1 = this;
                         i = 0;
-                        _a.label = 2;
-                    case 2:
-                        if (!(i < maxDigit)) return [3 /*break*/, 5];
+                        _a.label = 1;
+                    case 1:
+                        if (!(i < maxDigit)) return [3 /*break*/, 4];
                         return [5 /*yield**/, _loop_1(i)];
-                    case 3:
+                    case 2:
                         _a.sent();
-                        _a.label = 4;
-                    case 4:
+                        _a.label = 3;
+                    case 3:
                         ++i;
-                        return [3 /*break*/, 2];
-                    case 5: return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                        return [3 /*break*/, 1];
+                    case 4: 
+                    // additional sort for sign
+                    return [4 /*yield*/, _super.prototype.sort.call(this, callback, 2, function (value) {
+                            return (value >= 0) ? 1 : 0;
+                        })];
+                    case 5:
+                        // additional sort for sign
+                        _a.sent();
+                        return [4 /*yield*/, callback(this.dataset, -1, -1)];
                     case 6:
                         _a.sent();
                         return [2 /*return*/, this.dataset];
