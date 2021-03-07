@@ -338,25 +338,16 @@ class QuickSort extends ComparisonSort {
         return Math.floor(Math.random() * (end - start)) + start;
     }
 
-    async quickSortRecurHelper(first: number, last: number, callback: Callback) {
-        if (first >= last) {
-            return;
-        }
-        
-        let pivot = (last - first + 1 == 2) ? last : this.random(first, last + 1);
+    async partition(first: number, last: number, pivot: number, callback: Callback): Promise<number> {
         let divider = first - 1;
-
+        
         // move pivot to last
         this.swap(pivot, last);
         pivot = last;
 
         // partition
         for (let i = first; i < last; ++i) {
-            try {
-                await this.checkPause();
-            } catch (e) {
-                return [];
-            }
+            await this.checkPause(); // to be caught outside
 
             await callback(this.dataset, pivot, i);
 
@@ -366,18 +357,32 @@ class QuickSort extends ComparisonSort {
             }
         }
 
-        // swap pivot to middle (belongs to second half)
-        ++divider;
+        // swap pivot to its position
         await callback(this.dataset, pivot, divider);
-        this.swap(pivot, divider);
-        pivot = divider;
+        this.swap(pivot, divider + 1);
 
+        return divider + 1;
+    }
+
+    async quickSortRecurHelper(first: number, last: number, callback: Callback) {
+        if (first >= last) {
+            return;
+        }
+        
+        let pivot = this.random(first, last + 1);
+        
+        try {
+            pivot = await this.partition(first, last, pivot, callback);
+        } catch (e) {
+            return [];
+        }
+        
         await this.quickSortRecurHelper(first, pivot - 1, callback);
-        await this.quickSortRecurHelper(pivot, last, callback);
+        await this.quickSortRecurHelper(pivot + 1, last, callback);
     }
 
     async sort(callback: Callback): Promise<Array<number>> {
-        this.quickSortRecurHelper(0, this.dataset.length - 1, callback);
+        await this.quickSortRecurHelper(0, this.dataset.length - 1, callback);
         await callback(this.dataset, -1, -1);
         return this.dataset;
     }

@@ -570,16 +570,12 @@ var QuickSort = /** @class */ (function (_super) {
         // include start exclude end
         return Math.floor(Math.random() * (end - start)) + start;
     };
-    QuickSort.prototype.quickSortRecurHelper = function (first, last, callback) {
+    QuickSort.prototype.partition = function (first, last, pivot, callback) {
         return __awaiter(this, void 0, void 0, function () {
-            var pivot, divider, i, e_9;
+            var divider, i;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        if (first >= last) {
-                            return [2 /*return*/];
-                        }
-                        pivot = (last - first + 1 == 2) ? last : this.random(first, last + 1);
                         divider = first - 1;
                         // move pivot to last
                         this.swap(pivot, last);
@@ -587,41 +583,58 @@ var QuickSort = /** @class */ (function (_super) {
                         i = first;
                         _a.label = 1;
                     case 1:
-                        if (!(i < last)) return [3 /*break*/, 8];
-                        _a.label = 2;
-                    case 2:
-                        _a.trys.push([2, 4, , 5]);
+                        if (!(i < last)) return [3 /*break*/, 5];
                         return [4 /*yield*/, this.checkPause()];
+                    case 2:
+                        _a.sent(); // to be caught outside
+                        return [4 /*yield*/, callback(this.dataset, pivot, i)];
                     case 3:
-                        _a.sent();
-                        return [3 /*break*/, 5];
-                    case 4:
-                        e_9 = _a.sent();
-                        return [2 /*return*/, []];
-                    case 5: return [4 /*yield*/, callback(this.dataset, pivot, i)];
-                    case 6:
                         _a.sent();
                         if (this.dataset[i] < this.dataset[pivot]) {
                             ++divider;
                             this.swap(i, divider);
                         }
-                        _a.label = 7;
-                    case 7:
+                        _a.label = 4;
+                    case 4:
                         ++i;
                         return [3 /*break*/, 1];
-                    case 8:
-                        // swap pivot to middle (belongs to second half)
-                        ++divider;
-                        return [4 /*yield*/, callback(this.dataset, pivot, divider)];
-                    case 9:
+                    case 5: 
+                    // swap pivot to its position
+                    return [4 /*yield*/, callback(this.dataset, pivot, divider)];
+                    case 6:
+                        // swap pivot to its position
                         _a.sent();
-                        this.swap(pivot, divider);
-                        pivot = divider;
-                        return [4 /*yield*/, this.quickSortRecurHelper(first, pivot - 1, callback)];
-                    case 10:
+                        this.swap(pivot, divider + 1);
+                        return [2 /*return*/, divider + 1];
+                }
+            });
+        });
+    };
+    QuickSort.prototype.quickSortRecurHelper = function (first, last, callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            var pivot, e_9;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (first >= last) {
+                            return [2 /*return*/];
+                        }
+                        pivot = this.random(first, last + 1);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.partition(first, last, pivot, callback)];
+                    case 2:
+                        pivot = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_9 = _a.sent();
+                        return [2 /*return*/, []];
+                    case 4: return [4 /*yield*/, this.quickSortRecurHelper(first, pivot - 1, callback)];
+                    case 5:
                         _a.sent();
-                        return [4 /*yield*/, this.quickSortRecurHelper(pivot, last, callback)];
-                    case 11:
+                        return [4 /*yield*/, this.quickSortRecurHelper(pivot + 1, last, callback)];
+                    case 6:
                         _a.sent();
                         return [2 /*return*/];
                 }
@@ -632,10 +645,11 @@ var QuickSort = /** @class */ (function (_super) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        this.quickSortRecurHelper(0, this.dataset.length - 1, callback);
-                        return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                    case 0: return [4 /*yield*/, this.quickSortRecurHelper(0, this.dataset.length - 1, callback)];
                     case 1:
+                        _a.sent();
+                        return [4 /*yield*/, callback(this.dataset, -1, -1)];
+                    case 2:
                         _a.sent();
                         return [2 /*return*/, this.dataset];
                 }
