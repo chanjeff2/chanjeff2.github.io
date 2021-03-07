@@ -169,6 +169,15 @@ startBtn.addEventListener("click", () => {
     });
 })
 
+document.querySelector("#theme").addEventListener("click", () => {
+    let theme = document.head.querySelector("#theme-style");
+    if (theme.href.endsWith("dark.css")) {
+        theme.href = "light.css";
+    } else {
+        theme.href = "dark.css";
+    }
+});
+
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {

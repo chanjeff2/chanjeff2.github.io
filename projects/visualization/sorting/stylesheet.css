@@ -8,12 +8,15 @@
     --SECONDARY-TEXT: #757575;
     --DIVIDER-COLOR: #BDBDBD;
     --BACKGROUND-COLOR: #FAFAFA;
+    --surface-color: rgba(0%, 0%, 0%, 0.05);
 }
 
 body {
     font-family: 'ROBOTO';
     margin: 0;
     background-color: var(--BACKGROUND-COLOR);
+    color: var(--PRIMARY-TEXT);
+    transition: 500ms;
 }
 
 header {
@@ -51,9 +54,15 @@ header > select > option {
     background: transparent;
 }
 
+main > section {
+    background-color: var(--surface-color);
+    border-radius: 10px;
+    margin: 20px;
+}
+
 #main-canvas {
     position: relative;
-    height: calc(100vh - 60px - 150px);
+    height: calc(100vh - 60px - 150px - 60px);
 }
 
 #control-panel {
