@@ -37,7 +37,7 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	background-color: var(--project-panel-bg);
+	background-color: var(--panel-bg);
 	border-radius: 15px;
 	padding: 20px;
 	gap: 3vw;

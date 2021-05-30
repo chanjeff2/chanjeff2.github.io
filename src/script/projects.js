@@ -35,11 +35,11 @@ function showAllProjectsWithEdit() {
     let db = firebase.firestore();
 
     let project_container = document.querySelector("#project-edit-container");
-    let tempate = document.querySelector("#template-project-editor-wrapper");
+    let template = document.querySelector("#template-project-editor-wrapper");
 
     db.collection("projects").get().then( querySnapshot => {
         querySnapshot.forEach( doc => {
-            let projectPanel_wrapper = tempate.content.cloneNode(true).querySelector(".project-editor-wrapper");
+            let projectPanel_wrapper = template.content.cloneNode(true).querySelector(".project-editor-wrapper");
             let projectPanel = generateProjectPanel(doc.data());
             projectPanel_wrapper.append(projectPanel);
             project_container.append(projectPanel_wrapper);
