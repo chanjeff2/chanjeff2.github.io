@@ -1,7 +1,7 @@
 "use strict";
 
 $(document.body).ready(() => {
-    importAboutMeTemplate(loadAllSkills);
+    importAboutMeTemplate(loadContent);
 })
 
 async function importAboutMeTemplate(callback) {
@@ -99,11 +99,17 @@ class ProgrammingLanguageAdapter {
     }
 }
 
-function loadAllSkills() {
+function loadContent() {
     let db = firebase.firestore();
 
-    let parent = document.querySelector("#skill_container");
+    let overview_container = document.querySelector("#overview");
+    db.collection("about_me").doc("overview").get().then( doc => {
+        let overview = doc.data();
+        overview_container.innerHTML = overview.value;
+        console.log(overview);
+    })
 
+    let parent = document.querySelector("#skill_container");
     db.collection("skills").get().then( querySnapshot => {
         let adapter = new ProgrammingLanguageAdapter(querySnapshot.docs.map(doc => doc.data()));
         adapter.renderContent(parent);

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 $(document.body).ready(() => {
-    importAboutMeTemplate(loadAllSkills);
+    importAboutMeTemplate(loadContent);
 });
 function importAboutMeTemplate(callback) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -85,8 +85,14 @@ class ProgrammingLanguageAdapter {
         }
     }
 }
-function loadAllSkills() {
+function loadContent() {
     let db = firebase.firestore();
+    let overview_container = document.querySelector("#overview");
+    db.collection("about_me").doc("overview").get().then(doc => {
+        let overview = doc.data();
+        overview_container.innerHTML = overview.value;
+        console.log(overview);
+    });
     let parent = document.querySelector("#skill_container");
     db.collection("skills").get().then(querySnapshot => {
         let adapter = new ProgrammingLanguageAdapter(querySnapshot.docs.map(doc => doc.data()));
