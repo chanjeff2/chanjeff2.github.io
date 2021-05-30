@@ -1,0 +1,35 @@
+#container {
+    background-color: var(--panel-bg);
+    margin: 2vh 2vw;
+    border-radius: 15px;
+    padding: 1vh 2vw 5vh;
+}
+
+.skill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.skill:hover {
+    background-color: var(--panel-bg);
+}
+
+.skill_name {
+    width: 5em;
+    text-align: center;
+}
+
+@media only screen and (max-width: 375px) {
+    .skill .rating_container svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.rating_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
