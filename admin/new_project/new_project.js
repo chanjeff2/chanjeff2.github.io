@@ -338,6 +338,8 @@ async function startEditProject(toolbtn) {
     attachDragDropHandler();
 
     onInput();
+
+    toolbtn.scrollIntoView(true);
 }
 
 async function removeProject(toolbtn) {
